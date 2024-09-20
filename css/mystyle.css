@@ -1,0 +1,69 @@
+.statistic-box {
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+.statistic-box:hover {
+    transform: scale(1.05);
+}
+.service-box {
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s;
+}
+.service-box:hover {
+    transform: scale(1.05); /* Slight scale on hover */
+}
+.job-box {
+    background-color: #ffffff; /* White background for boxes */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: transform 0.3s;
+}
+.job-box:hover {
+    transform: scale(1.02); /* Slight scale on hover */
+}
+.job-title {
+    font-size: 1.25rem; /* Job title font size */
+}
+.job-description {
+    font-size: 0.9rem; /* Job description font size */
+}
+.salary {
+    font-weight: bold; /* Bold salary text */
+    font-size: 1.2rem; /* Salary font size */
+}
+a {
+    text-decoration: none;
+    color: black;            
+}
+a:hover {
+    color: black
+}
+.auth-link {
+    color: #CA2B2D; /* Red color for auth links */            
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.auth-link:hover {
+    background-color: #B22222; /* Darker red on hover */
+    color: white; /* Change text color to white on hover */
+}
+
+.nav-link {
+    color: white; /* Normal link color */
+    transition: color 0.3s; /* Transition for hover effect */
+}
+
+.nav-link:hover {
+    color: #B22222; /* Darker red on hover */
+}
+
+.navbar-toggler {
+    background-color: #CA2B2D; /* Red background for mobile menu button */
+    color: white; /* White text color */
+}
+
+.navbar-toggler:hover {
+    background-color: #B22222; /* Darker red on hover */
+}

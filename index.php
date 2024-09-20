@@ -3,416 +3,356 @@
 session_start();
 
 //Including Database Connection From db.php file to avoid rewriting in all files
-require_once("db.php");
+require_once("./database/db.php");
 ?>
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Job Search</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="css/AdminLTE.min.css">
-  <link rel="stylesheet" href="css/_all-skins.min.css">
-  <!-- Custom -->
-  <link rel="stylesheet" href="css/custom.css">
- 
-  <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-</head>
-<body class="hold-transition skin-green sidebar-mini">
-<div class="wrapper">
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>JobSearch</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/mystyle.css" rel="stylesheet" />
+    </head>
+   
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg text-uppercase fixed-top" style="background-color: #CA2B2D;" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top">JobSearch</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #CA2B2D; color: white;">                    
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#page-top">Home</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About Us</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#candidates">Candidates</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#companies">Company</a></li>
+                        
+                        <!-- Added margin for spacing -->
+                        <li class="nav-item mx-0 mx-lg-1" style="margin-left: 20px; margin-right: 20px;">
+                            <hr class="d-lg-none" style="border-top: 2px solid white; width: 100%; margin: 10px 0;">
+                        </li>
 
-  <header style="background:#7D0A0A;"  class="main-header">
-<br>
-    <!-- Logo -->
-    <a href="index.php" class="logo logo-bg">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>J</b>S</span>
-      <!-- logo for regular state and mobile devices -->
-      <span style="font-size:3vw;" class="logo-lg"><img src="img\logo.png" width="200" alt=""></span>
-    </a>
+                        <?php if(empty($_SESSION['id_user']) && empty($_SESSION['id_company'])) { ?>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded auth-link" href="login.php">Login</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded auth-link" href="sign-up.php">Sign-up</a></li>
+                        <?php } else { 
 
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top" style="padding:10px">
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="index.php" style="font-size:15px; font-weight:500">Home</a>
-          </li>
-          <li>
-            <a href="#about" style="font-size:15px; font-weight:500" >About Us</a>
-          </li>
-          <li>
-            <a href="#candidates" style="font-size:15px; font-weight:500">Candidates</a>
-          </li>
-          <li>
-            <a href="#company" style="font-size:15px; font-weight:500; margin-right: 50px;">Company</a>
-          </li>
-          
-          <?php if(empty($_SESSION['id_user']) && empty($_SESSION['id_company'])) { ?>
-          <li>
-            <a href="login.php" class="nav-btn1">Login</a>
-          </li>
-          <li>
-            <a href="sign-up.php" style="border: 1px solid white; margin-right: 12rem; font-weight: bold;">Sign Up</a>
-          </li>  
-          
-          <?php } else { 
-
-            if(isset($_SESSION['id_user'])) { 
-          ?>        
-          <li>
-            <a href="user/index.php">Dashboard</a>
-          </li>
-          <?php
-          } else if(isset($_SESSION['id_company'])) { 
-          ?>        
-          <li>
-            <a href="company/index.php">Dashboard</a>
-          </li>
-          <?php } ?>
-          <li>
-            <a href="logout.php">Logout</a>
-          </li>
-          <?php } ?>
-        </ul>
-      </div>
-    </nav>
-
-  </header>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="margin-left: 0px;">
-
-    <section class="content-header bg-main">
-      <div class="container">
-        <div class="row">
-          
-          <div class="col-md-14 text-center ">
-            <br> <br> <br> <br> <br> <br> <br>
-            <h1 style="color:black; font-weight:bold; font-size:64px">ALL JOBS IN ONE PLACE</h1>
-            <p style="font-weight:200; color:black; font-size:32px; margin-bottom:10px">One search, One click</p>
-            <br>
-            <br>
-            <p><a class="home-btn" href="jobs.php" role="button">SEARCH JOBS</a></p>
-            <br>
-          </div>
-        </div>
-      </div>
-    </section>
-  <br><br><br>
-    <section class="content-header" >
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 row-md-12 latest-job margin-bottom-20">
-            <h1 class="text-center" style="font-weight:600">LATEST JOB</h1>
-            <?php 
-          /* Show any 4 random job post
-           * 
-           * Store sql query result in $result variable and loop through it if we have any rows
-           * returned from database. $result->num_rows will return total number of rows returned from database.
-          */
-          $sql = "SELECT * FROM job_post Order By Rand() Limit 3";
-          $result = $conn->query($sql);
-          if($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) 
-            {
-              $sql1 = "SELECT * FROM company WHERE id_company='$row[id_company]'";
-              $result1 = $conn->query($sql1);
-              if($result1->num_rows > 0) {
-                while($row1 = $result1->fetch_assoc()) 
-                {
-             ?>
-            <div class="attachment-block clearfix">
-              <img class="attachment-img" src="img/images.png" alt="Attachment Image">
-              <div class="attachment-pushed">
-                <h4 class="attachment-heading"><a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>"><?php echo $row['jobtitle']; ?></a> <span class="attachment-heading pull-right">₱<?php echo $row['maximumsalary']; ?>/Month</span></h4>
-                <div class="attachment-text">
-                    <div><strong><?php echo $row1['companyname']; ?> | <?php echo $row1['city']; ?> | Experience <?php echo $row['experience']; ?> Years</strong></div>
+                            if(isset($_SESSION['id_user'])) { 
+                        ?>  
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded auth-link" href="user/index.php">Dashboard</a></li>
+                        <?php
+                            } else if(isset($_SESSION['id_company'])) { 
+                        ?>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded auth-link" href="company/index.php">Dashboard</a></li>
+                        <?php } ?>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded auth-link" href="logout.php">Log-out</a></li>                       
+                        <?php } ?>
+                        
+                    </ul>
                 </div>
-              </div>
             </div>
-          <?php
-              }
-            }
-            }
-          }
-          ?>
+        </nav>
+        
+        <header class="masthead bg-white text-white text-center" style="position: relative; overflow: hidden;">
+            <img src="./assets/TCU 1.png" width="100%" height="100%" alt="">
+        </header>
 
-          </div>
+        <section class="page-section bg-light text-dark mb-0" id="job-listings">
+            <div class="container">
+                <!-- Job Listings Section Heading -->
+                <h2 class="page-section-heading text-center text-uppercase">Latest Jobs</h2>
+                <?php 
+                    /* Show any 4 random job post
+                    * 
+                    * Store sql query result in $result variable and loop through it if we have any rows
+                    * returned from database. $result->num_rows will return total number of rows returned from database.
+                    */
+                    $sql = "SELECT * FROM job_post Order By Rand() Limit 3";
+                    $result = $conn->query($sql);
+                    if($result->num_rows > 0) {
+                        while($row = $result->fetch_assoc()) 
+                        {
+                        $sql1 = "SELECT * FROM company WHERE id_company='$row[id_company]'";
+                        $result1 = $conn->query($sql1);
+                        if($result1->num_rows > 0) {
+                            while($row1 = $result1->fetch_assoc()) 
+                            {
+                ?>
+                <!-- Job Boxes -->    
+                <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>">
+                    <div class="col-lg-12 mb-4">
+                        <div class="job-box d-flex align-items-center border rounded p-3">
+                            <img src="./assets/unnamed 1.png" alt="Job 1" class="img-fluid me-3" style="width: 80px; height: 80px;">
+                            <div class="flex-grow-1">
+                                <h4 class="job-title"><?php echo $row['jobtitle']; ?></h4>
+                                <p class="job-description"><?php echo $row1['companyname']; ?> | <?php echo $row1['city']; ?> | Experience <?php echo $row['experience']; ?> Years</p>
+                            </div>
+                            <div class="salary ms-3">
+                                <h5>₱<?php echo $row['maximumsalary']; ?>/Month</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <?php
+                            }
+                        }   
+                    }
+                }
+                ?>
+               
+            </div>
+        </section>
+
+
+        <!-- About Section-->
+        <section class="page-section text-white mb-0" id="about" style="background-color: #CA2B2D;">
+            <div class="container">
+                <!-- About Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-white">About us</h2>
+                
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                
+                <!-- About Section Content-->
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <img src="./assets/screenshot-1726870553020.png" alt="Description" class="img-fluid"> <!-- Add your image URL here -->
+                    </div>
+                    <div class="col-lg-6">
+                        <p class="lead">PESO Taguig operates under the mandate of the Department of Labor and Employment (DOLE) to facilitate employment opportunities and provide comprehensive employment services to the local community.</p>
+                        <p class="lead">PESO Taguig connects job seekers with available job openings in various industries and sectors. Whether you're a fresh graduate, a skilled worker, or someone looking for a career change, PESO Taguig can assist you in finding employment opportunities that match your skills and qualifications.</p>
+                    </div>
+                </div>
+                               
+            </div>
+        </section>
+        <section class="page-section text-white mb-0" id="statistics" style="background-color: #CA2B2D;">
+            <div class="container">
+                <!-- Statistics Section Heading -->
+                <h2 class="page-section-heading text-center text-uppercase">Our Statistics</h2>
+                
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-light">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                
+                <!-- Statistics Boxes -->
+                <div class="row text-center justify-content-between">
+                    <div class="col-md-3 mb-4">
+                        <div class="statistic-box d-flex bg-primary justify-content-between align-items-center p-4">
+                            <div class="me-3">
+                                <?php
+                                    $sql = "SELECT * FROM job_post";
+                                    $result = $conn->query($sql);
+                                    if($result->num_rows > 0) {
+                                        $totalno = $result->num_rows;
+                                    } else {
+                                        $totalno = 0;
+                                    }
+                                ?>
+                                <h3 class="statistic-number"><?php echo $totalno; ?> +</h3>
+                                <p class="statistic-description">Job Offers</p>
+                            </div>
+                            <img src="./assets/image 14.png" alt="Projects" class="img-fluid" style="width: 60px; height: 60px;">
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="statistic-box d-flex bg-success justify-content-between align-items-center p-4">
+                            <div class="me-3">
+                                <?php
+                                    $sql = "SELECT * FROM company WHERE active='1'";
+                                    $result = $conn->query($sql);
+                                    if($result->num_rows > 0) {
+                                        $totalno = $result->num_rows;
+                                    } else {
+                                        $totalno = 0;
+                                    }
+                                ?>
+                                <h3 class="statistic-number"><?php echo $totalno; ?> +</h3>
+                                <p class="statistic-description">Registered Company</p>
+                            </div>
+                            <img src="./assets/image 13.png" alt="Clients" class="img-fluid" style="width: 60px; height: 60px;">
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="statistic-box d-flex bg-warning justify-content-between align-items-center p-4">
+                            <div class="me-3">
+                                <?php
+                                    $sql = "SELECT * FROM users WHERE resume!=''";
+                                    $result = $conn->query($sql);
+                                    if($result->num_rows > 0) {
+                                        $totalno = $result->num_rows;
+                                    } else {
+                                        $totalno = 0;
+                                    }
+                                ?>
+                                <h3 class="statistic-number"><?php echo $totalno; ?> +</h3>
+                                <p class="statistic-description">CV'S/Resume</p>
+                            </div>
+                            <img src="./assets/image 15.png" alt="Awards" class="img-fluid" style="width: 60px; height: 60px;">
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="statistic-box d-flex bg-danger justify-content-between align-items-center p-4">
+                            <div class="me-3">
+                                <?php
+                                    $sql = "SELECT * FROM users WHERE active='1'";
+                                    $result = $conn->query($sql);
+                                    if($result->num_rows > 0) {
+                                        $totalno = $result->num_rows;
+                                    } else {
+                                        $totalno = 0;
+                                    }
+                                ?>
+                                <h3 class="statistic-number"><?php echo $totalno; ?> +</h3>
+                                <p class="statistic-description">Daily Users</p>
+                            </div>
+                            <img src="./assets/image 16.png" alt="Experience" class="img-fluid" style="width: 60px; height: 60px;">
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+        
+
+        <section class="page-section bg-light text-dark mb-0" id="candidates">
+            <div class="container">
+                <!-- Services Section Heading -->
+                <h2 class="page-section-heading text-center text-uppercase">candidates</h2>
+                <p class="text-center">
+                    Finding a job just got easier. Create a profile and apply with single mouse click.
+                </p>
+                
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-dark mb-5">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                
+                <!-- Services Boxes -->
+                <div class="row text-center">
+                    <div class="col-lg-4 mb-4">
+                        <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
+                            <img src="./assets/4 1.png" alt="Service 1" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
+                            <h3 class="service-title">Browse for Jobs</h3>     
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
+                            <img src="./assets/4 2.png" alt="Service 2" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
+                            <h3 class="service-title">Apply & Get Interviewed</h3>     
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
+                            <img src="./assets/4 3.png" alt="Service 3" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
+                            <h3 class="service-title">Start A Career</h3>     
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="page-section bg-light text-dark mb-0" id="companies">
+            <div class="container">
+                <!-- Services Section Heading -->
+                <h2 class="page-section-heading text-center text-uppercase">companies</h2>
+                <p class="text-center">
+                    Hiring? Register your company for free, browse our talented pool, post and track job applications
+                </p>
+                
+                <!-- Icon Divider-->
+                <div class="divider-custom divider-dark mb-5">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                
+                <!-- Services Boxes -->
+                <div class="row text-center">
+                    <div class="col-lg-4 mb-4">
+                        <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
+                            <img src="./assets/1.png" alt="Service 1" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
+                            <h3 class="service-title">Post A Job</h3>                            
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
+                            <img src="./assets/2.png" alt="Service 2" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
+                            <h3 class="service-title">Manage & Track Job Applications</h3>                            
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
+                            <img src="./assets/3.png" alt="Service 3" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
+                            <h3 class="service-title">Hire</h3>                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+       
+        <!-- Footer-->
+        <footer class="footer text-center">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Location-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="text-uppercase mb-4">Location</h4>
+                        <p class="lead mb-0">
+                            Manila, Taguig, Bacolod
+                            <br />
+                            Dubai, 123
+                        </p>
+                    </div>
+                    <!-- Footer Social Icons-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="text-uppercase mb-4">Around the Web</h4>
+                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>                        
+                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>                        
+                    </div>
+                    <!-- Footer About Text-->
+                    <div class="col-lg-4">
+                        <h4 class="text-uppercase mb-4">Contact</h4>
+                        <p class="lead mb-0">
+                            (+63) 09999                            
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Copyright Section-->
+        <div class="copyright py-4 text-center text-white">
+            <div class="container"><small>Copyright &copy; JobSearch 2023</small></div>
         </div>
-      </div>
-    </section>
-    <section id="about" class="content-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center latest-job margin-bottom-20">
-            <h1 style="font-weight:600">ABOUT US</h1>                      
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <img src="img/aabout.jpg" width="800" class="img-responsive">
-          </div>
-          <div class="col-md-6 about-text margin-bottom-20">
-            <p>The online JobSearch application allows job seekers and recruiters to connect.The application provides the ability for job seekers to create their accounts, upload their profile and resume, search for jobs, apply for jobs, view different job openings. The application provides the ability for companies to create their accounts, search candidates, create job postings, and view candidates applications.
-            </p>
-            <p>
-              This website is used to provide a platform for potential candidates to get their dream job and excel in yheir career.
-              This site can be used as a paving path for both companies and job-seekers for a better life .
-              
-            </p>
-
-          </div>
-        </div>
-      </div>
-    </section>
-<br><br><br>
-    <section id="candidates" class="content-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center latest-job margin-bottom-20">
-            <h1 style="font-weight:600">CANDIDATES</h1>
-            <p>Finding a job just got easier. Create a profile and apply with single mouse click.</p>            
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4 col-md-4">
-            <div class="thumbnail candidate-img">
-              <img src="img/browses.jpg" alt="Browse Jobs">
-              <div class="caption">
-                <h3 class="text-center">Browse Jobs</h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 col-md-4">
-            <div class="thumbnail candidate-img">
-              <img src="img/applyy.jpg" alt="Apply & Get Interviewed">
-              <div class="caption">
-                <h3 class="text-center">Apply & Get Interviewed</h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 col-md-4">
-            <div class="thumbnail candidate-img">
-              <img src="img/startt.jpg" alt="Start A Career">
-              <div class="caption">
-                <h3 class="text-center">Start A Career</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="company" class="content-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center latest-job margin-bottom-20">
-            <h1 style="font-weight:600"> COMPANIES </h1>
-            <p>Hiring? Register your company for free, browse our talented pool, post and track job applications</p>            
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4 col-md-4">
-            <div class="thumbnail company-img">
-              <img src="img/postajob.jpg" alt="Browse Jobs">
-              <div class="caption">
-                <h3 class="text-center">Post A Job</h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 col-md-4">
-            <div class="thumbnail company-img">
-              <img src="img/managee.jpg" alt="Apply & Get Interviewed">
-              <div class="caption">
-                <h3 class="text-center">Manage & Track</h3>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4 col-md-4">
-            <div class="thumbnail company-img">
-              <img src="img/hire.jpg" alt="Start A Career">
-              <div class="caption">
-                <h3 class="text-center">Hire</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="statistics" class="content-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12 text-center latest-job margin-bottom-20">
-            <h1 style="font-weight:600"> OUR STATISTICS</h1>
-          </div>
-        </div>
-        <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box" style="color:white;background-color: #5F8670;">
-            <div class="inner">
-               <?php
-                      $sql = "SELECT * FROM job_post";
-                      $result = $conn->query($sql);
-                      if($result->num_rows > 0) {
-                        $totalno = $result->num_rows;
-                      } else {
-                        $totalno = 0;
-                      }
-                    ?>
-              <h3><?php echo $totalno; ?></h3>
-
-              <p>Job Offers</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-ios-paper"></i>
-            </div>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box " style=" color:white;background-color: #B80000;">
-            <div class="inner">
-               <?php
-                      $sql = "SELECT * FROM company WHERE active='1'";
-                      $result = $conn->query($sql);
-                      if($result->num_rows > 0) {
-                        $totalno = $result->num_rows;
-                      } else {
-                        $totalno = 0;
-                      }
-                    ?>
-              <h3><?php echo $totalno; ?></h3>
-
-              <p>Registered Company</p>
-            </div>
-            <div class="icon">
-                <i class="ion ion-briefcase"></i>
-            </div>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6" style="height: 300px;">
-          <!-- small box -->
-          <div class="small-box" style="color:white; background-color: #FF9800;">
-            <div class="inner">
-              <?php
-                      $sql = "SELECT * FROM users WHERE resume!=''";
-                      $result = $conn->query($sql);
-                      if($result->num_rows > 0) {
-                        $totalno = $result->num_rows;
-                      } else {
-                        $totalno = 0;
-                      }
-                    ?>
-              <h3><?php echo $totalno; ?></h3>
-
-              <p>CV'S/Resume</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-ios-list"></i>
-            </div>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box" style="color:white; background-color: #820300;">
-            <div class="inner">
-               <?php
-                      $sql = "SELECT * FROM users WHERE active='1'";
-                      $result = $conn->query($sql);
-                      if($result->num_rows > 0) {
-                        $totalno = $result->num_rows;
-                      } else {
-                        $totalno = 0;
-                      }
-                    ?>
-              <h3><?php echo $totalno; ?></h3>
-
-              <p>Daily Users</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-stalker"></i>
-            </div>
-          </div>
-        </div>
-        <!-- ./col -->
-      </div>
-      </div>
-    </section>
-
-    
-  </div>
-  <footer class="footer">
-     <div class="container1">
-      <div class="row1">
-        <div class="footer-col">
-          <h4>company</h4>
-          <ul>
-            <li><a href="index.php">Home</a></li>
-            <li><a href="#about">About us</a></li>
-            <li><a href="#candidates">Candidates</a></li>
-            <li><a href="#company">Companies</a></li>
-          </ul>
-        </div>          
-        <!-- <div class="footer-col">
-          <h4>follow us</h4>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div> -->
-      </div>
-     </div>
-     <hr>
-     <div style="display: flex; align-items:center; justify-content:center; margin-top: 20px;">     
-      <p style="color:white;">
-        <strong>Copyright &copy; 2024 <a href="#">Job Search</a>.</strong> All rights
-        reserved.
-      </p>
-     </div>
-    
-  </footer>
-  <!-- /.content-wrapper
-
-  <footer class="main-footer" style="margin-left: 0px;">
-    <div class="text-center">
-      <strong>Copyright &copy; 2016-2017 <a href="jonsnow.netai.net">Job Portal</a>.</strong> All rights
-    reserved.
-    </div>
-  </footer>
-
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar 
-  <div class="control-sidebar-bg"></div>
-
-</div>
- ./wrapper -->
-
-<!-- jQuery 3 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="js/adminlte.min.js"></script>
-</body>
+             
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>     
+    </body>
 </html>
