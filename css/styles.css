@@ -73,8 +73,8 @@
   --bs-border-radius-xl: 1rem;
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
-  --bs-link-color: #1abc9c;
-  --bs-link-hover-color: #15967d;
+  --bs-link-color: black;
+  --bs-link-hover-color: black;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff3cd;
 }
@@ -99,7 +99,7 @@ body {
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
   text-align: var(--bs-body-text-align);
-  background-color: var(--bs-body-bg);
+  background-color: #E7E0DC;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -2021,10 +2021,8 @@ progress {
 }
 .form-control:focus {
   color: #212529;
-  background-color: #fff;
-  border-color: #8ddece;
+  background-color: #fff;  
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25);
 }
 .form-control::-webkit-date-and-time-value {
   height: 1.5em;
@@ -2533,9 +2531,9 @@ textarea.form-control-lg {
   color: #212529;
   text-align: center;
   white-space: nowrap;
-  background-color: #e9ecef;
-  border: 0.125rem solid #ced4da;
-  border-radius: 0.5rem;
+  /* background-color: #e9ecef; */
+  /* border: 0.125rem solid #ced4da; */
+  /* border-radius: 0.5rem; */
 }
 
 .input-group-lg > .form-control,
@@ -3457,13 +3455,13 @@ textarea.form-control-lg {
   border: 0;
 }
 .dropdown-item:hover, .dropdown-item:focus {
-  color: var(--bs-dropdown-link-hover-color);
+  color: #CA2B2D;
   background-color: var(--bs-dropdown-link-hover-bg);
 }
 .dropdown-item.active, .dropdown-item:active {
-  color: var(--bs-dropdown-link-active-color);
+  color: white;
   text-decoration: none;
-  background-color: var(--bs-dropdown-link-active-bg);
+  background-color: #CA2B2D
 }
 .dropdown-item.disabled, .dropdown-item:disabled {
   color: var(--bs-dropdown-link-disabled-color);
@@ -4153,7 +4151,7 @@ textarea.form-control-lg {
   --bs-card-spacer-y: 1rem;
   --bs-card-spacer-x: 1rem;
   --bs-card-title-spacer-y: 0.5rem;
-  --bs-card-border-width: 0.125rem;
+  --bs-card-border-width: 1px;
   --bs-card-border-color: var(--bs-border-color-translucent);
   --bs-card-border-radius: 0.5rem;
   --bs-card-box-shadow: ;
@@ -4230,6 +4228,7 @@ textarea.form-control-lg {
   color: var(--bs-card-cap-color);
   background-color: var(--bs-card-cap-bg);
   border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
+  
 }
 .card-header:first-child {
   border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0;
@@ -4512,16 +4511,17 @@ textarea.form-control-lg {
   --bs-pagination-hover-border-color: #dee2e6;
   --bs-pagination-focus-color: var(--bs-link-hover-color);
   --bs-pagination-focus-bg: #e9ecef;
-  --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(26, 188, 156, 0.25);
+  --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(188, 26, 39, 0.25);
   --bs-pagination-active-color: #fff;
-  --bs-pagination-active-bg: #1abc9c;
-  --bs-pagination-active-border-color: #1abc9c;
+  --bs-pagination-active-bg: #CA2B2D;
+  --bs-pagination-active-border-color: #CA2B2D;
   --bs-pagination-disabled-color: #6c757d;
   --bs-pagination-disabled-bg: #fff;
   --bs-pagination-disabled-border-color: #dee2e6;
   display: flex;
   padding-left: 0;
   list-style: none;
+  margin-top: 1rem;
 }
 
 .page-link {
@@ -4534,6 +4534,7 @@ textarea.form-control-lg {
   background-color: var(--bs-pagination-bg);
   border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  
 }
 @media (prefers-reduced-motion: reduce) {
   .page-link {
@@ -10969,7 +10970,7 @@ html {
 
 .masthead {
   padding-top: calc(6rem + 74px);
-  padding-bottom: 6rem;
+  padding-bottom: .1rem;
 }
 .masthead .masthead-heading {
   font-size: 2.75rem;
@@ -10984,8 +10985,8 @@ html {
 
 @media (min-width: 992px) {
   .masthead {
-    padding-top: calc(6rem + 104px);
-    padding-bottom: 6rem;
+    padding-top: calc(6rem + 8px);
+    padding-bottom: .1rem;
   }
   .masthead .masthead-heading {
     font-size: 4rem;

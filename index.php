@@ -20,10 +20,175 @@ require_once("./database/db.php");
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/mystyle.css" rel="stylesheet" />
+        <link href="css/body.css" rel="stylesheet" />
+        
     </head>
+
+    <style>
+        .masthead {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Responsive image */
+        .masthead img {
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+        }
+        
+
+        /* Responsive button placement */
+        .header-btn {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%); 
+        }
+
+        /* Button styling */
+        .search {
+            background-color: #E7E0DC;
+            padding: 1rem 5rem;
+            border-radius: 6px;
+            font-size: 20px;
+            font-weight:bold;
+        }
+
+        .search:hover {
+            background-color: #CA2B2D;
+            color: white;
+        }
+        .header-t {
+            position: absolute;
+            top: 20%;
+            left: 4%;
+        }
+        
+        .p-text {        
+            color:gray; 
+            font-weight:200; 
+            font-size:23px;
+        }
+        .header-text {            
+            text-shadow: 0px 4px lightgray;
+            font-weight: bold;
+            font-size: 50px;
+            color: black;
+            text-transform: uppercase;            
+        }
+
+
+        @media (max-width: 1464px) {
+            /* Adjust button for smaller screens */
+            .header-btn {
+                top: 75%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .header-t {
+                top: 23%;
+                left: 5%;
+            }
+
+            .p-text {                    
+                font-size:25px;
+            }
+            .header-text {                          
+                font-size: 35px;              
+            }
+            
+        }
+        
+        @media (max-width: 1254px) {
+            /* Adjust button for smaller screens */
+            .header-btn {
+                top: 75%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .header-t {
+                top: 27%;
+                left: 5%;
+            }
+
+            .p-text {                    
+                font-size:15px;
+            }
+            .header-text {                          
+                font-size: 25px;              
+            }
+            .search {
+             
+                padding: .5rem 1rem;
+             
+                font-size: 12px;
+             
+            }
+        }
+
+
+        @media (max-width: 990px) {
+            /* Adjust button for smaller screens */
+            .header-btn {
+                top: 75%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .header-t {
+                top: 37%;
+                left: 5%;
+            }
+
+            .p-text {                    
+                font-size:15px;
+            }
+            .header-text {                          
+                font-size: 25px;              
+            }
+            .search {
+             
+                padding: .5rem 1rem;
+             
+                font-size: 12px;
+             
+            }
+        }
+
+        @media (max-width: 576px) {
+            /* Mobile-specific styles */
+            .header-btn {
+                top: 80%;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .header-t {
+                top: 50%;
+                left: 5%;
+            }
+
+            .p-text {                    
+                font-size:9px;
+            }
+            .header-text {                          
+                font-size: 14px;              
+            }
+            .search {
+             
+                padding: .5rem 1rem;
+             
+                font-size: 12px;
+             
+            }
+    }
+
+    </style>
    
     <body id="page-top">
         <!-- Navigation-->
@@ -35,10 +200,10 @@ require_once("./database/db.php");
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#page-top">Home</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About Us</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#candidates">Candidates</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#companies">Company</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded" href="#page-top">Home</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded" href="#about">About Us</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded" href="#candidates">Candidates</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded" href="#companies">Company</a></li>
                         
                         <!-- Added margin for spacing -->
                         <li class="nav-item mx-0 mx-lg-1" style="margin-left: 20px; margin-right: 20px;">
@@ -46,8 +211,8 @@ require_once("./database/db.php");
                         </li>
 
                         <?php if(empty($_SESSION['id_user']) && empty($_SESSION['id_company'])) { ?>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded auth-link" href="login.php">Login</a></li>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded auth-link" href="sign-up.php">Sign-up</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="login.php">Login</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="sign-up.php">Sign-up</a></li>
                         <?php } else { 
 
                             if(isset($_SESSION['id_user'])) { 
@@ -66,11 +231,31 @@ require_once("./database/db.php");
             </div>
         </nav>
         
-        <header class="masthead bg-white text-white text-center" style="position: relative; overflow: hidden;">
-            <img src="./assets/TCU 1.png" width="100%" height="100%" alt="">
+        <header class="masthead bg-white text-white text-center">
+            <!-- Background Image -->
+            <img src="./assets/TCU 1.png" alt="TCU Image">
+
+            <!-- Text Section (Header and Subheader) -->            
+            <div class="row h-100 align-items-center justify-content-start">
+                <div class="col-lg-8 text-start header-t">
+                    <!-- Header Text -->
+                    <h1 class="header-text">
+                        PESO Taguig: Your Gateway to <br> Employment and Opportunities</h1>
+                    <!-- Subheader Text -->
+                    <p class="p-text">Bridge between job seekers and employers, 
+                        fostering partnerships <br> with local businesses, companies, and industries.</p>
+                </div>
+            </div>
+            
+
+            <!-- Button Section -->
+            <div class="header-btn">
+                <a href="src/job/jobs.php" class="search">Search Jobs</a>
+            </div>
         </header>
 
-        <section class="page-section bg-light text-dark mb-0" id="job-listings">
+
+        <section class="page-section text-dark mb-0" id="job-listings" style="background-color: #E7E0DC;">
             <div class="container">
                 <!-- Job Listings Section Heading -->
                 <h2 class="page-section-heading text-center text-uppercase">Latest Jobs</h2>
@@ -85,7 +270,8 @@ require_once("./database/db.php");
                     if($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) 
                         {
-                        $sql1 = "SELECT * FROM company WHERE id_company='$row[id_company]'";
+                        $sql1 = "SELECT company.*, baranggay.name as baranggay_name FROM company JOIN baranggay ON company.baranggay_id = baranggay.baranggay_id
+                        WHERE id_company='$row[id_company]'";
                         $result1 = $conn->query($sql1);
                         if($result1->num_rows > 0) {
                             while($row1 = $result1->fetch_assoc()) 
@@ -93,19 +279,21 @@ require_once("./database/db.php");
                 ?>
                 <!-- Job Boxes -->    
                 <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>">
-                    <div class="col-lg-12 mb-4">
+                    <div class="col-12 mb-4">
                         <div class="job-box d-flex align-items-center border rounded p-3">
-                            <img src="./assets/unnamed 1.png" alt="Job 1" class="img-fluid me-3" style="width: 80px; height: 80px;">
+                            <img src="./assets/unnamed 1.png" alt="Job 1" class="d-none d-sm-block" style="width: 80px; height: 80px; margin-right:1rem">
                             <div class="flex-grow-1">
-                                <h4 class="job-title"><?php echo $row['jobtitle']; ?></h4>
-                                <p class="job-description"><?php echo $row1['companyname']; ?> | <?php echo $row1['city']; ?> | Experience <?php echo $row['experience']; ?> Years</p>
+                                <h4 class="job-title mb-1"><?php echo $row['jobtitle']; ?></h4>
+                                <p class="job-description mb-0"><?php echo $row1['companyname']; ?> | <?php echo $row1['baranggay_name']; ?> | <?php echo $row['experience']; ?> Years</p>
                             </div>
-                            <div class="salary ms-3">
-                                <h5>₱<?php echo $row['maximumsalary']; ?>/Month</h5>
+                            <div class="">
+                                <h5 class="salary mb-0">₱<?php echo $row['maximumsalary']; ?>/Month</h5>
                             </div>
                         </div>
                     </div>
                 </a>
+
+
                 <?php
                             }
                         }   
@@ -136,7 +324,7 @@ require_once("./database/db.php");
                         <img src="./assets/screenshot-1726870553020.png" alt="Description" class="img-fluid"> <!-- Add your image URL here -->
                     </div>
                     <div class="col-lg-6">
-                        <p class="lead">PESO Taguig operates under the mandate of the Department of Labor and Employment (DOLE) to facilitate employment opportunities and provide comprehensive employment services to the local community.</p>
+                        <p class="lead">PESO Taguig operates under the mandate of the Department of Labor and Employment (DOLE) to facilitate employment opportunities and provide comprehensive employment services to the local community.</p>
                         <p class="lead">PESO Taguig connects job seekers with available job openings in various industries and sectors. Whether you're a fresh graduate, a skilled worker, or someone looking for a career change, PESO Taguig can assist you in finding employment opportunities that match your skills and qualifications.</p>
                     </div>
                 </div>
@@ -169,7 +357,7 @@ require_once("./database/db.php");
                                         $totalno = 0;
                                     }
                                 ?>
-                                <h3 class="statistic-number"><?php echo $totalno; ?> +</h3>
+                                <h3 class="statistic-number" style="text-align:left"><?php echo $totalno; ?> +</h3>
                                 <p class="statistic-description">Job Offers</p>
                             </div>
                             <img src="./assets/image 14.png" alt="Projects" class="img-fluid" style="width: 60px; height: 60px;">
@@ -187,7 +375,7 @@ require_once("./database/db.php");
                                         $totalno = 0;
                                     }
                                 ?>
-                                <h3 class="statistic-number"><?php echo $totalno; ?> +</h3>
+                                <h3 class="statistic-number" style="text-align:left" ><?php echo $totalno; ?> +</h3>
                                 <p class="statistic-description">Registered Company</p>
                             </div>
                             <img src="./assets/image 13.png" alt="Clients" class="img-fluid" style="width: 60px; height: 60px;">
@@ -205,7 +393,7 @@ require_once("./database/db.php");
                                         $totalno = 0;
                                     }
                                 ?>
-                                <h3 class="statistic-number"><?php echo $totalno; ?> +</h3>
+                                <h3 class="statistic-number" style="text-align:left"><?php echo $totalno; ?> +</h3>
                                 <p class="statistic-description">CV'S/Resume</p>
                             </div>
                             <img src="./assets/image 15.png" alt="Awards" class="img-fluid" style="width: 60px; height: 60px;">
@@ -223,7 +411,7 @@ require_once("./database/db.php");
                                         $totalno = 0;
                                     }
                                 ?>
-                                <h3 class="statistic-number"><?php echo $totalno; ?> +</h3>
+                                <h3 class="statistic-number" style="text-align:left"><?php echo $totalno; ?> +</h3>
                                 <p class="statistic-description">Daily Users</p>
                             </div>
                             <img src="./assets/image 16.png" alt="Experience" class="img-fluid" style="width: 60px; height: 60px;">
@@ -236,7 +424,7 @@ require_once("./database/db.php");
         </section>
         
 
-        <section class="page-section bg-light text-dark mb-0" id="candidates">
+        <section class="page-section text-dark mb-0" id="candidates" style="background-color: #E7E0DC;">
             <div class="container">
                 <!-- Services Section Heading -->
                 <h2 class="page-section-heading text-center text-uppercase">candidates</h2>
@@ -276,7 +464,7 @@ require_once("./database/db.php");
             </div>
         </section>
 
-        <section class="page-section bg-light text-dark mb-0" id="companies">
+        <section class="page-section text-dark mb-0" id="companies" style="background-color: #E7E0DC;">
             <div class="container">
                 <!-- Services Section Heading -->
                 <h2 class="page-section-heading text-center text-uppercase">companies</h2>

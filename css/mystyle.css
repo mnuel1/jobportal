@@ -19,6 +19,8 @@
     transition: transform 0.3s;
 }
 .job-box:hover {
+    background-color: #CA2B2D;
+    color: white;
     transform: scale(1.02); /* Slight scale on hover */
 }
 .job-title {
@@ -66,4 +68,28 @@ a:hover {
 
 .navbar-toggler:hover {
     background-color: #B22222; /* Darker red on hover */
+}
+
+@media (max-width: 768px) {
+    .job-title {
+        font-size: 1rem; /* Job title font size */
+    }
+    .job-description {
+        font-size: 0.5rem; /* Job description font size */
+    }
+    .salary {       
+        font-size: 1rem; /* Salary font size */
+    }
+}
+
+@media (max-width: 576px) {
+    .job-title {
+        font-size: .75rem; /* Job title font size */
+    }
+    .job-description {
+        font-size: 0.5rem; /* Job description font size */
+    }
+    .salary {       
+        font-size: .75rem; /* Salary font size */
+    }
 }

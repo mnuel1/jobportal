@@ -4,7 +4,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "jobSearch";
+$dbname = "jobsearchv1";
 
 //Create New Database Connection
 $conn = new mysqli($servername, $username, $password, $dbname);
