@@ -51,7 +51,8 @@ require_once("./database/db.php");
 
         /* Button styling */
         .search {
-            background-color: #E7E0DC;
+            color: white;
+            background-color: #CA2B2D;
             padding: 1rem 5rem;
             border-radius: 6px;
             font-size: 20px;
@@ -59,8 +60,8 @@ require_once("./database/db.php");
         }
 
         .search:hover {
-            background-color: #CA2B2D;
-            color: white;
+            background-color: #B22222; 
+            color: white;           
         }
         .header-t {
             position: absolute;

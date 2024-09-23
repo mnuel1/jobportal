@@ -9,23 +9,23 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>JobSearch</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-        
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
-        <link href="css/mystyle.css" rel="stylesheet" />
-        <link href="css/body.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>JobSearch</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <link href="css/mystyle.css" rel="stylesheet" />
+    <link href="css/body.css" rel="stylesheet" />
     <style>        
         .container-fluid {
             position: relative;
@@ -59,6 +59,20 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
         .box-title {
             text-transform: uppercase;
             font-size: 2.5rem
+        }
+
+        .buttons {
+            color: white;
+            background-color: #CA2B2D;
+            padding: 1rem 5rem;
+            border-radius: 6px;
+            font-size: 20px;
+            font-weight:bold;
+        }
+
+        .buttons:hover {
+            background-color: #B22222; 
+            color: white;           
         }
 
         @media (max-width: 768px) {
@@ -113,8 +127,8 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
                     <div class="inner text-center">
                         <h3 class="box-title">Candidates Login</h3>
                     </div>
-                    <a href="login-candidates.php" class="small-box-footer btn btn-light font-weight-bold btn-lg mt-4 text-dark" style="border-radius: 8px;">
-                        <i class="fa fa-arrow-circle-right"></i> LOG IN 
+                    <a href="src/Candidate/login-candidates.php" class="small-box-footer btn font-weight-bold btn-lg mt-4 text-light buttons" style="border-radius: 8px;">
+                        <i class="fa fa-arrow-right" style="margin-right: 1rem;"></i> LOG IN 
                     </a>
                     <div></div>
                 </div>
@@ -127,8 +141,8 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
                     <div class="inner text-center">
                         <h3 class="box-title" >Company Login</h3>
                     </div>
-                    <a href="login-company.php" class="small-box-footer btn btn-light font-weight-bold btn-lg mt-4 text-dark" style="border-radius: 8px;">
-                        <i class="fa fa-arrow-circle-right"></i> LOG IN 
+                    <a href="src/Company/login-company.php" class="small-box-footer btn buttons font-weight-bold btn-lg mt-4 text-light" style="border-radius: 8px;">
+                        <i class="fa fa-arrow-right" style="margin-right: 1rem;"></i> LOG IN 
                     </a>
                     <div></div>
                 </div>

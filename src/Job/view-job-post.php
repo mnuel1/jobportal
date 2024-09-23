@@ -10,7 +10,7 @@ require_once("../../database/db.php");
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
@@ -19,6 +19,7 @@ require_once("../../database/db.php");
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
@@ -26,9 +27,7 @@ require_once("../../database/db.php");
     <link href="../../css/styles.css" rel="stylesheet" />
     <link href="../../css/mystyle.css" rel="stylesheet" />
     <link href="../../css/body.css" rel="stylesheet" />
-    <!-- Theme style -->
-    <!-- <link rel="stylesheet" href="../../css/AdminLTE.min.css">
-    <link rel="stylesheet" href="../../css/_all-skins.min.css"> -->
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body>
@@ -109,13 +108,12 @@ require_once("../../database/db.php");
                             <a href="apply.php?id=<?php echo $row['id_jobpost']; ?>" class="btn btn-success btn-flat margin-top-50">Apply</a>
                         </div>
                         <?php } ?>
-                        
-                        
+                                                    
                     </div>
                     <div class="col-md-3 d-flex flex-column gap-3">
-                        <div class="card flex-grow-1" style="height:50%;">
-                            <div class="card-header">
-                                <img src="uploads/logo/<?php echo $row['logo']; ?>" alt="companylogo" style="max-width: 100%;">
+                        <div class="card">
+                            <div class="card-header" style="background-color:white;">
+                                <img src="../../uploads/logo/<?php echo $row['logo']; ?>" alt="companylogo" style="max-width: 100%;">
                             </div>
                             <div class="card-body">
                                 <div class="caption text-center">
@@ -134,12 +132,7 @@ require_once("../../database/db.php");
                                                     <i class="fa fa-envelope"></i> Email
                                                 </a>
                                             </div>
-                                        </div>
-                                        <div style="display:flex;">
-                                            <a href="" style="background-color: #F2E8C6; padding:6px; color:black; width:100%;">
-                                                <i class="fa fa-address-card-o"></i> Apply
-                                            </a>
-                                        </div>
+                                        </div>                                        
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +140,7 @@ require_once("../../database/db.php");
 
                         <div class="card flex-grow-1" style="height:50%;">
                             <div class="card-body">
-                                <div id="map" style="height: 100%; width: 100%;"></div>
+                                <div id="map" style="height: 400px; width: 100%;"></div>
                             </div>
                         </div>
                     </div>

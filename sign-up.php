@@ -63,6 +63,20 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
                 font-size: 2.5rem
             }
 
+            .buttons {
+                color: white;
+                background-color: #CA2B2D;
+                padding: 1rem 5rem;
+                border-radius: 6px;
+                font-size: 20px;
+                font-weight:bold;
+            }
+
+            .buttons:hover {
+                background-color: #B22222; 
+                color: white;           
+            }
+
             @media (max-width: 768px) {
                 .box-title {
                     font-size: 1.8rem;
@@ -114,8 +128,8 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
                     <div class="inner text-center">
                         <h3 class="box-title">Candidates Registration</h3>
                     </div>
-                    <a href="login-candidates.php" class="small-box-footer btn btn-light font-weight-bold btn-lg mt-4 text-dark" style="border-radius: 8px;">
-                        <i class="fa fa-arrow-circle-right"></i> REGISTER 
+                    <a href="src/Candidate/register-candidates.php" class="small-box-footer btn buttons font-weight-bold btn-lg mt-4 text-light" style="border-radius: 8px;">
+                        <i class="fa fa-arrow-right" style="margin-right: 1rem;"></i> REGISTER 
                     </a>
                     <div></div>
                 </div>
@@ -128,8 +142,8 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
                     <div class="inner text-center">
                         <h3 class="box-title">Company Registration </h3>
                     </div>
-                    <a href="login-company.php" class="small-box-footer btn btn-light font-weight-bold btn-lg mt-4 text-dark" style="border-radius: 8px;">
-                        <i class="fa fa-arrow-circle-right"></i> REGISTER 
+                    <a href="src/Company/register-company.php" class="small-box-footer btn buttons font-weight-bold btn-lg mt-4 text-light" style="border-radius: 8px;">
+                        <i class="fa fa-arrow-right" style="margin-right: 1rem;"></i> REGISTER 
                     </a>
                     <div></div>
                 </div>

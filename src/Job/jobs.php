@@ -286,7 +286,7 @@
                                 <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>">
                                     <div class="col-12 mb-4">
                                         <div class="job-box d-flex align-items-center border rounded p-3">
-                                            <img src="./assets/unnamed 1.png" alt="Job 1" class="d-none d-sm-block" style="width: 80px; height: 80px; margin-right:1rem">
+                                            <img src="../../assets/unnamed 1.png" alt="Job 1" class="d-none d-sm-block" style="width: 80px; height: 80px; margin-right:1rem">
                                             <div class="flex-grow-1">
                                                 <h4 class="job-title mb-1"><?php echo $row['jobtitle']; ?></h4>
                                                 <p class="job-description mb-0"><?php echo $row['companyname']; ?> | <?php echo $row['baranggay_name']; ?> | <?php echo $row['experience']; ?> Years</p>
