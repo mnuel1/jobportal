@@ -17,90 +17,28 @@ require_once("../../database/db.php");
     <meta name="author" content="" />
     <title>JobSearch</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    
-    
+        
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     
-    <link href="../../css/styles.css" rel="stylesheet" />
-    <link href="../../css/mystyle.css" rel="stylesheet" />
-    <link href="../../css/body.css" rel="stylesheet" />
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/mystyle.css" rel="stylesheet" />
+    <link href="/css/body.css" rel="stylesheet" />
     
 </head>
 <body>
 
 
-    <nav class="navbar navbar-expand-lg text-uppercase fixed-top" style="background-color: #CA2B2D;" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">JobSearch</a>
-            <button class="navbar-toggler text-uppercase font-weight-bold rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #CA2B2D; color: white;">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded" href="../job/jobs.php">Jobs</a></li>
-                    <li class="nav-item mx-0 mx-lg-1" style="margin-left: 20px; margin-right: 20px;">
-                        <hr class="d-lg-none" style="border-top: 2px solid white; width: 100%; margin: 10px 0;">
-                    </li>
-                    <?php if(empty($_SESSION['id_user']) && empty($_SESSION['id_company'])) { ?>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="../../login.php">Login</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="../../sign-up.php">Sign-up</a></li>
-                    <?php } else {
-                        if(isset($_SESSION['id_user'])) { ?>  
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="user/index.php">Dashboard</a></li>
-                        <?php } else if(isset($_SESSION['id_company'])) { ?>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="company/index.php">Dashboard</a></li>
-                        <?php } ?>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="logout.php">Log-out</a></li>                       
-                    <?php } ?>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="toast-container top-0 start-50 translate-middle-x ">
-        <div id="myToast" class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                Hello, world! This is a toast message.
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>  
-    </div>
-
-    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Bootstrap Modal</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>    
-                </div>
-                <div class="modal-body">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure commodi fugiat consequatur, ad neque sint a perspiciatis odio cupiditate amet, unde laborum distinctio sed doloribus expedita! Assumenda error unde itaque!
-
-                </div>                
-            </div>
-        </div>
-    </div>
-   
-    <div class="content-wrapper" style="margin-left: 0px; padding-top: calc(6rem + 42px);">
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/authnavigation.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/terms-modal.php';?>
+      
+    <div class="content-wrapper" style="margin-left: 0px; padding-top: calc(6rem + 24px);">
         <section class="content-header">
             <div class="container">
                 <div class="row latest-job latest-job margin-top-50 margin-bottom-20 mb-2">
@@ -108,8 +46,9 @@ require_once("../../database/db.php");
                         CREATE YOUR 
                         <span style="color: #7D0A0A;">PROFILE</span>
                     </h1>
-                    <form method="post" id="registerCandidates" action="adduser.php" enctype="multipart/form-data" class="bg-light p-4">
-                        <!-- <div class="row">
+                    <form method="post" id="registerCandidates" action="../process/Candidate/adduser.php" 
+                    enctype="multipart/form-data" class="bg-light p-4">
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group mb-2">
                                     <label for="fname">First Name</label>
@@ -120,7 +59,7 @@ require_once("../../database/db.php");
                                     <input class="form-control" type="password" id="password" name="password" placeholder="Password *" required>
                                 </div>
                                 <div class="form-group mb-2">
-                                    <label for="email">Email</label>
+                                    <label for="email">Email Address</label>
                                     <input class="form-control" type="email" id="email" name="email" placeholder="Email *" required>
                                 </div>
                                 <div class="form-group mb-2">
@@ -165,9 +104,21 @@ require_once("../../database/db.php");
                                     <label for="address">Address</label>
                                     <textarea class="form-control" rows="4" id="address" name="address" placeholder="Address"></textarea>
                                 </div>
-                                <div class="form-group mb-2">
-                                    <label for="baranggay">Baranggay</label>
-                                    <input class="form-control" type="text" id="baranggay" name="baranggay" placeholder="Baranggay">
+                                <div class="form-group">
+                                    <select class="form-control input-lg" id="baranggay" name="baranggay" required>
+                                        <option selected="" value="">Select baranggay</option>
+                                        <?php
+                                        $sql="SELECT * FROM baranggay";
+                                        $result=$conn->query($sql);
+
+                                        if($result->num_rows > 0) {
+                                            while($row = $result->fetch_assoc()) {
+                                            echo "<option value='".$row['baranggay_id']."' data-id='".$row['id']."'>".$row['name']."</option>";
+                                            }
+                                        }
+                                        ?>
+                                    
+                                    </select>
                                 </div>
                                 <div class="form-group mb-2">
                                     <label for="skills">Skills</label>
@@ -183,56 +134,48 @@ require_once("../../database/db.php");
                                     <label style="color: red; font-size:small"> PDF Only</label>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="terms" required>
-                            <label class="form-check-label" for="terms">I accept terms & conditions. 
-                                <span id="termscondition"  style="cursor: pointer;">Read it here.</span></label>
+                            <label class="form-check-label mb-2" for="terms">I accept terms & conditions. </label>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-flat">Register</button>
+                            <button type="submit" class="buttons-sm buttons-color">Register</button>
                         </div>
-                    </form>
-
-                
+                    </form>                
                 </div>
             </div>
-        </section>
-
-        
-
+        </section>        
     </div>
 
 
-
+</body>
 <!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="../../js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-   
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
+<!-- JQuery JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
 
 <script type="text/javascript">
+
     function validatePhone(event) {
 
-    //event.keycode will return unicode for characters and numbers like a, b, c, 5 etc.
-    //event.which will return key for mouse events and other events like ctrl alt etc. 
-    var key = window.event ? event.keyCode : event.which;
+        //event.keycode will return unicode for characters and numbers like a, b, c, 5 etc.
+        //event.which will return key for mouse events and other events like ctrl alt etc. 
+        var key = window.event ? event.keyCode : event.which;
 
-    if(event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
-        // 8 means Backspace
-        //46 means Delete
-        // 37 means left arrow
-        // 39 means right arrow
-        return true;
-    } else if( key < 48 || key > 57 ) {
-        // 48-57 is 0-9 numbers on your keyboard.
-        return false;
-    } else return true;
+        if(event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
+            // 8 means Backspace
+            //46 means Delete
+            // 37 means left arrow
+            // 39 means right arrow
+            return true;
+        } else if( key < 48 || key > 57 ) {
+            // 48-57 is 0-9 numbers on your keyboard.
+            return false;
+        } else return true;
     } 
 
     $('#dob').on('change', function() {
@@ -248,47 +191,90 @@ require_once("../../database/db.php");
         $('#age').val(age);
     });
 
-    $('#termscondition').on('click', function() {
-        const modal = document.getElementById('myModal')
-        var myTerms = new bootstrap.Modal(modal);    
-        myTerms.show(); // Show toast
-    })
+    $('#terms').on('change', function(e) {
+        const checkboxTerms = $(this); // Get the checkbox as a jQuery object
 
-   
+        // Use .prop() to check the checked state
+        if (checkboxTerms.prop('checked')) {
+            checkboxTerms.prop('checked', false);
+            const modal = document.getElementById('termsModal')
+            var myTerms = new bootstrap.Modal(modal);    
+            myTerms.show(); // Show toast
+        }
+    });
+
+    // Accept button inside the modal
+    $('#acceptTerms').on('click', function() {
+        const checkboxTerms = $('#terms'); // Get the checkbox
+
+        // Set checkbox to checked when terms are accepted
+        checkboxTerms.prop('checked', true);
+
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('termsModal'));
+        modal.hide();
+    });
+           
     $("#registerCandidates").on("submit", function(e) {
         e.preventDefault();
 
-        // const password = document.getElementById('password').value;
-        // const confirmPassword = document.getElementById('cpassword').value;
-        // const resume = document.getElementById('resume').files[0];
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('cpassword').value;
+        const resume = document.getElementById('resume').files[0];
+
+
+        const toastSuccessMsg = document.getElementById('toast-success-msg')
+        const succToast = document.getElementById('successToast')
+        var successToast = new bootstrap.Toast(succToast);
+
+        const toastErrorMsg = document.getElementById('toast-error-msg')
+        const errToast = document.getElementById('errorToast')
+        var errorToast = new bootstrap.Toast(errToast);
         
-        const error = document.getElementById('myToast')
-        var myToast = new bootstrap.Toast(error);    
-        myToast.show(); // Show toast
+        let errorMessage = '';
 
+        if (password !== confirmPassword) {
+            errorMessage = 'Passwords do not match!';
+        }
         
-        // let errorMessage = '';
-
-        // // Check if passwords match
-        // if (password !== confirmPassword) {
-        //     errorMessage = 'Passwords do not match!';
-        // }
-
-        // // Check if resume is a PDF file
-        // if (resume && resume.type !== 'application/pdf') {
-        //     errorMessage = 'Only PDF files are allowed for resume upload!';
-        // }
-
-        // // If there is an error, show the Bootstrap Toast
-        // if (errorMessage) {
-        //     document.getElementById('message').textContent = errorMessage;
-        //     error.show(); // Show toast
-        // } else {
-        //     // No error, proceed with form submission
-        //     $(this).unbind('submit').submit();
-        // }
+        if (resume && resume.type !== 'application/pdf') {
+            errorMessage = 'Only PDF files are allowed for resume upload!';
+        }
+                
+        if (resume && resume.size > 1000000) {
+            errorMessage = 'File size exceeds 1mb.';
+        }
         
+        if (errorMessage) {            
+            toastErrorMsg.textContent = errorMessage           
+            errorToast.show();
+            return;            
+        } 
+        
+
+        $.ajax({
+            url: '../process/Candidate/adduser.php', // Update with your actual PHP script path
+            type: 'POST',
+            data: new FormData($('#registerCandidates')[0]), // Assuming you have a form with this ID
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function(response) {
+                       
+                if (response.success) {
+                    toastSuccessMsg.textContent = response.message;
+                    successToast.show();
+                    window.location.href = 'login-candidates.php';
+                } else {
+                    toastErrorMsg.textContent = response.message;
+                    errorToast.show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', error);
+            }
+        });
+                
     });
 </script>
-</body>
 </html>

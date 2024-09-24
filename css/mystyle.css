@@ -93,3 +93,98 @@ a:hover {
         font-size: .75rem; /* Salary font size */
     }
 }
+
+.container {
+    flex-grow: 1;    
+}
+.smaller {
+    width: 30%; 
+    
+}
+.larger {
+    width: 70%;
+    padding: 24px;
+    
+}       
+.vertical-menu {
+    height: 100%; 
+    padding: 0; 
+}
+.vertical-menu a {
+    padding: 10px 15px; 
+    text-decoration: none; 
+    color: #000; 
+    display: block; 
+}
+.vertical-menu a:hover {
+    background-color: #E7E0DC; 
+}
+
+.vertical-menu .active {
+    background-color: #E7E0DC;
+    border-left: 4px solid #B22222; 
+    font-weight: bold; 
+}
+
+.h2 {
+    transition: border-left 0.3s; 
+}
+
+.h2:hover {
+    border-left: 4px solid #B22222; 
+    padding-left: 12px; 
+    background-color: #E7E0DC;
+}
+
+.statistic-box {
+    height: 200px; 
+    display: flex; 
+    border: 1px solid #dee2e6; 
+    margin-bottom: 20px; 
+}
+
+.statistic-left {
+    flex: 1; 
+    position: relative; 
+    color: white; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.statistic-right {
+    flex: 2; 
+    padding: 20px; 
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    background-color: #E7E0DC;
+}
+
+.statistic-right .title {
+    font-size: 14px; 
+    color: #6c757d; 
+}
+
+.statistic-right .number {
+    font-size: 36px; 
+    font-weight: bold; 
+}
+
+
+.statistic-left img {
+    max-width: 50%; 
+    max-height: 80%; 
+    position: absolute; 
+}
+
+@media (max-width: 768px) {
+    .smaller {
+        position: absolute; /* Allow it to overlap */
+        top: 80; /* Align it to the top */
+        left: 0; /* Align it to the left */
+        width: 100%;
+        height: 100%;
+        z-index: 3; /* Bring it above the larger container */
+    }
+}

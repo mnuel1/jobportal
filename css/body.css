@@ -2,3 +2,105 @@
 body {
     background-color: #E7E0DC
 }
+
+.button-cancel-color {
+   background-color: lightgray;
+}
+.button-cancel-color:hover {
+    background-color: darkgray;
+}
+
+.button-accept-color {
+    background-color: #CA2B2D;
+    color: white;
+}
+.button-accept-color:hover {
+    background-color: #B22222;
+    color: white;
+}
+
+.buttons-sm-success {
+    padding: .5rem 2rem;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight:bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0px;
+}
+
+.buttons-sm {
+    padding: .5rem 2rem;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight:bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0px;
+}
+
+.buttons {
+    padding: 1rem 5rem;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight:bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0px
+}
+
+.buttons-color-success {
+    color: white;
+    background-color: #2bca40;
+   
+}
+
+.buttons-color-success:hover {
+    background-color: #4bb222; 
+    color: white;           
+}
+
+.buttons-color {
+    color: white;
+    background-color: #CA2B2D;
+   
+}
+
+.buttons-color:hover {
+    background-color: #B22222; 
+    color: white;           
+}
+
+.buttons:focus {
+    background-color: #B22222; 
+    color: white;  
+}
+
+.buttons-color-dark {
+    color: white;
+    background-color: #B22222;
+   
+}
+
+.buttons-color-dark:hover {
+    background-color: #9c1f1f; 
+    color: white;           
+}
+
+.buttons-color-dark:focus {
+    background-color: #9c1f1f; 
+    color: white;  
+}
+
+.links {
+    margin-top:2px; font-size:14px; 
+    color:white;
+    text-decoration:underline;
+  
+}
+.links:hover {           
+    color: white;          
+}

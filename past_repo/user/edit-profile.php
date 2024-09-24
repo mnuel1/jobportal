@@ -101,27 +101,27 @@ require_once("../db.php");
                 <div class="col-md-6 latest-job ">
                   <div class="form-group">
                      <label for="fname">First Name</label>
-                    <input type="text" class="form-control input-lg" id="fname" name="fname" placeholder="First Name" onkeypress="return validateName(event);" value="<?php echo $row['firstname']; ?>" required="">
+                    <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" onkeypress="return validateName(event);" value="<?php echo $row['firstname']; ?>" required="">
                   </div>
                   <div class="form-group">
                     <label for="lname">Last Name</label>
-                    <input type="text" class="form-control input-lg" id="lname" name="lname" placeholder="Last Name" onkeypress="return validateName(event);" value="<?php echo $row['lastname']; ?>" required="">
+                    <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" onkeypress="return validateName(event);" value="<?php echo $row['lastname']; ?>" required="">
                   </div>
                   <div class="form-group">
                     <label for="email">Email address</label>
-                    <input type="email" class="form-control input-lg" id="email" placeholder="Email" value="<?php echo $row['email']; ?>" readonly>
+                    <input type="email" class="form-control" id="email" placeholder="Email" value="<?php echo $row['email']; ?>" readonly>
                   </div>
                   <div class="form-group">
                     <label for="address">Address</label>
-                    <textarea id="address" name="address" class="form-control input-lg" rows="5" placeholder="Address"><?php echo $row['address']; ?></textarea>
+                    <textarea id="address" name="address" class="form-control" rows="5" placeholder="Address"><?php echo $row['address']; ?></textarea>
                   </div>
                   <div class="form-group">
                     <label for="city">City</label>
-                    <input type="text" class="form-control input-lg" id="city" name="city" onkeypress="return validateName(event);" value="<?php echo $row['city']; ?>" placeholder="city">
+                    <input type="text" class="form-control" id="city" name="city" onkeypress="return validateName(event);" value="<?php echo $row['city']; ?>" placeholder="city">
                   </div>
                   <div class="form-group">
                     <label for="state">State</label>
-                    <input type="text" class="form-control input-lg" id="state" name="state"  placeholder="state" onkeypress="return validateName(event);" value="<?php echo $row['state']; ?>">
+                    <input type="text" class="form-control" id="state" name="state"  placeholder="state" onkeypress="return validateName(event);" value="<?php echo $row['state']; ?>">
                   </div>
                   <div class="form-group">
                     <button type="submit" class="btn btn-flat btn-success">Update Profile</button>
@@ -130,23 +130,23 @@ require_once("../db.php");
                 <div class="col-md-6 latest-job ">
                   <div class="form-group">
                     <label for="contactno">Contact Number</label>
-                    <input type="text" class="form-control input-lg" id="contactno" name="contactno" placeholder="Contact Number" onkeypress="return validatePhone(event);" maxlength="10" minlength="10" value="<?php echo $row['contactno']; ?>">
+                    <input type="text" class="form-control" id="contactno" name="contactno" placeholder="Contact Number" onkeypress="return validatePhone(event);" maxlength="10" minlength="10" value="<?php echo $row['contactno']; ?>">
                   </div>
                   <div class="form-group">
                     <label for="qualification">Highest Qualification</label>
-                    <input type="text" class="form-control input-lg" id="qualification" name="qualification" placeholder="Highest Qualification" value="<?php echo $row['qualification']; ?>">
+                    <input type="text" class="form-control" id="qualification" name="qualification" placeholder="Highest Qualification" value="<?php echo $row['qualification']; ?>">
                   </div>
                   <div class="form-group">
                     <label for="stream">Stream</label>
-                    <input type="text" class="form-control input-lg" id="stream" name="stream" placeholder="stream" value="<?php echo $row['stream']; ?>">
+                    <input type="text" class="form-control" id="stream" name="stream" placeholder="stream" value="<?php echo $row['stream']; ?>">
                   </div>
                   <div class="form-group">
                     <label>Skills</label>
-                    <textarea class="form-control input-lg" rows="4" name="skills" onkeypress="return validateName(event);" ><?php echo $row['skills']; ?></textarea>
+                    <textarea class="form-control" rows="4" name="skills" onkeypress="return validateName(event);" ><?php echo $row['skills']; ?></textarea>
                   </div>
                   <div class="form-group">
                     <label>About Me</label>
-                    <textarea class="form-control input-lg" rows="4" name="aboutme"><?php echo $row['aboutme']; ?></textarea>
+                    <textarea class="form-control" rows="4" name="aboutme"><?php echo $row['aboutme']; ?></textarea>
                   </div>
                   <div class="form-group">
                     <label>Upload/Change Resume</label>

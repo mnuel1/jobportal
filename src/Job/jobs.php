@@ -11,6 +11,7 @@
     $search = isset($_GET['search']) ? $_GET['search'] : '';
     $baranggay = isset($_GET['baranggay']) ? $_GET['baranggay'] : '';
     $experience = isset($_GET['experience']) ? (int)$_GET['experience'] : 0;
+    $type = isset($_GET['type']) ? $_GET['type'] : 0;
 
     // Build SQL query
     $sql = "SELECT job_post.*, company.companyname, company.logo, baranggay.name as baranggay_name, company.baranggay_id  FROM job_post 
@@ -26,6 +27,9 @@
     }
     if ($experience) {
         $sql .= " AND experience >= $experience";
+    }
+    if ($type) {
+        $sql .= " AND job_type = '" . $conn->real_escape_string($type) . "'";
     }
 
     // Count total rows for pagination
@@ -64,105 +68,79 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
-  <style>
-    a {
-        color: black;
-        text-decoration: none;
-    }
-    a:hover {
-        color: #CA2B2D;
-    }
+    <style>
+        a {
+            color: black;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #CA2B2D;
+        }
 
-    .input-group {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-    }
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
 
-    /* Divider between input, mic, and search button */
-    .divider {
-        width: 1px;
-        background-color: #CA2B2D;
-        height: 40px;
-        margin: 0 5px;
-    }
-    .mic-btn, .search-btn {
-        background-color: white; 
-        border: 0px;
-        border-radius: 0;
-    }
+        /* Divider between input, mic, and search button */
+        .divider {
+            width: 1px;
+            background-color: #CA2B2D;
+            height: 40px;
+            margin: 0 5px;
+        }
+        .mic-btn, .search-btn {
+            background-color: white; 
+            border: 0px;
+            border-radius: 0;
+        }
 
-    /* Hover effect for buttons */
-    .search-btn:hover {
-        background-color: #CA2B2D;        
-        color: white;
-        cursor: pointer;
-    }
-    .mic-btn:hover {
-        color: #CA2B2D;
-    }
-   
-    /* Add subtle hover effect for the search input */
-    #searchBar:focus {
-        outline: none;
-        box-shadow: none;
-        border-color: #CA2B2D;
-    }
+        /* Hover effect for buttons */
+        .search-btn:hover {
+            background-color: #CA2B2D;        
+            color: white;
+            cursor: pointer;
+        }
+        .mic-btn:hover {
+            color: #CA2B2D;
+        }
+    
+        /* Add subtle hover effect for the search input */
+        #searchBar:focus {
+            outline: none;
+            box-shadow: none;
+            border-color: #CA2B2D;
+        }
 
-    @media (max-width: 768px) {
-        .job-title {
-            font-size: 1rem; /* Job title font size */
+        @media (max-width: 768px) {
+            .job-title {
+                font-size: 1rem; /* Job title font size */
+            }
+            .job-description {
+                font-size: 0.5rem; /* Job description font size */
+            }
+            .salary {       
+                font-size: 1rem; /* Salary font size */
+            }
         }
-        .job-description {
-            font-size: 0.5rem; /* Job description font size */
-        }
-        .salary {       
-            font-size: 1rem; /* Salary font size */
-        }
-    }
 
-    @media (max-width: 576px) {
-        .job-title {
-            font-size: .75rem; /* Job title font size */
+        @media (max-width: 576px) {
+            .job-title {
+                font-size: .75rem; /* Job title font size */
+            }
+            .job-description {
+                font-size: 0.5rem; /* Job description font size */
+            }
+            .salary {       
+                font-size: .75rem; /* Salary font size */
+            }
         }
-        .job-description {
-            font-size: 0.5rem; /* Job description font size */
-        }
-        .salary {       
-            font-size: .75rem; /* Salary font size */
-        }
-    }
-  </style>
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg text-uppercase fixed-top" style="background-color: #CA2B2D;" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="../../index.php">JobSearch</a>
-            <button class="navbar-toggler text-uppercase font-weight-bold rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #CA2B2D; color: white;">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded" href="jobs.php">Jobs</a></li>
-                    <li class="nav-item mx-0 mx-lg-1" style="margin-left: 20px; margin-right: 20px;">
-                        <hr class="d-lg-none" style="border-top: 2px solid white; width: 100%; margin: 10px 0;">
-                    </li>
-                    <?php if(empty($_SESSION['id_user']) && empty($_SESSION['id_company'])) { ?>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="../../login.php">Login</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="../../sign-up.php">Sign-up</a></li>
-                    <?php } else {
-                        if(isset($_SESSION['id_user'])) { ?>  
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="user/index.php">Dashboard</a></li>
-                        <?php } else if(isset($_SESSION['id_company'])) { ?>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="company/index.php">Dashboard</a></li>
-                        <?php } ?>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="logout.php">Log-out</a></li>                       
-                    <?php } ?>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/authnavigation.php';?>
 
     <div class="content-wrapper" style="margin-left: 0px; padding-top: calc(6rem + 42px);">
         <section id="jobs" class="content-header ">
@@ -170,29 +148,7 @@
                 <div class="row">
                     <div class="col-md-12 latest-job margin-top-50 margin-bottom-20 mb-2">
                         <h1 class="text-center" style="font-weight:600">LATEST <span style="color: #7D0A0A;">OFFERS</span></h1>
-                        <form method="GET" action="">
-                            <div class="input-group input-group-lg bg-light">
-                                <!-- Search Icon -->
-                                <span class="input-group-text search-icon">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </span>
-
-                                <!-- Search Input -->
-                                <input autocomplete="off" type="text" id="searchBar" name="search" class="form-control" 
-                                    style="background-color: white; border: none;" 
-                                    placeholder="Search job" value="<?php echo htmlspecialchars($search); ?>">
-                            
-                                <!-- Microphone Button -->
-                                <button class="input-group-text mic-btn">
-                                    <i class="fa fa-microphone" aria-hidden="true"></i>
-                                </button>
-
-                                <!-- Search Button -->
-                                <button class="input-group-text search-btn" type="Submit">
-                                    Search
-                                </button>
-                            </div>               
-                        </form>
+                        <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/search.php';?>   
                     </div>
                 </div>
             </div>
@@ -275,6 +231,28 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <div class="col-12">
+                                        <div class="dropdown">
+                                            <button class="d-flex justify-content-between align-items-center  
+                                            dropdown-toggle w-100 p-2 text-start" type="button" 
+                                            data-bs-toggle="dropdown" aria-expanded="false" style="border:1px solid lightgray; background-color:white">
+                                                Job Type
+                                            </button>
+                                            <ul class="dropdown-menu w-100">
+                                                <li class="nav-item">
+                                                    <a class="dropdown-item" href="?type=<?php echo urlencode("Full Time"); ?>" class="nav-link <?php echo (isset($_GET['type']) && $_GET['type'] == urlencode("Full Time")) ? 'active' : ''; ?>">
+                                                        Full Time
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="dropdown-item" href="?type=<?php echo urlencode("Part Time"); ?>" class="nav-link <?php echo (isset($_GET['type']) && $_GET['type'] == urlencode("Part Time")) ? 'active' : ''; ?>">
+                                                        Part Time
+                                                    </a>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -289,7 +267,8 @@
                                             <img src="../../assets/unnamed 1.png" alt="Job 1" class="d-none d-sm-block" style="width: 80px; height: 80px; margin-right:1rem">
                                             <div class="flex-grow-1">
                                                 <h4 class="job-title mb-1"><?php echo $row['jobtitle']; ?></h4>
-                                                <p class="job-description mb-0"><?php echo $row['companyname']; ?> | <?php echo $row['baranggay_name']; ?> | <?php echo $row['experience']; ?> Years</p>
+                                                <p class="job-description mb-0"><?php echo $row['companyname']; ?> | 
+                                                <?php echo $row['baranggay_name']; ?> | <?php echo $row['experience']; ?> Years | <?php echo $row['job_type']; ?></p>
                                             </div>
                                             <div class="">
                                                 <h5 class="salary mb-0">₱<?php echo $row['maximumsalary']; ?>/Month</h5>

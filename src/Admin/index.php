@@ -1,14 +1,15 @@
 <?php
+
 session_start();
 
-if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) { 
-  header("Location: index.php");
-  exit();
+if(isset($_SESSION['id_admin'])) {
+    header("Location: dashboard.php");
+    exit();
 }
-require_once("../../database/db.php");
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -71,21 +72,23 @@ require_once("../../database/db.php");
         
     </style>
 </head>
+
 <body class="login-page">
 
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
-
     <div class="login-box">
         <div class="login-logo">
             <a href="/src/index.php">JobSearch</a>
-        </div>    
+        </div>
+ 
         <div class="login-box-body">
-            <p class="login-box-msg">Candidates Login</p>
-            
-            <form method="post" id="loginCandidates">
+            <p class="login-box-msg">Admin Login</p>
+
+            <form id="loginAdmin" method="post">
                 <div class="mb-3 position-relative">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                    <input type="email" class="form-control" id="email" name="email" 
+                    placeholder="Email" required>
                     <span class="form-control-feedback">
                         <i class="fa fa-envelope"></i>
                     </span>
@@ -101,40 +104,35 @@ require_once("../../database/db.php");
                 </div>
                 <div class="d-grid gap-2 mb-2">
                     <button class="buttons buttons-color-dark" type="Submit">Sign in</button>            
-                </div>
-                <div class="mb-3 d-flex items-align-center justify-content-between">
-                
-                    <a href="register-candidates.php" class="links">No account yet? Click here</a>
-                    <a href="#" class="links">I forgot my password</a>                                    
-                </div>
+                </div>           
             </form>
-
-        </div>
-        <div class="fixed-bottom" style="z-index: 0; pointer-events: none; ">
-            <img src="/assets/bot.png" alt="Footer Background" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </div>
+    <div class="fixed-bottom" style="z-index: 0; pointer-events: none; ">
+        <img src="/assets/bot.png" alt="Footer Background" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+</div>
 
-<!-- Scripts -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     function togglePassword() {
-        const passwordInput = document.getElementById('password');
-        const passwordIcon = document.getElementById('password-icon');
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            passwordIcon.classList.remove('fa-eye');
-            passwordIcon.classList.add('fa-eye-slash');
+        var passwordInput = document.getElementById("password");
+        var passwordIcon = document.getElementById("password-icon");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordIcon.classList.remove("fa-eye");
+            passwordIcon.classList.add("fa-eye-slash");
         } else {
-            passwordInput.type = 'password';
-            passwordIcon.classList.remove('fa-eye-slash');
-            passwordIcon.classList.add('fa-eye');
+            passwordInput.type = "password";
+            passwordIcon.classList.remove("fa-eye-slash");
+            passwordIcon.classList.add("fa-eye");
         }
     }
 
-    $("#loginCandidates").on("submit", function(e) {
-        
+    $("#loginAdmin").on("submit", function(e) {
+            
         e.preventDefault();
 
         const toastSuccessMsg = document.getElementById('toast-success-msg')
@@ -146,19 +144,21 @@ require_once("../../database/db.php");
         var errorToast = new bootstrap.Toast(errToast);
 
         $.ajax({
-            url: '../process/Candidate/userlogin.php', // Update with your actual PHP script path
+            url: './process/checklogin.php', // Update with your actual PHP script path
             type: 'POST',
-            data: new FormData($('#loginCandidates')[0]), // Assuming you have a form with this ID
+            data: new FormData($('#loginAdmin')[0]), // Assuming you have a form with this ID
             processData: false,
             contentType: false,
             dataType: 'json',
             success: function(response) {
-                       
+                    
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-                    window.location.href = '/src/Candidate/Page/index.php';
-                } else {            
+                    window.location.href = 'dashboard.php';
+                } else {
+                    console.log(response.message);
+                    
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
                 }
@@ -169,6 +169,5 @@ require_once("../../database/db.php");
         });
     })
 </script>
-
 </body>
 </html>

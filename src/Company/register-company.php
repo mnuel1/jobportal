@@ -2,8 +2,8 @@
 session_start();
 
 if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) { 
-  header("Location: index.php");
-  exit();
+    header("Location: /src/index.php");
+    exit();
 }
 
 require_once("../../database/db.php");
@@ -11,272 +11,243 @@ require_once("../../database/db.php");
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Job Search</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="css/AdminLTE.min.css">
-  <link rel="stylesheet" href="css/_all-skins.min.css">
-  <!-- Custom -->
-  <link rel="stylesheet" href="css/custom.css">
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
-  <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>JobSearch</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/mystyle.css" rel="stylesheet" />
+    <link href="/css/body.css" rel="stylesheet" />
 </head>
-<body class="hold-transition skin-green sidebar-mini">
-<div class="wrapper">
+<body>
 
-<header style="background:#7D0A0A;"  class="main-header">
-<br>
-    <!-- Logo -->
-    <a href="index.php" class="logo logo-bg">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>J</b>S</span>
-      <!-- logo for regular state and mobile devices -->
-      <span style="font-size:3vw;" class="logo-lg"><img src="..\img\logo.png" width="200" alt=""></span>
-    </a>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/authnavigation.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/terms-modal.php';?>
+      
 
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="jobs.php" style="font-size:15px; font-weight:500; margin-right: 50px;">Jobs</a>
-          </li>
-          <?php if(empty($_SESSION['id_user']) && empty($_SESSION['id_company'])) { ?>
-          <li>
-            <a href="login.php" class="nav-btn1">Login</a>
-          </li>
-          <li>
-            <a href="sign-up.php" style="border: 1px solid white; margin-right: 3rem; font-weight: bold;">Sign Up</a>
-          </li> 
-          <?php } else { 
-
-            if(isset($_SESSION['id_user'])) { 
-          ?>        
-          <li>
-            <a href="user/index.php">Dashboard</a>
-          </li>
-          <?php
-          } else if(isset($_SESSION['id_company'])) { 
-          ?>        
-          <li>
-            <a href="company/index.php">Dashboard</a>
-          </li>
-          <?php } ?>
-          <li>
-            <a href="logout.php">Logout</a>
-          </li>
-          <?php } ?>          
-        </ul>
-      </div>
-    </nav>
-    <br>
-  </header>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style="margin-left: 0px;">
-
-    <section class="content-header">
-      <div class="container">
-        <div class="row latest-job margin-top-50 margin-bottom-20 bg-white">
-          <h1 class="text-center margin-bottom-20">CREATE <span style="color: #7D0A0A; font-size:55px">COMPANY PROFILE</span></h1>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="margin-left: 0px; padding-top: calc(6rem + 24px);">
+        <section class="content-header">
+            <div class="container">
+                <div class="row latest-job latest-job margin-top-50 margin-bottom-20 mb-2">
+                    <h1 class="text-center margin-bottom-20" style="padding:24px">
+                        CREATE 
+                        <span style="color: #7D0A0A;">COMPANY PROFILE</span>
+                    </h1>
           
-          <form method="post" id="registerCompanies" action="addcompany.php" enctype="multipart/form-data">
-            <div class="col-md-6 latest-job ">
-              <div class="form-group">
-                <input class="form-control input-lg" type="text" name="name" placeholder="Full Name" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control input-lg" type="text" name="companyname" placeholder="Company Name" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control input-lg" type="text" name="website" placeholder="Website">
-              </div>
-              <div class="form-group">
-                <input class="form-control input-lg" type="text" name="email" placeholder="Email" required>
-              </div>
-              <div class="form-group">
-                <textarea class="form-control input-lg" rows="4" name="aboutme" placeholder="Brief info about your company"></textarea>
-              </div>
-              <div class="form-group checkbox">
-                <label><input type="checkbox" required> I accept terms & conditions</label>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-flat btn-success">Register</button>
-              </div>
-              <?php 
-              //If Company already registered with this email then show error message.
-              if(isset($_SESSION['registerError'])) {
-                ?>
-                <div>
-                  <p class="text-center" style="color: red;">Email Already Exists! Choose A Different Email!</p>
-                </div>
-              <?php
-               unset($_SESSION['registerError']); }
-              ?> 
-              <?php 
-              if(isset($_SESSION['uploadError'])) {
-                ?>
-                <div>
-                  <p class="text-center" style="color: red;"><?php echo $_SESSION['uploadError']; ?></p>
-                </div>
-              <?php
-               unset($_SESSION['uploadError']); }
-              ?> 
-            </div>
-            <div class="col-md-6 latest-job ">
-              <div class="form-group">
-                <input class="form-control input-lg" type="password" name="password" placeholder="Password" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control input-lg" type="password" name="cpassword" placeholder="Confirm Password" required>
-              </div>
-               <div id="passwordError" class="btn btn-flat btn-danger hide-me" >
-                    Password Mismatch!! 
-                  </div>
-              <div class="form-group">
-                <input class="form-control input-lg" type="text" name="contactno" placeholder="Phone Number" minlength="10" maxlength="10" autocomplete="off" onkeypress="return validatePhone(event);" required>
-              </div>
-              <div class="form-group">
-                <select class="form-control  input-lg" id="country" name="country" required>
-                <option selected="" value="">Select Country</option>
-                <?php
-                  $sql="SELECT * FROM countries";
-                  $result=$conn->query($sql);
+                    <form method="post" id="registerCompanies" 
+                    action="../process/Company/addcompany.php" 
+                    enctype="multipart/form-data" class="bg-light p-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="name">Name</label>
+                                    <input id="name" class="form-control input-lg" type="text" name="name" placeholder="Full Name" required>
+                                </div>
+                                
+                                <div class="form-group mb-2">
+                                    <label for="password">Password</label>
+                                    <input id="password" class="form-control input-lg" type="password" name="password" placeholder="Password" required>
+                                </div>
+                                                                
+                                <div class="form-group mb-2">
+                                    <label for="email">Email Address</label>
+                                    <input id="email" class="form-control input-lg" type="text" name="email" placeholder="Email" required>
+                                </div>
 
-                  if($result->num_rows > 0) {
-                    while($row = $result->fetch_assoc()) {
-                      echo "<option value='".$row['name']."' data-id='".$row['id']."'>".$row['name']."</option>";
-                    }
-                  }
-                ?>
-                  
-                </select>
-              </div>  
-              <div id="stateDiv" class="form-group" style="display: none;">
-                <select class="form-control  input-lg" id="state" name="state" required>
-                  <option value="" selected="">Select State</option>
-                </select>
-              </div>   
-              <div id="cityDiv" class="form-group" style="display: none;">
-                <select class="form-control  input-lg" id="city" name="city" required>
-                  <option selected="">Select City</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>Attach Company Logo</label>
-                <input type="file" name="image" class="form-control input-lg" required>
-              </div>
-            </div>
-          </form>
+                                <div class="form-group mb-2">
+                                    <label for="aboutme">About Me</label>
+                                    <textarea id="aboutme" class="form-control input-lg" rows="4" name="aboutme" placeholder="Brief info about your company"></textarea>
+                                </div>
+
+                                <div class="form-group mb-2">
+                                    <label>Company Logo</label>
+                                    <input id="image" type="file" name="image" class="form-control input-lg" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="companyname">Company Name</label>
+                                    <input id="companyname" class="form-control input-lg" type="text" name="companyname" placeholder="Company Name" required>
+                                </div>
+
+                                <div class="form-group mb-2">
+                                    <label for="cpassword">Confirm Password</label>
+                                    <input id="cpassword" class="form-control input-lg" type="password" name="cpassword" placeholder="Confirm Password" required>
+                                </div>
+
+                                <div class="form-group mb-2">
+                                    <label for="contactno">Contact Number</label>
+                                    <input id="contactno" class="form-control input-lg" type="text" name="contactno" placeholder="Phone Number" minlength="10" maxlength="10" autocomplete="off" onkeypress="return validatePhone(event);" required>
+                                </div>
+    
+                                
+                                <div class="form-group mb-2">
+                                    <label for="baranggay">Baranggay</label>
+                                    <select id="baranggay" class="form-control input-lg" id="baranggay" name="baranggay" required>
+                                        <option selected="" value="">Select baranggay</option>
+                                        <?php
+                                        $sql="SELECT * FROM baranggay";
+                                        $result=$conn->query($sql);
+
+                                        if($result->num_rows > 0) {
+                                            while($row = $result->fetch_assoc()) {
+                                            echo "<option value='".$row['baranggay_id']."' data-id='".$row['baranggay_id']."'>".$row['name']."</option>";
+                                            }
+                                        }
+                                        ?>                            
+                                    </select>
+                                </div> 
+                                <div class="form-group mb-2">
+                                    <label for="website">Website</label>
+                                    <input id="website" class="form-control input-lg" type="text" name="website" placeholder="Website">
+                                </div>                                                                                            
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label mb-2" for="terms">I accept terms & conditions. </label>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="buttons-sm buttons-color">Register</button>
+                        </div>                                                                       
+                    </form>
           
-        </div>
-      </div>
-    </section>
+                </div>
+            </div>
+        </section>
 
     
 
-  </div>
-  <!-- /.content-wrapper -->
-
-  <footer class="main-footer" style="margin-left: 0px; background:#7D0A0A">
-    <div class="text-center" style="color: white;">
-      <strong>Copyright &copy; 2024 <a href="#">Job Search</a>.</strong> All rights
-    reserved.
     </div>
-  </footer>
 
-  <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-  <div class="control-sidebar-bg"></div>
 
-</div>
-<!-- ./wrapper -->
+</body>
 
-<!-- jQuery 3 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="js/adminlte.min.js"></script>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
+<!-- JQuery JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
 
 <script type="text/javascript">
-      function validatePhone(event) {
+    function validatePhone(event) {
 
         //event.keycode will return unicode for characters and numbers like a, b, c, 5 etc.
         //event.which will return key for mouse events and other events like ctrl alt etc. 
         var key = window.event ? event.keyCode : event.which;
 
         if(event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
-          // 8 means Backspace
-          //46 means Delete
-          // 37 means left arrow
-          // 39 means right arrow
-          return true;
+            // 8 means Backspace
+            //46 means Delete
+            // 37 means left arrow
+            // 39 means right arrow
+            return true;
         } else if( key < 48 || key > 57 ) {
-          // 48-57 is 0-9 numbers on your keyboard.
-          return false;
+            // 48-57 is 0-9 numbers on your keyboard.
+            return false;
         } else return true;
-      }
-</script>
+    }
 
-<script>
-  $("#country").on("change", function() {
-    var id = $(this).find(':selected').attr("data-id");
-    $("#state").find('option:not(:first)').remove();
-    if(id != '') {
-      $.post("state.php", {id: id}).done(function(data) {
-        $("#state").append(data);
-      });
-      $('#stateDiv').show();
-    } else {
-      $('#stateDiv').hide();
-      $('#cityDiv').hide();
-    }
-  });
-</script>
+    $('#terms').on('change', function(e) {
+        const checkboxTerms = $(this); // Get the checkbox as a jQuery object
 
-<script>
-  $("#state").on("change", function() {
-    var id = $(this).find(':selected').attr("data-id");
-    $("#city").find('option:not(:first)').remove();
-    if(id != '') {
-      $.post("city.php", {id: id}).done(function(data) {
-        $("#city").append(data);
-      });
-      $('#cityDiv').show();
-    } else {
-      $('#cityDiv').hide();
-    }
-  });
+        // Use .prop() to check the checked state
+        if (checkboxTerms.prop('checked')) {
+            checkboxTerms.prop('checked', false);
+            const modal = document.getElementById('termsModal')
+            var myTerms = new bootstrap.Modal(modal);    
+            myTerms.show(); // Show toast
+        }
+    });
+
+    // Accept button inside the modal
+    $('#acceptTerms').on('click', function() {
+        const checkboxTerms = $('#terms'); // Get the checkbox
+
+        // Set checkbox to checked when terms are accepted
+        checkboxTerms.prop('checked', true);
+
+        // Close the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('termsModal'));
+        modal.hide();
+    });
+    $("#registerCompanies").on("submit", function(e) {
+        e.preventDefault();
+
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('cpassword').value;
+        const image = document.getElementById('image').files[0];
+
+
+        const toastSuccessMsg = document.getElementById('toast-success-msg')
+        const succToast = document.getElementById('successToast')
+        var successToast = new bootstrap.Toast(succToast);
+
+        const toastErrorMsg = document.getElementById('toast-error-msg')
+        const errToast = document.getElementById('errorToast')
+        var errorToast = new bootstrap.Toast(errToast);
+        
+        let errorMessage = '';
+
+        if (password !== confirmPassword) {
+            errorMessage = 'Passwords do not match!';
+        }
+        
+        if (image && !(image.type === 'image/jpeg' || image.type === 'image/png')) {
+            errorMessage = 'Only JPEG/PNG files are allowed for logo upload!';
+        }
+                
+        if (image && image.size > 1000000) {
+            errorMessage = 'File size exceeds 1mb.';
+        }
+        
+        if (errorMessage) {            
+            toastErrorMsg.textContent = errorMessage           
+            errorToast.show();
+            return;            
+        } 
+        
+
+        $.ajax({
+            url: '../process/Company/addcompany.php', // Update with your actual PHP script path
+            type: 'POST',
+            data: new FormData($('#registerCompanies')[0]), // Assuming you have a form with this ID
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function(response) {
+                       
+                if (response.success) {
+                    toastSuccessMsg.textContent = response.message;
+                    successToast.show();
+                    window.location.href = 'login-company.php';
+                } else {
+                    toastErrorMsg.textContent = response.message;
+                    errorToast.show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', error);
+            }
+        });
+                
+    });    
 </script>
-<script>
-  $("#registerCompanies").on("submit", function(e) {
-    e.preventDefault();
-    if( $('#password').val() != $('#cpassword').val() ) {
-      $('#passwordError').show();
-    } else {
-      $(this).unbind('submit').submit();
-    }
-  });
-</script>
-</body>
 </html>

@@ -16,7 +16,7 @@ require_once("../../database/db.php");
     <meta name="author" content="" />
     <title>JobSearch</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -24,41 +24,15 @@ require_once("../../database/db.php");
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     
-    <link href="../../css/styles.css" rel="stylesheet" />
-    <link href="../../css/mystyle.css" rel="stylesheet" />
-    <link href="../../css/body.css" rel="stylesheet" />
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/mystyle.css" rel="stylesheet" />
+    <link href="/css/body.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg text-uppercase fixed-top" style="background-color: #CA2B2D;" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="../../index.php">JobSearch</a>
-            <button class="navbar-toggler text-uppercase font-weight-bold rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #CA2B2D; color: white;">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded" href="jobs.php">Jobs</a></li>
-                    <li class="nav-item mx-0 mx-lg-1" style="margin-left: 20px; margin-right: 20px;">
-                        <hr class="d-lg-none" style="border-top: 2px solid white; width: 100%; margin: 10px 0;">
-                    </li>
-                    <?php if(empty($_SESSION['id_user']) && empty($_SESSION['id_company'])) { ?>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="../../login.php">Login</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="../../sign-up.php">Sign-up</a></li>
-                    <?php } else {
-                        if(isset($_SESSION['id_user'])) { ?>  
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="user/index.php">Dashboard</a></li>
-                        <?php } else if(isset($_SESSION['id_company'])) { ?>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="company/index.php">Dashboard</a></li>
-                        <?php } ?>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="logout.php">Log-out</a></li>                       
-                    <?php } ?>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/authnavigation.php';?>
 
     <div class="content-wrapper" style="margin-left: 0px; padding-top: calc(6rem + 42px);">
 
@@ -80,20 +54,24 @@ require_once("../../database/db.php");
                     <div class="col-md-9 bg-white p-4" >
                         <div class="d-flex justify-content-between align-items-center">
                             <h2 style="font-size: 42px;"><b><?php echo $row['jobtitle']; ?></b></h2>                        
-                            <a href="jobs.php" class="btn btn-default btn-lg btn-flat margin-top-20" style="background-color:#952323; color:white"><i class="fa fa-arrow-circle-left"></i> Back</a>
+                            <a href="jobs.php" class="buttons-sm buttons-color">
+                                <i class="fa fa-arrow-left" style="margin-right:1rem"></i> Back</a>
                         </div>
                       
                         <div style="display:flex; gap:6px;">              
                             <input type="text" id="baranggay-input" value="<?php echo $row['baranggay_name']; ?>" hidden/>              
-                            <div style="display:flex; gap:4px; align-items:center; justify-content:center; padding:4px; border: 1px solid #F2F3F5;">
+                            <div class="badge text-bg-info" style="display:flex; gap:4px; align-items:center; justify-content:center; padding:4px; border: 1px solid #F2F3F5;">
                                 <i class="fa fa-location-arrow text-green"></i> 
                                 <?php echo $row['baranggay_name']; ?>, Taguig City, Philippines
                             </div>
-                            <div style="display:flex; gap:4px; align-items:center; justify-content:center; padding:4px; border: 1px solid #F2F3F5;">
+                            <div class="badge text-bg-info" style="display:flex; gap:4px; align-items:center; justify-content:center; padding:4px; border: 1px solid #F2F3F5;">
                                 <i class="fa fa-calendar text-green"></i> <?php echo date("d-M-Y", strtotime($row['createdAt'])); ?>
                             </div>
-                            <div style="display:flex; gap:4px; align-items:center; justify-content:center; padding:4px; border: 1px solid #F2F3F5;">
+                            <div class="badge text-bg-info" style="display:flex; gap:4px; align-items:center; justify-content:center; padding:4px; border: 1px solid #F2F3F5;">
                                 <i class="fa fa-money-bill text-blue"></i> ₱<?php echo $row['minimumsalary']; ?> - ₱<?php echo $row['maximumsalary']; ?>
+                            </div>
+                            <div class="badge text-bg-info" style="display:flex; gap:4px; align-items:center; justify-content:center; padding:4px; border: 1px solid #F2F3F5;">
+                                <?php echo $row['job_type']; ?>
                             </div>
                         </div>
 
@@ -149,11 +127,11 @@ require_once("../../database/db.php");
             </div>
         </section>
 
-<?php 
-    }
-}
-?>
-</div>
+        <?php 
+            }
+        }
+        ?>
+    </div>
 
    
 

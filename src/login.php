@@ -15,7 +15,7 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
     <meta name="author" content="" />
     <title>JobSearch</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -23,9 +23,9 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
-    <link href="css/mystyle.css" rel="stylesheet" />
-    <link href="css/body.css" rel="stylesheet" />
+    <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/mystyle.css" rel="stylesheet" />
+    <link href="/css/body.css" rel="stylesheet" />
     <style>        
         .container-fluid {
             position: relative;
@@ -61,20 +61,6 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
             font-size: 2.5rem
         }
 
-        .buttons {
-            color: white;
-            background-color: #CA2B2D;
-            padding: 1rem 5rem;
-            border-radius: 6px;
-            font-size: 20px;
-            font-weight:bold;
-        }
-
-        .buttons:hover {
-            background-color: #B22222; 
-            color: white;           
-        }
-
         @media (max-width: 768px) {
             .box-title {
                 font-size: 2rem;
@@ -90,34 +76,8 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
     </style>
 </head>
 <body id="page-top">
-    
-    <nav class="navbar navbar-expand-lg text-uppercase fixed-top" style="background-color: #CA2B2D;" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">JobSearch</a>
-            <button class="navbar-toggler text-uppercase font-weight-bold rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #CA2B2D; color: white;">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded" href="src/job/jobs.php">Jobs</a></li>
-                    <li class="nav-item mx-0 mx-lg-1" style="margin-left: 20px; margin-right: 20px;">
-                        <hr class="d-lg-none" style="border-top: 2px solid white; width: 100%; margin: 10px 0;">
-                    </li>
-                    <?php if(empty($_SESSION['id_user']) && empty($_SESSION['id_company'])) { ?>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="login.php">Login</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="sign-up.php">Sign-up</a></li>
-                    <?php } else {
-                        if(isset($_SESSION['id_user'])) { ?>  
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="user/index.php">Dashboard</a></li>
-                        <?php } else if(isset($_SESSION['id_company'])) { ?>
-                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="company/index.php">Dashboard</a></li>
-                        <?php } ?>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="logout.php">Log-out</a></li>                       
-                    <?php } ?>
-                </ul>
-            </div>
-        </div>
-    </nav>
+        
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/authnavigation.php'; ?>
 
     <div class="masthead container-fluid d-flex align-items-center min-vh-100 position-relative">
         <div class="w-100 d-flex flex-column flex-md-row" style="flex-grow: 1; z-index: 1; position: relative;">
@@ -127,7 +87,7 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
                     <div class="inner text-center">
                         <h3 class="box-title">Candidates Login</h3>
                     </div>
-                    <a href="src/Candidate/login-candidates.php" class="small-box-footer btn font-weight-bold btn-lg mt-4 text-light buttons" style="border-radius: 8px;">
+                    <a href="/src/Candidate/login-candidates.php" class="buttons buttons-color" >
                         <i class="fa fa-arrow-right" style="margin-right: 1rem;"></i> LOG IN 
                     </a>
                     <div></div>
@@ -141,7 +101,7 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
                     <div class="inner text-center">
                         <h3 class="box-title" >Company Login</h3>
                     </div>
-                    <a href="src/Company/login-company.php" class="small-box-footer btn buttons font-weight-bold btn-lg mt-4 text-light" style="border-radius: 8px;">
+                    <a href="/src/Company/login-company.php" class="buttons buttons-color">
                         <i class="fa fa-arrow-right" style="margin-right: 1rem;"></i> LOG IN 
                     </a>
                     <div></div>
@@ -151,7 +111,7 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
 
         <!-- Background Image -->
         <div class="fixed-bottom" style="z-index: 0; pointer-events: none; ">
-            <img src="./assets/bot.png" alt="Footer Background" style="width: 100%; height: 100%; object-fit: cover;">
+            <img src="/assets/bot.png" alt="Footer Background" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
     </div>
 
@@ -163,7 +123,7 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+<script src="/js/scripts.js"></script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
