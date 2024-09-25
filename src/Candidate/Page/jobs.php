@@ -86,12 +86,12 @@ $result = $conn->query($sql);
                 class="btn btn-primary d-block d-lg-none" 
                 type="button" 
                 data-bs-toggle="offcanvas" 
-                data-bs-target="#offcanvasWithBothOptions" 
+                data-bs-target="#candidate" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i>
             </button>
             <h1 class="text-center my-4">LATEST 
             <span style="color: #7D0A0A;">OFFERS</span></h1>
-            <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/search.php';?>   
+            <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/search.php';?>
             <section id="jobs" class="content-header ">
                 <div class="container">
                     <div class="row bg-light p-4">
@@ -243,6 +243,7 @@ $result = $conn->query($sql);
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
   $("#changePassword").on("submit", function(e) {
     e.preventDefault();

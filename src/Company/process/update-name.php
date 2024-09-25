@@ -3,7 +3,7 @@
 //To Handle Session Variables on This Page
 session_start();
 
-if(empty($_SESSION['id_user'])) {
+if(empty($_SESSION['id_company'])) {
   header("Location: /src/index.php");
   exit();
 }
@@ -23,29 +23,24 @@ function jsonResponse($success, $message) {
 function escapeInput($conn, $data) {
     return mysqli_real_escape_string($conn, $data);
 }
-
-
-//If user Actually clicked login button 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
 	//Escape Special Characters in String
-	$password = escapeInput($conn, $_POST['password']);
-
-	//Encrypt Password
-	$password = password_hash($password, PASSWORD_DEFAULT);
+	$name = escapeInput($conn, $_POST['name']);
 
 	//sql query to check user login
-	$sql = "UPDATE users SET password='$password' WHERE id_users='$_SESSION[id_user]'";
-	if($conn->query($sql) === true) {
-		jsonResponse(true, "Password updated!");
+	$stmt = $conn->prepare("UPDATE company SET name= ? 
+	WHERE id_company=?");
+	$stmt->bind_param("ss", $name, $_SESSION['id_company']);
+
+	if($stmt->execute()) {
+		jsonResponse(true, "Name updated.");
 	} else {
 		jsonResponse(false, "Something went wrong.");
 	}
-
- 	//Close database connection. Not compulsory but good practice.
+	
 	$stmt->close();
 	$conn->close();
+
 } else {
 	jsonResponse(false, "Invalid request method.");
- }
- 
+}

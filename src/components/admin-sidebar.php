@@ -1,5 +1,5 @@
 
-<div class="container smaller bg-light mx-auto mb-3 d-none d-lg-block"> 
+<div class="container smaller bg-light mx-auto d-none d-lg-block" style="overflow: hidden;"> 
     <h1 class="text-center" style="margin-top: 30px;">WELCOME 
         <span style="color: #7D0A0A;">ADMIN</span>
     </h1>

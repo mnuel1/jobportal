@@ -48,8 +48,8 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/database/db.php");
                 data-bs-target="#offcanvasWithBothOptions" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
-            <h1 class="text-center my-4">Our 
-            <span style="color: #7D0A0A;">Statistics</span></h1>
+            <h1 class="text-center my-4">OUR 
+            <span style="color: #7D0A0A;">STATISTICS</span></h1>
             <div class="row">
                 <div class="col-md-6 col-12">
                     <div class="statistic-box">

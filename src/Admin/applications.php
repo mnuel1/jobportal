@@ -66,8 +66,8 @@ $result = $conn->query($sql);
                 data-bs-toggle="offcanvas" 
                 data-bs-target="#offcanvasWithBothOptions" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
-            <h1 class="text-center my-4">Canditates 
-            <span style="color: #7D0A0A;">Database</span></h1>
+            <h1 class="text-center my-4">CANDIDATES 
+            <span style="color: #7D0A0A;">DATABASE</span></h1>
             <form method="GET" action="">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Search here..." name="search" value="<?php echo htmlspecialchars($search); ?>">
@@ -102,7 +102,7 @@ $result = $conn->query($sql);
                                 <td>
                                     <?php
                                         foreach ($skills as $value) {
-                                            echo ' <span class="label">'.$value.'</span>';
+                                            echo ' <span class="badge text-bg-info">'.$value.'</span>';
                                         }
                                     ?>
                                 </td>
@@ -110,8 +110,12 @@ $result = $conn->query($sql);
                                 <td>Taguig City</td>
                                 <td>Metro Manila</td>
                                 <?php if($row['resume'] != '') { ?>
-                                    <td style="display:flex; justify-content:center"><a href="/uploads/resume/<?php echo $row['resume']; ?>" 
-                                    download="<?php echo $row['firstname'].' Resume'; ?>"><i class="fa-regular fa-file-pdf"></i></i></a></td>
+                                    <td style="display:flex; justify-content:center">
+                                        <a href="/uploads/resume/<?php echo $row['resume']; ?>" 
+                                    download="<?php echo $row['firstname'].' Resume'; ?>">
+                                    <i class="fa-regular fa-file-pdf"></i>
+                                    </a>
+                                </td>
                                 <?php } else { ?>
                                     <td>No Resume Uploaded</td>
                                 <?php } ?>

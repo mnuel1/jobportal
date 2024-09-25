@@ -16,7 +16,7 @@
         </button>
 
         <!-- Search Button -->
-        <button class="input-group-text search-btn" type="submit">
+        <button class="input-group-text buttons-sm buttons-color" type="submit">
             Search
         </button>
     </div>               

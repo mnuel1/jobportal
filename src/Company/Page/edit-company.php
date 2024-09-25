@@ -4,7 +4,7 @@
 session_start();
 
 //If user Not logged in then redirect them back to homepage. 
-if(empty($_SESSION['id_user'])) {
+if(empty($_SESSION['id_company'])) {
   header("Location: /src/index.php");
   exit();
 }
@@ -17,90 +17,90 @@ require_once("../../../database/db.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>JobSearch</title>
-    <!-- Favicon -->
+    
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-    <!-- Font Awesome icons -->
+    
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google Fonts -->
+    
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/mystyle.css" rel="stylesheet" />
     <link href="/css/body.css" rel="stylesheet" />
 </head>
 <body>
+<div>
 
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/admin-nav.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
-    
-
-    
     <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
-        
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/candidate-sidebar.php';?>
-        <div class="container larger bg-light mx-auto" style="padding: 24px;">
+
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/company-sidebar.php';?>
+        <div class="container larger bg-light mx-auto">
             <button 
                 style="margin-top: 20px;"
                 class="btn btn-primary d-block d-lg-none" 
                 type="button" 
                 data-bs-toggle="offcanvas" 
-                data-bs-target="#candidate" 
-                aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
-            
-            <h1 class="text-center my-4">EDIT 
-            <span style="color: #7D0A0A;">PROFILE</span></h1>
-            
-            <form method="post" enctype="multipart/form-data" id="updateCandidate">
-                <?php
-                    //Sql to get logged in user details.
-                    $sql = "SELECT * FROM users WHERE id_users='$_SESSION[id_user]'";
-                    $result = $conn->query($sql);
+                data-bs-target="#company" 
+                aria-controls="offcanvasWithBothOptions">
+                <i class="fa-solid fa-bars"></i>
+            </button>
 
-                    //If user exists then show his details.
-                    if($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
+            <h1 class="text-center my-4"> MY
+            <span style="color: #7D0A0A;">COMPANY</span></h1>
+            <p style="font-size: small; color:gray"><i>In this section you can change your company details</i></p>
+            
+            <form id="updateCompany" method="post" enctype="multipart/form-data">
+                <?php
+                $sql = "SELECT * FROM company WHERE id_company='$_SESSION[id_company]'";
+                $result = $conn->query($sql);
+
+                if($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
                 ?>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group mb-2">
-                            <label for="fname">First Name</label>
-                            <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" onkeypress="return validateName(event);" value="<?php echo $row['firstname']; ?>" required="">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="email">Email Address</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo $row['email']; ?>">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="aboutme">About Me</label>
-                            <textarea class="form-control" rows="4" name="aboutme"><?php echo $row['aboutme']; ?></textarea>
-                        </div>                        
-                        <div class="form-group mb-2">
-                            <label for="qualification">Highest Qualification</label>
-                            <input type="text" class="form-control" id="qualification" name="qualification" placeholder="Highest Qualification" value="<?php echo $row['qualification']; ?>">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="stream">Stream</label>
-                            <input type="text" class="form-control" id="stream" name="stream" placeholder="stream" value="<?php echo $row['stream']; ?>">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group mb-2">
-                            <label for="lname">Last Name</label>
-                            <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" onkeypress="return validateName(event);" value="<?php echo $row['lastname']; ?>" required="">
-                        </div>                        
-                        <div class="form-group mb-2">
-                            <label for="contactno">Contact Number</label>
-                            <input type="text" class="form-control" id="contactno" name="contactno" placeholder="Contact Number" onkeypress="return validatePhone(event);" maxlength="10" minlength="10" value="<?php echo $row['contactno']; ?>">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="address">Address</label>
-                            <textarea id="address" name="address" class="form-control" rows="4" placeholder="Address"><?php echo $row['address']; ?></textarea>
+                    <div class="col-md-6 col-12"> 
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" class="form-control input-lg" name="companyname" value="<?php echo $row['companyname']; ?>" required="">
                         </div>
                         <div class="form-group">
+                            <label>Website</label>
+                            <input type="text" class="form-control input-lg" name="website" value="<?php echo $row['website']; ?>" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control input-lg" id="email" placeholder="Email" value="<?php echo $row['email']; ?>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>About Me</label>
+                            <textarea class="form-control input-lg" rows="4" name="aboutme"><?php echo $row['aboutme']; ?></textarea>
+                        </div>
+                        <div class="form-group" style="margin: 12px 0px;">
+                            <button type="submit" class="buttons-sm buttons-color">Update Company Profile</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-12"> 
+                        <div class="form-group">
+                            <label for="contactno">Contact Number</label>
+                            <input type="text" class="form-control input-lg" id="contactno" name="contactno" placeholder="Contact Number" onkeypress="return validatePhone(event);" minlength="10" maxlength="10" value="<?php echo $row['contactno']; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control input-lg" id="city" name="city" onkeypress="return validateName(event);" value="Taguig City" placeholder="City" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" class="form-control input-lg" id="state" onkeypress="return validateName(event);" name="state" placeholder="State" value="Metro Manila" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="baranggay">Baranggay</label>
                             <select class="form-control input-lg" id="baranggay" name="baranggay" required>
                             <option value="">Select baranggay</option>
                                 <?php
@@ -121,53 +121,43 @@ require_once("../../../database/db.php");
                                             echo "<option value='".$baranggay['baranggay_id']."' data-id='".$baranggay['id']."' $isSelected>".$baranggay['name']."</option>";
                                         }
                                     }
-                                ?>
-
-                            
+                                ?>                            
                             </select>
                         </div>
-                        <div class="form-group mb-2">
-                            <label for="skills">Skills</label>
-                            <textarea class="form-control" rows="4" name="skills" onkeypress="return validateName(event);" ><?php echo $row['skills']; ?></textarea>
-                        </div>                        
-                        <div class="form-group mb-2">
-                            <span>Resume</span>
-                            <input type="file" name="resume" id="resume" class="form-control">
-                            <label style="color: red; font-size:small"> PDF Only</label>
+                        <div class="form-group" style="display:flex; flex-direction:column">
+                            <label>Change Company Logo</label>
+                            <input type="file" id="image" 
+                            name="image" style="margin:12px 0px;">
+                            <?php if($row['logo'] != "") { ?>
+                                <img src="/uploads/logo/<?php echo $row['logo']; ?>" 
+                                class="img-responsive" style="max-height: 200px; max-width: 200px;">
+                            <?php } ?>
                         </div>
-                        
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="buttons-sm buttons-color">Update Account</button>
                     </div>
                 </div>
                 <?php
-                        }
                     }
-                ?>   
-            </form>            
+                }
+                ?>  
+            </form>
+
+          
+            
+          </div>
         </div>
-    </div>
 
-
-<!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<!-- jQuery 3 -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- Bootstrap core JS-->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
 <script type="text/javascript">
-                            
-    function validatePhone(event) {
+   function validatePhone(event) {
 
         //event.keycode will return unicode for characters and numbers like a, b, c, 5 etc.
         //event.which will return key for mouse events and other events like ctrl alt etc. 
         var key = window.event ? event.keyCode : event.which;
 
-        if(event.keyCode == 8 || event.keyCode == 127 || event.keyCode == 37 || event.keyCode == 39) {
+        if(event.keyCode == 8 || event.keyCode == 46 || event.keyCode == 37 || event.keyCode == 39) {
             // 8 means Backspace
             //46 means Delete
             // 37 means left arrow
@@ -178,7 +168,6 @@ require_once("../../../database/db.php");
             return false;
         } else return true;
     }
-
 
     function validateName(event) {
 
@@ -195,11 +184,10 @@ require_once("../../../database/db.php");
         } else return true;
     }
 
-    $("#updateCandidate").on("submit", function(e) {
+    $("#updateCompany").on("submit", function(e) {
         e.preventDefault();
-       
-        const resume = document.getElementById('resume').files[0];
-
+    
+        const image = document.getElementById('image').files[0];
 
         const toastSuccessMsg = document.getElementById('toast-success-msg')
         const succToast = document.getElementById('successToast')
@@ -210,13 +198,12 @@ require_once("../../../database/db.php");
         var errorToast = new bootstrap.Toast(errToast);
         
         let errorMessage = '';
-
-        
-        if (resume && resume.type !== 'application/pdf') {
-            errorMessage = 'Only PDF files are allowed for resume upload!';
+               
+        if (image && !(image.type === 'image/jpeg' || image.type === 'image/png')) {
+            errorMessage = 'Only JPEG/PNG files are allowed for logo upload!';
         }
                 
-        if (resume && resume.size > 1000000) {
+        if (image && image.size > 1000000) {
             errorMessage = 'File size exceeds 1mb.';
         }
         
@@ -228,9 +215,9 @@ require_once("../../../database/db.php");
         
 
         $.ajax({
-            url: '../process/update-profile.php', // Update with your actual PHP script path
+            url: '../process/update-company.php', // Update with your actual PHP script path
             type: 'POST',
-            data: new FormData($('#updateCandidate')[0]), // Assuming you have a form with this ID
+            data: new FormData($('#updateCompany')[0]), // Assuming you have a form with this ID
             processData: false,
             contentType: false,
             dataType: 'json',
@@ -238,18 +225,23 @@ require_once("../../../database/db.php");
                        
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
-                    successToast.show();                    
+                    successToast.show();
+                    
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
                 }
             },
             error: function(xhr, status, error) {
+                console.log(error);
+                console.log(xhr);
+                
+                
                 console.error('AJAX Error:', error);
             }
         });
-                
-    });
+      
+    })
 </script>
 </body>
 </html>

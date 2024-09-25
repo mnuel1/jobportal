@@ -1,9 +1,10 @@
 <?php
 
+
 //To Handle Session Variables on This Page
 session_start();
 
-if(empty($_SESSION['id_user'])) {
+if(empty($_SESSION['id_company'])) {
   header("Location: /src/index.php");
   exit();
 }
@@ -23,29 +24,25 @@ function jsonResponse($success, $message) {
 function escapeInput($conn, $data) {
     return mysqli_real_escape_string($conn, $data);
 }
-
-
-//If user Actually clicked login button 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+	$to  = $_POST['to'];
 
-	//Escape Special Characters in String
-	$password = escapeInput($conn, $_POST['password']);
-
-	//Encrypt Password
-	$password = password_hash($password, PASSWORD_DEFAULT);
-
-	//sql query to check user login
-	$sql = "UPDATE users SET password='$password' WHERE id_users='$_SESSION[id_user]'";
-	if($conn->query($sql) === true) {
-		jsonResponse(true, "Password updated!");
+	$subject = escapeInput($conn, $_POST['subject']);
+	$message = escapeInput($conn, $_POST['description']);
+	$type = 'company';
+	$stmt = $conn->prepare("INSERT INTO mailbox (id_fromuser, fromuser, id_touser, subject, message) 
+	VALUES (?, ?, ?, ?, ?)");
+	$stmt->bind_param("sssss", $_SESSION['id_company'], $type, $to, $subject, $message);
+	
+	if($stmt->execute()) {
+		jsonResponse(true, "Email Sent.");
 	} else {
 		jsonResponse(false, "Something went wrong.");
 	}
-
- 	//Close database connection. Not compulsory but good practice.
+	
 	$stmt->close();
 	$conn->close();
+
 } else {
 	jsonResponse(false, "Invalid request method.");
- }
- 
+}

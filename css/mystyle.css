@@ -70,6 +70,11 @@ a:hover {
     background-color: #B22222; /* Darker red on hover */
 }
 
+.msg-status {
+    font-size:large;
+    font-weight:bold
+}
+
 @media (max-width: 768px) {
     .job-title {
         font-size: 1rem; /* Job title font size */
@@ -79,6 +84,11 @@ a:hover {
     }
     .salary {       
         font-size: 1rem; /* Salary font size */
+    }
+
+    .msg-status {
+        font-size: 0.5rem;
+        
     }
 }
 
@@ -91,6 +101,10 @@ a:hover {
     }
     .salary {       
         font-size: .75rem; /* Salary font size */
+    }
+    .msg-status {
+        font-size:0.5rem;
+        
     }
 }
 

@@ -48,7 +48,7 @@ require_once("../../../database/db.php");
                 class="btn btn-primary d-block d-lg-none" 
                 type="button" 
                 data-bs-toggle="offcanvas" 
-                data-bs-target="#offcanvasWithBothOptions" 
+                data-bs-target="#candidate" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i>
             </button>
             <h1 class="text-center my-4">PASSWORD 
@@ -91,6 +91,7 @@ require_once("../../../database/db.php");
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 <script>
     $("#changePassword").on("submit", function(e) {
         e.preventDefault();
@@ -154,7 +155,7 @@ require_once("../../../database/db.php");
             checkboxdeact.prop('checked', false);
             const modal = document.getElementById('confirmModal')
             const msg = document.getElementById('confirm-msg')
-            msg.textContent = `Are you sure you want to deactivate your account? If you are sure don't 
+            msg.textContent = `Are you sure you want to deactivate your account? If you are not sure don't 
             worry you can reactivate it by logging in again to your account.`
             
             var mydeact = new bootstrap.Modal(modal);    
@@ -194,7 +195,8 @@ require_once("../../../database/db.php");
                        
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
-                    successToast.show();                    
+                    successToast.show();
+                    window.location.href = '/src/index.php';
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();

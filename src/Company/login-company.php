@@ -156,7 +156,7 @@ require_once("../../database/db.php");
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-                    window.location.href = 'login-company.php';
+                    window.location.href = '/src/Company/Page/index.php';
                 } else {
                     console.log(response.message);
                     

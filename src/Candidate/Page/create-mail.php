@@ -52,7 +52,7 @@ require_once("../../../database/db.php");
                 class="btn btn-primary d-block d-lg-none" 
                 type="button" 
                 data-bs-toggle="offcanvas" 
-                data-bs-target="#offcanvasWithBothOptions" 
+                data-bs-target="#candidate" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
             <h1 class="text-center my-4">COMPOSE 
@@ -104,16 +104,23 @@ require_once("../../../database/db.php");
   
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<!-- JQuery JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
 <script>
 
     $("#addMail").on("submit", function(e) {
         e.preventDefault();
+
+        const descriptionContent = tinymce.get('description').getContent();
+        $('#description').val(descriptionContent);
+
         const toastSuccessMsg = document.getElementById('toast-success-msg')
         const succToast = document.getElementById('successToast')
         var successToast = new bootstrap.Toast(succToast);
-
+        
         const toastErrorMsg = document.getElementById('toast-error-msg')
         const errToast = document.getElementById('errorToast')
         var errorToast = new bootstrap.Toast(errToast);

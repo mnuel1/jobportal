@@ -1,5 +1,5 @@
 
-<div class="container smaller bg-light mx-auto d-none d-lg-block"> 
+<div class="container smaller bg-light mx-auto d-none d-lg-block" style="overflow: hidden;"> 
     <h1 class="text-center" style="margin-top: 30px;">WELCOME 
         <span style="color: #7D0A0A;"><?php echo strtoupper($_SESSION['name']); ?></span>
     </h1>
@@ -37,7 +37,10 @@
     </div>
 </div>
 
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+<div class="offcanvas offcanvas-start" 
+data-bs-scroll="true" tabindex="-1" 
+id="candidate" 
+aria-labelledby="offcanvasWithBothOptionsLabel">
     <div class="offcanvas-header">
         <div></div>                    
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

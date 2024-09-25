@@ -79,10 +79,10 @@ if($result->num_rows >  0 ){
         <div class="container larger bg-light mx-auto" style="padding: 24px;">
             <button 
                 style="margin-top: 20px;"
-                class="btn btn-primary d-block d-lg-none" 
+                class="btn btn-primary d-block d-lg-none mb-2" 
                 type="button" 
                 data-bs-toggle="offcanvas" 
-                data-bs-target="#offcanvasWithBothOptions" 
+                data-bs-target="#candidate" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
                 
                 <div class="box box-primary">                    
@@ -158,9 +158,11 @@ if($result->num_rows >  0 ){
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<!-- jQuery 3 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- JQuery JS-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
 
 </body>
 </html>

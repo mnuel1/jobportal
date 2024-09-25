@@ -104,3 +104,27 @@ body {
 .links:hover {           
     color: white;          
 }
+
+.statusBtn {
+    padding: 4px;
+    color: white;            
+    border-radius: 4px;
+    background-color: #CA2B2D;
+    cursor: pointer;
+}
+
+.statusBtn:hover {
+    background-color: #7D0A0A;
+    color: white;
+}
+.trash {
+    color: #CA2B2D;
+}
+.trash:hover {
+    color: #7D0A0A;
+}
+.statuscont {
+    display: flex;
+    gap: 4px;
+
+}

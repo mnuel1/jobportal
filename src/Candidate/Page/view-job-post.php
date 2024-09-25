@@ -49,7 +49,7 @@ require_once("../../../database/db.php");
                 class="btn btn-primary d-block d-lg-none" 
                 type="button" 
                 data-bs-toggle="offcanvas" 
-                data-bs-target="#offcanvasWithBothOptions" 
+                data-bs-target="#candidate" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i>
             </button>          
             <?php
@@ -74,7 +74,7 @@ require_once("../../../database/db.php");
                                     <i class="fa fa-arrow-left" style="margin-right:1rem"></i> Back</a>
                             </div>
                         
-                            <div style="display:flex; gap:6px;">              
+                            <div style="display:flex; gap:6px; overflow:auto">              
                                 <input type="text" id="baranggay-input" value="<?php echo $row['baranggay_name']; ?>" hidden/>              
                                 <div class="badge text-bg-info" style="display:flex; gap:4px; align-items:center; justify-content:center; padding:4px; border: 1px solid #F2F3F5;">
                                     <i class="fa fa-location-arrow text-green"></i> 
@@ -103,7 +103,7 @@ require_once("../../../database/db.php");
                         <div class="col-md-3 d-flex flex-column gap-3">
                             <div class="card">
                                 <div class="card-header" style="background-color:white;">
-                                    <img src="../../uploads/logo/<?php echo $row['logo']; ?>" alt="companylogo" style="max-width: 100%;">
+                                    <img src="/uploads/logo/<?php echo $row['logo']; ?>" alt="companylogo" style="max-width: 100%;">
                                 </div>
                                 <div class="card-body">
                                     <div class="caption text-center">
@@ -119,7 +119,7 @@ require_once("../../../database/db.php");
                                                 </div>
                                                 <?php if(isset($_SESSION["id_user"]) && empty($_SESSION['companyLogged'])) { ?>
                                                     <div>
-                                                        <a href="apply.php?id=<?php echo $row['id_jobpost']; ?>" class="btn btn-success btn-flat margin-top-50">Apply</a>
+                                                        <a href="#" data-id="<?php echo $row['id_jobpost']; ?>" class="apply btn btn-success btn-flat margin-top-50">Apply</a>
                                                     </div>
                                                 <?php } ?>
                                                 <div style="display:flex; align-items:center;">
@@ -171,13 +171,11 @@ require_once("../../../database/db.php");
         if (data.results.length > 0) {
             const { lat, lng } = data.results[0].geometry;
             return { lat, lng };
-        } else {
-            alert('Location not found');
+        } else {        
             return null;
         }
     } catch (error) {
-        console.error('Error fetching coordinates:', error);
-        alert('Error fetching coordinates');
+        console.error('Error fetching coordinates:', error);        
         return null;
     }
   }
@@ -206,14 +204,34 @@ require_once("../../../database/db.php");
   showLocationMap()
 </script>
 <script>
-  $("#changePassword").on("submit", function(e) {
-    e.preventDefault();
-    if( $('#password').val() != $('#cpassword').val() ) {
-      $('#passwordError').show();
-    } else {
-      $(this).unbind('submit').submit();
-    }
-  });
+    $(".apply").on("click", function(e) {
+        e.preventDefault();
+        const toastSuccessMsg = document.getElementById('toast-success-msg')
+        const succToast = document.getElementById('successToast')
+        var successToast = new bootstrap.Toast(succToast);
+
+        const toastErrorMsg = document.getElementById('toast-error-msg')
+        const errToast = document.getElementById('errorToast')
+        var errorToast = new bootstrap.Toast(errToast);
+        const jobPostId = this.getAttribute('data-id');
+        $.ajax({
+            url: `../process/apply.php?id_jobpost=${jobPostId}`, // Update with your actual PHP script path
+            type: 'GET',           
+            success: function(response) {
+                       
+                if (response.success) {
+                    toastSuccessMsg.textContent = response.message;
+                    successToast.show();                    
+                } else {
+                    toastErrorMsg.textContent = response.message;
+                    errorToast.show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', error);
+            }
+        });
+    });
 </script>
 </body>
 </html>

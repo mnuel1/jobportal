@@ -30,48 +30,34 @@ $result = $conn->query($sql);
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <title>JobSearch</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
-    <!-- Font Awesome icons -->
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">    
+        
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/mystyle.css" rel="stylesheet" />
     <link href="/css/body.css" rel="stylesheet" />
+
+  
   
 </head>
 <body>
 
 
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/admin-nav.php';?>
-    <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-            Are you sure you want to delete this company?
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <a href="#" id="confirmDeleteButton" class="btn btn-danger">Delete</a>
-            </div>
-        </div>
-        </div>
-    </div>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/confirmModal.php';?>
   
     <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
 
@@ -84,8 +70,8 @@ $result = $conn->query($sql);
                 data-bs-toggle="offcanvas" 
                 data-bs-target="#offcanvasWithBothOptions" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
-            <h1 class="text-center my-4">Companies 
-            <span style="color: #7D0A0A;">Database</span></h1>
+            <h1 class="text-center my-4">COMPANIES 
+            <span style="color: #7D0A0A;">DATABASE</span></h1>
             <form method="GET" action="">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Search here..." name="search" value="<?php echo htmlspecialchars($search); ?>">
@@ -96,7 +82,7 @@ $result = $conn->query($sql);
                 <div class="col-md-12">
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
-                            <thead style="background-color: #7D0A0A; color:white;">
+                            <thead style="background-color: #7D0A0A; color:white; ">
                                 <tr>
                                     <th>Company Name</th>
                                     <th>Account Creator Name</th>
@@ -127,7 +113,23 @@ $result = $conn->query($sql);
                                                 if ($row['active'] == '1') {
                                                     echo "Activated";
                                                 } else if ($row['active'] == '2') {
-                                                    echo '<a href="./process/reject-company.php?id=' . $row['id_company'] . '">Reject</a> <a href="approve-company.php?id=' . $row['id_company'] . '">Approve</a>';
+                                                    echo '                                                   
+                                                    <div class="statuscont"> 
+                                                        <a 
+                                                            class="statusBtn" 
+                                                            data-url="./process/reject-company.php?id=' . $row['id_company'] . '" 
+                                                            data-action="reject">
+                                                            Reject
+                                                        </a> 
+                                                        <a 
+                                                            class="statusBtn" 
+                                                            data-url="./process/approve-company.php?id=' . $row['id_company'] . '" 
+                                                            data-action="approve">
+                                                            Approve
+                                                        </a>
+                                                    </div>
+                                                    ';
+                                                    
                                                 } else if ($row['active'] == '3') {
                                                     echo '<a href="./process/approve-company.php?id=' . $row['id_company'] . '">Reactivate</a>';
                                                 } else {
@@ -136,8 +138,9 @@ $result = $conn->query($sql);
                                                 ?>
                                             </td>
                                             <td>
-                                                <a href="#" data-toggle="modal" data-target="#confirmDeleteModal" data-id="<?php echo $row['id_company']; ?>">
-                                                    <i class="fa fa-trash" style="color: #7D0A0A;"></i>
+                                                <a href="#" class="deleteCompany" data-toggle="modal" data-target="#confirmDeleteModal" 
+                                                data-id="<?php echo $row['id_company']; ?>">
+                                                    <i class="fa fa-trash trash" ></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -168,17 +171,138 @@ $result = $conn->query($sql);
         </div>
     </div>
     
-<!-- jQuery 3 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap core JS-->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<!-- JQuery JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>   
+
+
 <script>
-  $('#confirmDeleteModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget); // Button that triggered the modal
-    var companyId = button.data('id'); // Extract info from data-* attributes
-    var deleteUrl = 'delete-company.php?id=' + companyId;
-    $('#confirmDeleteButton').attr('href', deleteUrl);
-  });
+    let companyId = null; 
+    let actionUrl = null;
+    let actionType = null;
+    
+    $('#confirmThis').on('click', function() {
+
+        const toastSuccessMsg = document.getElementById('toast-success-msg')
+        const succToast = document.getElementById('successToast')
+        var successToast = new bootstrap.Toast(succToast);
+
+        const toastErrorMsg = document.getElementById('toast-error-msg')
+        const errToast = document.getElementById('errorToast')
+        var errorToast = new bootstrap.Toast(errToast);
+
+        if (actionType === 'delete') {         
+            var deleteUrl = './process/delete-company.php?id=' + companyId;
+            
+            $.ajax({
+                url: deleteUrl, 
+                method: 'GET',
+                success: function(response) {                
+                    if (response.success) {
+                        // Show success message
+                        toastSuccessMsg.textContent = response.message;
+                        successToast.show();   
+                        
+                        // Hide the modal after action
+                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+                        confirmModal.hide();                 
+                    } else {
+                        toastErrorMsg.textContent = response.message;
+                        errorToast.show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', error);
+                }
+            });            
+        } 
+
+        // Handle approve or reject actions
+        if (actionType === 'reject') {
+            $.ajax({
+                url: actionUrl, 
+                method: 'GET',
+                success: function(response) {                
+                    if (response.success) {
+                        // Show success message
+                        toastSuccessMsg.textContent = response.message;
+                        successToast.show();   
+                        
+                        // Hide the modal after action
+                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+                        confirmModal.hide();                 
+                    } else {
+                        toastErrorMsg.textContent = response.message;
+                        errorToast.show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', error);
+                }
+            });
+        } else if (actionType === 'approve') {
+            $.ajax({
+                url: actionUrl, 
+                method: 'GET',
+                success: function(response) {                
+                    if (response.success) {
+                        // Show success message
+                        toastSuccessMsg.textContent = response.message;
+                        successToast.show();   
+                        
+                        // Hide the modal after action
+                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+                        confirmModal.hide();                 
+                    } else {
+                        toastErrorMsg.textContent = response.message;
+                        errorToast.show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', error);
+                }
+            });
+        }
+    });
+
+    $('.statusBtn').on('click', function(event) {
+        event.preventDefault(); // Prevent the default action (navigation)
+
+        // Get the action URL and type from the clicked element's data attributes
+        actionUrl = $(this).data('url');
+        actionType = $(this).data('action');
+
+        const modal = document.getElementById('confirmModal')
+        const msg = document.getElementById('confirm-msg')
+        if (actionType === 'reject') {
+            msg.textContent = 'Are you sure you want to reject this company?';
+        } else if (actionType === 'approve') {
+            msg.textContent = 'Are you sure you want to approve this company?';
+        }
+
+        // Show the confirmation modal
+        var confirmModal = new bootstrap.Modal(modal);
+        confirmModal.show();
+    });
+
+    $('.deleteCompany').on('click', function (event) {
+        event.preventDefault(); // Prevent default anchor behavior
+              
+        const modal = document.getElementById('confirmModal')
+        const msg = document.getElementById('confirm-msg')
+        msg.textContent = `Are you sure you want to delete this company? Deleting a company
+        is irreversible.`
+        
+        var delCompanyModal = new bootstrap.Modal(modal);    
+        delCompanyModal.show(); // Show toast
+        actionType = "delete";
+        companyId = $(this).data('id');
+             
+       
+    });
+
 </script>
 </body>
 </html>

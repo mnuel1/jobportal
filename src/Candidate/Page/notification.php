@@ -71,7 +71,7 @@ $result = $conn->query($sql);
                 class="btn btn-primary d-block d-lg-none" 
                 type="button" 
                 data-bs-toggle="offcanvas" 
-                data-bs-target="#offcanvasWithBothOptions" 
+                data-bs-target="#candidate" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
             <h1 class="text-center my-4">MY 
@@ -119,7 +119,7 @@ $result = $conn->query($sql);
                                             <h4 class="job-title mb-1"><?php echo $row['jobtitle']; ?></h4>
                                             
                                             <!-- Message based on status -->
-                                            <p class="<?php echo $color; ?>" style="font-size:large; font-weight:bold"><?php echo $message; ?></p>
+                                            <p class="<?php echo $color; ?> msg-status"><?php echo $message; ?></p>
                                         </div>
                                         <div class="d-flex flex-column justify-content-between" style="height: 100%;">
                                             <h5 class="salary mb-0">₱<?php echo $row['maximumsalary']; ?>/Month</h5>
@@ -152,9 +152,10 @@ $result = $conn->query($sql);
   
 
 <!-- jQuery 3 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
 </body>
