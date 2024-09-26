@@ -102,7 +102,7 @@ require_once("../../database/db.php");
                 <div class="mb-3 d-flex items-align-center justify-content-between">
                 
                         <a href="register-company.php" class="links">No account yet? Click here</a>
-                        <a href="#" class="links">I forgot my password</a>
+                        <a href="/src/company-forgot-password.php" class="links">I forgot my password</a>
                 
                     
                 </div>

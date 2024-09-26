@@ -1,3 +1,19 @@
+<?php
+
+$meetingName = urldecode($_GET["meetingname"]);
+$meetingDate = urldecode($_GET["meetingdate"]); 
+
+// Check if the meeting date and time match today's date and time
+$currentDateTime = new DateTime();
+$meetingDateTime = DateTime::createFromFormat('Y-m-d H:i:s', $meetingDate);
+
+if ($meetingDateTime && $meetingDateTime->format('Y-m-d H:i:s') !== $currentDateTime->format('Y-m-d H:i:s')) {
+    header("Location: /src/notyet.php");
+} else {
+    header("Location: /src/notyet.php");
+}
+?>
+
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +23,7 @@
     <script type="text/javascript">
       window.onload = () => {
         const api = new JitsiMeetExternalAPI("8x8.vc", {
-          roomName: "vpaas-magic-cookie-e0064c22ac054806b66d689c7d3af0c6/SampleAppValidActsCrashMagnificently",
+          roomName: "vpaas-magic-cookie-e0064c22ac054806b66d689c7d3af0c6/<?php echo $_GET["meetingname"] ?>",
           parentNode: document.querySelector('#jaas-container'),
                         // Make sure to include a JWT if you intend to record,
                         // make outbound calls or use any other premium features!
@@ -16,5 +32,6 @@
       }
     </script>
   </head>
-  <body><div id="jaas-container" /></body>
+  <body style="background-color: #E7E0DC;">
+    <div id="jaas-container" /></body>
 </html>

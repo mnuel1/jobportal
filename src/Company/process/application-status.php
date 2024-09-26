@@ -1,11 +1,13 @@
 <?php
 // Include the PHPMailer classes into the namespace
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 
 // Load Composer's autoloader (if you're using Composer)
-require 'vendor/autoload.php';
+require '../../../vendor/autoload.php';
+require '../../../database/db.php';
 
 // Function to handle JSON responses
 function jsonResponse($success, $message) {
@@ -19,16 +21,22 @@ function escapeInput($conn, $data) {
     return mysqli_real_escape_string($conn, $data);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Create a new PHPMailer instance
-    $mail = new PHPMailer(true);
-    $name = "John Doe";              // Applicant's name
-    $email = "";
-    $jobTitle = "Software Engineer"; // Job title they applied for
-    $applicationStatus = "Accepted"; // Status could be 'Accepted', 'Rejected', or 'Under Review'
-    $interviewLink = "https://example.com/interview/schedule"; // Interview link for accepted candidates
+    
+    $mail = new PHPMailer(true);    
+    $email = $_GET["email"];
+    $jobTitle = urldecode($_GET["jobtitle"]);
+    $applicationStatus = $_GET["status"];
+    $meetingDateTime = new DateTime();
+    $meetingDateTime->modify('+3 days'); // Add 3 days
+    $meetingDate = $meetingDateTime->format('Y-m-d H:i:s'); // Format it as required
+    
+    $interviewLink = "http://localhost:3000/src/interview/interview.php?meetingname=Interview%20of%20" . $email . "%20for%20" . $jobTitle . "&meetingdate=" . urlencode($meetingDate);
 
     if ($applicationStatus === "Accepted") {
+        $status = '3';
+        $successMessage = "Job applicant was notified that their application was accepted.";
         $body = "
         <html>
             <head>
@@ -44,8 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 </style>
             </head>
-            <body>
-                Hello, ". $name .",
+            <body>                
                 <br><br>
                 Congratulations! We are pleased to inform you that your application for the position of <strong>". $jobTitle ."</strong> has been <span class='status'>Accepted</span>.
                 <br><br>
@@ -60,6 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </body>
         </html>";
     } elseif ($applicationStatus === "Rejected") {
+        $status = '1';
+        $successMessage = "Job applicant was notified that their application was rejected.";
         $body = "
         <html>
             <head>
@@ -75,8 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 </style>
             </head>
-            <body>
-                Hello, ". $name .",
+            <body>                
                 <br><br>
                 Thank you for applying for the position of <strong>". $jobTitle ."</strong>.
                 <br><br>
@@ -91,6 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </body>
         </html>";
     } else { // Under Review
+        $status = '2'; // Default to 'UnderReview'
+        $successMessage = "Job applicant was notified that their application is under review.";
         $body = "
         <html>
             <head>
@@ -106,8 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 </style>
             </head>
-            <body>
-                Hello, ". $name .",
+            <body>                
                 <br><br>
                 We wanted to update you regarding your application for the position of <strong>". $jobTitle ."</strong>.
                 <br><br>
@@ -124,36 +133,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     try {
         // Server settings
+        // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output        
         $mail->isSMTP();                            // Send using SMTP
-        $mail->Host       = 'smtp.hostinger.com';     // Set the SMTP server to send through (e.g., smtp.gmail.com for Gmail)
-        $mail->SMTPAuth   = true;                   // Enable SMTP authentication
-        $mail->Username   = 'jobportal@ph.resibo.ph';// SMTP username
-        $mail->Password   = '8B4aspKb>';  // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; PHPMailer::ENCRYPTION_SMTPS for SSL
-        $mail->Port       = 465;                    // TCP port to connect to (use 465 for SSL)
+        $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+        $mail->Username   = 'jobportal@resiboph.site';                     //SMTP username
+        $mail->Password   = '9@omljoYWV';                               //SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+        $mail->Port       = 465;                                         //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
         $mail->CharSet = 'UTF-8';
         $mail->IsMAIL();
         $mail->IsSMTP();
         $mail->FromName = "JOB PORTAL";
         $mail->Subject = "Application Status Update: " . $jobTitle;
-        $mail->From = "jobportal@ph.resibo.ph";
+        $mail->From = "jobportal@resiboph.site";
         
         $mail->IsHTML(true);
-        $mail->AddAddress($email); // To mail id
-        
-        
+        $mail->AddAddress($email); // To mail id        
         $mail->MsgHTML($body);
         $mail->WordWrap = 50;
-        $mail->Send();
-        $mail->SmtpClose();
-            
-        // Send the email
-        if ($mail->send()) {
-            jsonResponse(true, "Email sent!");		
+        
+        $sql = "UPDATE apply_job_post SET status=? WHERE id_apply=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $status, $_GET['id_apply']); // Using prepared statements to prevent SQL injection
+
+        if ($stmt->execute()) {
+            if ($mail->send()) {
+                $mail->SmtpClose();
+                jsonResponse(true, $successMessage);
+            } else {
+                $mail->SmtpClose();
+                jsonResponse(false, "Email failed to send.");
+            }
         } else {
-            jsonResponse(false, "Something went wrong.");
+            // Database update failed, no email sent
+            jsonResponse(false, "Failed to update application status.");
         }
+            
+    
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }

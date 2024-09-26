@@ -2,9 +2,13 @@
 
 session_start();
 
-// Include Database Connection
-require_once("../../../database/db.php");
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
+
+require_once("../../../database/db.php");
+require '../../../vendor/autoload.php';
 // Function to handle JSON responses
 function jsonResponse($success, $message) {
     header('Content-Type: application/json');
@@ -101,36 +105,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if ($stmt->execute()) {
 			// Commit the transaction
 			
-	
-			// Prepare and send confirmation email
-			// Uncomment and customize the email sending logic as needed
-			// $to = $userData['email'];
-			// $subject = "Job Portal - Confirm Your Email Address";
-			// $message = '
-			// <html>
-			// <head>
-			//     <title>Confirm Your Email</title>
-			// </head>
-			// <body>
-			//     <p>Click Link To Confirm</p>
-			//     <a href="yourdomain.com/verify.php?token=' . bin2hex(random_bytes(16)) . '&email=' . $to . '">Verify Email</a>
-			// </body>
-			// </html>
-			// ';
-	
-			// $headers[] = 'MIME-VERSION: 1.0';
-			// $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-			// $headers[] = 'To: ' . $to;
-			// $headers[] = 'From: hello@yourdomain.com';
-	
-			// Send the email
-			// if (mail($to, $subject, $message, implode("\r\n", $headers))) {
-				$conn->commit();
-				jsonResponse(true, "Registration successful! Check your email to activate your account.");
-			// } else {
-			// 	$conn->rollback();
-			//     jsonResponse(false, "Registration successful but email sending failed.");
-			// }
+			$verifyLink = "http://localhost:3000/src/process/Candidate/verify.php?email=" . $email;
+			$body = "
+			<html>
+				<head>
+					<style type='text/css'> 
+						body {
+							font-family: Calibri, sans-serif;
+							font-size: 16px;
+							color: #000;
+						}
+						.link {
+							font-weight: bold;
+							color: #007bff;
+						}
+					</style>
+				</head>
+				<body>            
+					<br><br>
+					Welcome to JOB PORTAL! To complete your account creation and verify your email, please click the link below:
+					<br><br>
+					<a class='link' href='". $verifyLink ."'>Verify your account</a>
+					<br><br>
+					If you did not sign up for this account, please ignore this email.
+					<br><br>
+					Best regards,<br>
+					The Support Team at JOB PORTAL
+				</body>
+			</html>";
+
+			try {       
+				$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+				$mail->isSMTP();                                            //Send using SMTP
+				$mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
+				$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+				$mail->Username   = 'jobportal@resiboph.site';                     //SMTP username
+				$mail->Password   = '9@omljoYWV';                               //SMTP password
+				$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+				$mail->Port       = 465;                                         //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+				
+				$mail->CharSet = 'UTF-8';
+				$mail->IsMAIL();
+				$mail->IsSMTP();
+				$mail->FromName = "JOB PORTAL";
+				$mail->Subject = "Verify Account";
+				$mail->From = "jobportal@resiboph.site";
+				
+				$mail->IsHTML(true);
+				$mail->AddAddress($email); // To mail id                
+				$mail->MsgHTML($body);
+				$mail->WordWrap = 50;
+			
+					
+				// Send the email
+				if ($mail->send()) {
+					$conn->commit();
+					$mail->SmtpClose();
+					jsonResponse(true, "Registration successful! Check your email to activate your account.");		
+				} else {
+					$conn->rollback();
+					$mail->SmtpClose();
+					jsonResponse(false, "Something went wrong.");
+				}
+			} catch (Exception $e) {
+				
+				echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+				jsonResponse(false, "Something went wrong.");
+			}		
 		} else {
 			throw new Exception("Error inserting data: " . $stmt->error);
 		}

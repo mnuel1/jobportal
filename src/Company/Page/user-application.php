@@ -127,8 +127,27 @@ if($result->num_rows == 0)
 
                   
                 <div class="d-flex gap-2">
-                    <a id="underreview" href="#" class="btn btn-success">Mark Under Review</a>
-                    <a id="reject" href="#" class="btn btn-danger">Reject Application</a>
+                    <?php
+                        $status = $_GET["status"]; // Assume status is obtained from the URL
+
+                        // Check the status and display the appropriate buttons
+                        if ($status == 0) {
+                            // Status is 0: Show both 'Under Review' and 'Reject' buttons
+                            echo '<a id="underreview" href="#" class="btn btn-success">Mark Under Review</a>';
+                            echo '<a id="reject" href="#" class="btn btn-danger">Reject Application</a>';
+                        } elseif ($status == 1) {
+                            // Status is 1: Show none
+                            // Do nothing (no buttons will be displayed)
+                            echo '<span href="#" class="badge text-bg-danger">Rejected</span>';
+                        } elseif ($status == 2) {
+                            // Status is 2: Show 'Accept' button instead of 'Under Review'
+                            echo '<a id="accept" href="#" class="btn btn-success">Accept Application</a>';
+                            echo '<a id="reject" href="#" class="btn btn-danger">Reject Application</a>';
+                        } elseif ($status == 3) {
+                            // Status is 3: Show only the 'Reject' button
+                            echo '<a id="reject" href="#" class="btn btn-danger">Reject Application</a>';
+                        }
+                    ?>
                 </div>                                           
                 <?php
                   }
@@ -157,22 +176,21 @@ if($result->num_rows == 0)
 
     $("#underreview").on("click", function(e) {
         e.preventDefault();
-    
 
         $.ajax({
-            url: './process/under-review.php?id_apply=<?php echo $_GET['id_apply']; ?>', 
+            url: '../process/application-status.php?id_apply=<?php echo $_GET['id_apply']; ?>&email=<?php echo $_GET['email']; ?>&jobtitle=<?php echo $_GET['jobtitle']; ?>&status=UnderReview',
             type: 'GET',            
             success: function(response) {
                        
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
-                    successToast.show();
-
-                    $('#addPost')[0].reset(); // Reset all fields
-                    tinymce.get('description').setContent(''); // Clear TinyMCE editor
+                    console.log("response", response);
                     
+                    successToast.show();
+                                        
                 } else {
                     toastErrorMsg.textContent = response.message;
+                    console.log("response", response);
                     errorToast.show();
                 }
             },
@@ -191,17 +209,42 @@ if($result->num_rows == 0)
         e.preventDefault();
        
         $.ajax({
-            url: './process/reject.php?id=<?php echo $_GET['id_apply']; ?>', // Update with your actual PHP script path
+            url: '../process/application-status.php?id_apply=<?php echo $_GET['id_apply']; ?>&email=<?php echo $_GET['email']; ?>&jobtitle=<?php echo $_GET['jobtitle']; ?>&status=Rejected',
             type: 'GET',            
             success: function(response) {
                        
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
+                                        
+                } else {
+                    toastErrorMsg.textContent = response.message;
+                    errorToast.show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+                console.log(xhr);
+                
+                
+                console.error('AJAX Error:', error);
+            }
+        });
+      
+    })
 
-                    $('#addPost')[0].reset(); // Reset all fields
-                    tinymce.get('description').setContent(''); // Clear TinyMCE editor
-                    
+    $("#accept").on("click", function(e) {
+        e.preventDefault();
+       
+        $.ajax({
+            url: '../process/application-status.php?id_apply=<?php echo $_GET['id_apply']; ?>&email=<?php echo $_GET['email']; ?>&jobtitle=<?php echo $_GET['jobtitle']; ?>&status=Accepted',
+            type: 'GET',            
+            success: function(response) {
+                       
+                if (response.success) {
+                    toastSuccessMsg.textContent = response.message;
+                    successToast.show();
+                                        
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();

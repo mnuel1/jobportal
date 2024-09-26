@@ -64,11 +64,11 @@ if(empty($_SESSION['id_company'])) {
 
             <h1 class="text-center my-4"> RECENT
             <span style="color: #7D0A0A;">APPLICATIONS</span></h1>
-            <p style="font-size: small; color:gray"><i>Below you will find job roles you have applied for.</i></p>
+            <p style="font-size: small; color:gray"><i>Below you will find job applications that applied to your job post.</i></p>
           
                 <?php                     
                 $sql = "SELECT apply_job_post.id_apply, apply_job_post.createdAt as createdAt, apply_job_post.status,
-                apply_job_post.id_users, apply_job_post.id_jobpost, job_post.jobtitle, users.firstname, users.lastname
+                apply_job_post.id_users, apply_job_post.id_jobpost, job_post.jobtitle, users.firstname, users.lastname, users.email
                 FROM job_post 
                 INNER JOIN apply_job_post ON job_post.id_jobpost=apply_job_post.id_jobpost 
                 INNER JOIN users ON users.id_users=apply_job_post.id_users 
@@ -78,7 +78,7 @@ if(empty($_SESSION['id_company'])) {
                     if($result->num_rows > 0) {
                         while($row = $result->fetch_assoc()) {     
                 ?>
-                <a href="user-application.php?id=<?php echo $row['id_users']; ?>&id_jobpost=<?php echo $row['id_jobpost']; ?>&id_apply=<?php echo $row['id_apply']; ?>">
+                <a href="user-application.php?id=<?php echo $row['id_users']; ?>&id_jobpost=<?php echo $row['id_jobpost']; ?>&id_apply=<?php echo $row['id_apply']; ?>&email=<?php echo $row['email']; ?>&jobtitle=<?php echo $row['jobtitle']; ?>&status=<?php echo $row['status']; ?>">
                     <div class="col-12 mb-4">
                         <?php                        
                         $statusClass = '';

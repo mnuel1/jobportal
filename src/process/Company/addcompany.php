@@ -91,37 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		);
 
 		if ($stmt->execute()) {
-			// Commit the transaction
-				
-			// Prepare and send confirmation email
-			// Uncomment and customize the email sending logic as needed
-			// $to = $userData['email'];
-			// $subject = "Job Portal - Confirm Your Email Address";
-			// $message = '
-			// <html>
-			// <head>
-			//     <title>Confirm Your Email</title>
-			// </head>
-			// <body>
-			//     <p>Click Link To Confirm</p>
-			//     <a href="yourdomain.com/verify.php?token=' . bin2hex(random_bytes(16)) . '&email=' . $to . '">Verify Email</a>
-			// </body>
-			// </html>
-			// ';
-	
-			// $headers[] = 'MIME-VERSION: 1.0';
-			// $headers[] = 'Content-type: text/html; charset=iso-8859-1';
-			// $headers[] = 'To: ' . $to;
-			// $headers[] = 'From: hello@yourdomain.com';
-	
-			// Send the email
-			// if (mail($to, $subject, $message, implode("\r\n", $headers))) {
-				$conn->commit();
-				jsonResponse(true, "Registration successful! Check your email to activate your account.");
-			// } else {
-			// 	$conn->rollback();
-			//     jsonResponse(false, "Registration successful but email sending failed.");
-			// }
+			
+			$conn->commit();
+			jsonResponse(true, "Registration successful! Check your email to activate your account.");
+			
 		} else {
 			throw new Exception("Error inserting data: " . $stmt->error);
 		}

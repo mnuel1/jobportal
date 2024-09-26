@@ -5,7 +5,7 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
   header("Location: index.php");
   exit();
 }
-require_once("../../database/db.php");
+require_once("../database/db.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,32 +81,21 @@ require_once("../../database/db.php");
             <a href="/src/index.php">JobSearch</a>
         </div>    
         <div class="login-box-body">
-            <p class="login-box-msg">Candidates Login</p>
+            <p class="login-box-msg">Forgot Password</p>
             
-            <form method="post" id="loginCandidates">
+            <form method="post" id="forgotPassword">
                 <div class="mb-3 position-relative">
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                     <span class="form-control-feedback">
                         <i class="fa fa-envelope"></i>
                     </span>
                 </div>
-                <div class="mb-3 position-relative">
-                    <input type="password" class="form-control" 
-                    id="password" name="password" placeholder="Password" required>
-                    <span class="form-control-feedback" style="cursor: pointer;" 
-                    onclick="togglePassword()">                   
-                        <i id="password-icon" class="fa fa-eye"></i>
-                    
-                    </span>                
-                </div>
+                <input type="text" hidden value="user" 
+                name="acctype" id="acctype">
                 <div class="d-grid gap-2 mb-2">
-                    <button class="buttons buttons-color-dark" type="Submit">Sign in</button>            
+                    <button class="buttons buttons-color-dark" type="Submit">Continue</button>
                 </div>
-                <div class="mb-3 d-flex items-align-center justify-content-between">
                 
-                    <a href="register-candidates.php" class="links">No account yet? Click here</a>
-                    <a href="/src/candidate-forgot-password.php" class="links">I forgot my password</a>                                    
-                </div>
             </form>
 
         </div>
@@ -119,21 +108,8 @@ require_once("../../database/db.php");
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    function togglePassword() {
-        const passwordInput = document.getElementById('password');
-        const passwordIcon = document.getElementById('password-icon');
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            passwordIcon.classList.remove('fa-eye');
-            passwordIcon.classList.add('fa-eye-slash');
-        } else {
-            passwordInput.type = 'password';
-            passwordIcon.classList.remove('fa-eye-slash');
-            passwordIcon.classList.add('fa-eye');
-        }
-    }
-
-    $("#loginCandidates").on("submit", function(e) {
+  
+    $("#forgotPassword").on("submit", function(e) {
         
         e.preventDefault();
 
@@ -146,9 +122,9 @@ require_once("../../database/db.php");
         var errorToast = new bootstrap.Toast(errToast);
 
         $.ajax({
-            url: '../process/Candidate/userlogin.php', // Update with your actual PHP script path
+            url: './Email/forgot-pass.php', // Update with your actual PHP script path
             type: 'POST',
-            data: new FormData($('#loginCandidates')[0]), // Assuming you have a form with this ID
+            data: new FormData($('#forgotPassword')[0]), // Assuming you have a form with this ID
             processData: false,
             contentType: false,
             dataType: 'json',
@@ -157,7 +133,7 @@ require_once("../../database/db.php");
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-                    window.location.href = '/src/Candidate/Page/index.php';
+                    // window.location.href = '/src/index.php';
                 } else {            
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
