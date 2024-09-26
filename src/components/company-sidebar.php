@@ -1,3 +1,6 @@
+<?php
+$current_page = basename($_SERVER['PHP_SELF']);
+?>
 
 <div class="container smaller bg-light mx-auto d-none d-lg-block" style="overflow: hidden;"> 
     <h1 class="text-center" style="margin-top: 30px;">WELCOME 
@@ -5,44 +8,44 @@
     </h1>
     <hr>
     <div class="vertical-menu">        
-        <a href="index.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                   
-            <img src="/assets/image 91.png" alt="Active Jobs Icon">
+        <a href="index.php" class="h5 d-flex align-items-center <?= $current_page == 'index.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">                   
+            <img src="/assets/image 91.png" alt="Dashboard Icon">
             Dashboard
         </a>
-        <a href="edit-company.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                   
-            <img src="/assets/bell 1.png" alt="Active Jobs Icon">
+        <a href="edit-company.php" class="h5 d-flex align-items-center <?= $current_page == 'edit-company.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">                   
+            <img src="/assets/bell 1.png" alt="My Company Icon">
             My Company
         </a>
 
-        <a href="create-job-post.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-            <img src="/assets/image 82.png" alt="Applications Icon">
+        <a href="create-job-post.php" class="h5 d-flex align-items-center <?= $current_page == 'create-job-post.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+            <img src="/assets/image 82.png" alt="Create Job Post Icon">
             Create Job Post
         </a>
-        <a href="my-job-post.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-            <img src="/assets/image 92.png" alt="Applications Icon">
+        <a href="my-job-post.php" class="h5 d-flex align-items-center <?= $current_page == 'my-job-post.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+            <img src="/assets/image 92.png" alt="My Job Post Icon">
             My Job Post
         </a>
-        <a href="job-applications.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-            <img src="/assets/image 58.png" alt="Companies Icon">
+        <a href="job-applications.php" class="h5 d-flex align-items-center <?= $current_page == 'job-applications.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+            <img src="/assets/image 58.png" alt="Job Applications Icon">
             Job Application
         </a>
-        <a href="mailbox.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                
-            <img src="/assets/image 90.png" alt="Dashboard Icon">
+        <a href="mailbox.php" class="h5 d-flex align-items-center <?= $current_page == 'mailbox.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">                
+            <img src="/assets/image 90.png" alt="Mailbox Icon">
             Mailbox
         </a>
-        <a href="settings.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-            <img src="/assets/image 59.png" alt="Approved/Hired Icon">
+        <a href="settings.php" class="h5 d-flex align-items-center <?= $current_page == 'settings.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+            <img src="/assets/image 59.png" alt="Settings Icon">
             Settings
         </a>
-        <a href="resume-database.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-            <img src="/assets/image 86.png" alt="Approved/Hired Icon">
+        <a href="resume-database.php" class="h5 d-flex align-items-center <?= $current_page == 'resume-database.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+            <img src="/assets/image 86.png" alt="Resume Database Icon">
             Resume Database
         </a>
-        <a href="search-applicants.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-            <img src="/assets/search 2.png" alt="Approved/Hired Icon">
+        <a href="search-applicants.php" class="h5 d-flex align-items-center <?= $current_page == 'search-applicants.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+            <img src="/assets/search 2.png" alt="Search Applicants Icon">
             Search for applicants
         </a>
-        <a href="/src/logout.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
+        <a href="/src/logout.php" class="h5 d-flex align-items-center <?= $current_page == 'logout.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
             <img src="/assets/image 76.png" alt="Logout Icon">
             Logout
         </a>
@@ -61,45 +64,44 @@ tabindex="-1" id="company" aria-labelledby="offcanvasWithBothOptionsLabel">
         </h1>
         <hr>
         <div class="vertical-menu">            
-            <a href="index.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                   
-                <img src="/assets/image 91.png" alt="Active Jobs Icon">
+            <a href="index.php" class="h5 d-flex align-items-center <?= $current_page == 'index.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">                   
+                <img src="/assets/image 91.png" alt="Dashboard Icon">
                 Dashboard
             </a>
-            <a href="edit-company.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                   
-                <img src="/assets/bell 1.png" alt="Active Jobs Icon">
+            <a href="edit-company.php" class="h5 d-flex align-items-center <?= $current_page == 'edit-company.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">                   
+                <img src="/assets/bell 1.png" alt="My Company Icon">
                 My Company
             </a>
 
-            <a href="create-job-post.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-                <img src="/assets/image 82.png" alt="Applications Icon">
+            <a href="create-job-post.php" class="h5 d-flex align-items-center <?= $current_page == 'create-job-post.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+                <img src="/assets/image 82.png" alt="Create Job Post Icon">
                 Create Job Post
             </a>
-            <a href="my-job-post.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-                <img src="/assets/image 92.png" alt="Applications Icon">
+            <a href="my-job-post.php" class="h5 d-flex align-items-center <?= $current_page == 'my-job-post.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+                <img src="/assets/image 92.png" alt="My Job Post Icon">
                 My Job Post
             </a>
-            
-            <a href="job-applications.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-                <img src="/assets/image 58.png" alt="Companies Icon">
+            <a href="job-applications.php" class="h5 d-flex align-items-center <?= $current_page == 'job-applications.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+                <img src="/assets/image 58.png" alt="Job Applications Icon">
                 Job Application
             </a>
-            <a href="mailbox.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                
-                <img src="/assets/image 90.png" alt="Dashboard Icon">
+            <a href="mailbox.php" class="h5 d-flex align-items-center <?= $current_page == 'mailbox.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">                
+                <img src="/assets/image 90.png" alt="Mailbox Icon">
                 Mailbox
             </a>
-            <a href="settings.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-                <img src="/assets/image 59.png" alt="Approved/Hired Icon">
+            <a href="settings.php" class="h5 d-flex align-items-center <?= $current_page == 'settings.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+                <img src="/assets/image 59.png" alt="Settings Icon">
                 Settings
             </a>
-            <a href="resume-database.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-                <img src="/assets/image 86.png" alt="Approved/Hired Icon">
+            <a href="resume-database.php" class="h5 d-flex align-items-center <?= $current_page == 'resume-database.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+                <img src="/assets/image 86.png" alt="Resume Database Icon">
                 Resume Database
             </a>
-            <a href="search-applicants.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-                <img src="/assets/search 2.png" alt="Approved/Hired Icon">
+            <a href="search-applicants.php" class="h5 d-flex align-items-center <?= $current_page == 'search-applicants.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
+                <img src="/assets/search 2.png" alt="Search Applicants Icon">
                 Search for applicants
             </a>
-            <a href="/src/logout.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
+            <a href="/src/logout.php" class="h5 d-flex align-items-center <?= $current_page == 'logout.php' ? 'active' : '' ?>" style="height: 3rem;  position: relative; text-decoration: none; gap: 24px;">   
                 <img src="/assets/image 76.png" alt="Logout Icon">
                 Logout
             </a>

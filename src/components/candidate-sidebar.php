@@ -1,3 +1,6 @@
+<?php
+$current_page = basename($_SERVER['PHP_SELF']);
+?>
 
 <div class="container smaller bg-light mx-auto d-none d-lg-block" style="overflow: hidden;"> 
     <h1 class="text-center" style="margin-top: 30px;">WELCOME 
@@ -5,32 +8,32 @@
     </h1>
     <hr>
     <div class="vertical-menu">        
-        <a href="index.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                   
+        <a href="index.php" class="h4 d-flex align-items-center <?= $current_page == 'index.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">                   
             <img src="/assets/image 91.png" alt="Active Jobs Icon">
             My applications
         </a>
-        <a href="notification.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                   
-            <img src="/assets/bell 1.png" alt="Active Jobs Icon">
+        <a href="notification.php" class="h4 d-flex align-items-center <?= $current_page == 'notification.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">                   
+            <img src="/assets/bell 1.png" alt="Notification Icon">
             Notification
         </a>
 
-        <a href="jobs.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-            <img src="/assets/image 92.png" alt="Applications Icon">
+        <a href="jobs.php" class="h4 d-flex align-items-center <?= $current_page == 'jobs.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">   
+            <img src="/assets/image 92.png" alt="Jobs Icon">
             Jobs
         </a>
-        <a href="mailbox.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-            <img src="/assets/image 58.png" alt="Companies Icon">
+        <a href="mailbox.php" class="h4 d-flex align-items-center <?= $current_page == 'mailbox.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">   
+            <img src="/assets/image 58.png" alt="Mailbox Icon">
             Mailbox
         </a>
-        <a href="edit-profile.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                
-            <img src="/assets/image 90.png" alt="Dashboard Icon">
+        <a href="edit-profile.php" class="h4 d-flex align-items-center <?= $current_page == 'edit-profile.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">                
+            <img src="/assets/image 90.png" alt="Edit Profile Icon">
             Edit Profile
         </a>
-        <a href="settings.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-            <img src="/assets/image 59.png" alt="Approved/Hired Icon">
+        <a href="settings.php" class="h4 d-flex align-items-center <?= $current_page == 'settings.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">   
+            <img src="/assets/image 59.png" alt="Settings Icon">
             Settings
         </a>
-        <a href="/src/logout.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
+        <a href="/src/logout.php" class="h4 d-flex align-items-center <?= $current_page == 'logout.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">   
             <img src="/assets/image 76.png" alt="Logout Icon">
             Logout
         </a>
@@ -51,32 +54,32 @@ aria-labelledby="offcanvasWithBothOptionsLabel">
         </h1>
         <hr>
         <div class="vertical-menu">            
-            <a href="index.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                   
+            <a href="index.php" class="h4 d-flex align-items-center <?= $current_page == 'index.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">                   
                 <img src="/assets/image 91.png" alt="Active Jobs Icon">
                 My applications
             </a>
-            <a href="notification.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                   
-                <img src="/assets/bell 1.png" alt="Active Jobs Icon">
+            <a href="notification.php" class="h4 d-flex align-items-center <?= $current_page == 'notification.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">                   
+                <img src="/assets/bell 1.png" alt="Notification Icon">
                 Notification
             </a>
 
-            <a href="jobs.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-                <img src="/assets/image 92.png" alt="Applications Icon">
+            <a href="jobs.php" class="h4 d-flex align-items-center <?= $current_page == 'jobs.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">   
+                <img src="/assets/image 92.png" alt="Jobs Icon">
                 Jobs
             </a>
-            <a href="mailbox.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-                <img src="/assets/image 58.png" alt="Companies Icon">
+            <a href="mailbox.php" class="h4 d-flex align-items-center <?= $current_page == 'mailbox.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">   
+                <img src="/assets/image 58.png" alt="Mailbox Icon">
                 Mailbox
             </a>
-            <a href="edit-profile.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">                
-                <img src="/assets/image 90.png" alt="Dashboard Icon">
+            <a href="edit-profile.php" class="h4 d-flex align-items-center <?= $current_page == 'edit-profile.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">                
+                <img src="/assets/image 90.png" alt="Edit Profile Icon">
                 Edit Profile
             </a>
-            <a href="settings.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
-                <img src="/assets/image 59.png" alt="Approved/Hired Icon">
+            <a href="settings.php" class="h4 d-flex align-items-center <?= $current_page == 'settings.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">   
+                <img src="/assets/image 59.png" alt="Settings Icon">
                 Settings
             </a>
-            <a href="/src/logout.php" class="h2 d-flex align-items-center" style="height: 5rem; position: relative; text-decoration: none; gap: 24px;">   
+            <a href="/src/logout.php" class="h4 d-flex align-items-center <?= $current_page == 'logout.php' ? 'active' : '' ?>" style="height: 4rem; position: relative; text-decoration: none; gap: 24px;">   
                 <img src="/assets/image 76.png" alt="Logout Icon">
                 Logout
             </a>

@@ -134,7 +134,7 @@ a:hover {
     background-color: #E7E0DC; 
 }
 
-.vertical-menu .active {
+.vertical-menu a.active {
     background-color: #E7E0DC;
     border-left: 4px solid #B22222; 
     font-weight: bold; 
