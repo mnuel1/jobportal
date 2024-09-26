@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		if ($stmt->execute()) {
 			// Commit the transaction
 			
-			$verifyLink = "http://localhost:3000/src/process/Candidate/verify.php?email=" . $email;
+			$verifyLink = "http://localhost:3000/src/process/Candidate/verify.php?email=" . $userData["email"];
 			$body = "
 			<html>
 				<head>
@@ -133,9 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					The Support Team at JOB PORTAL
 				</body>
 			</html>";
-
-			try {       
-				$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+					
+			try {   
+				$mail = new PHPMailer(true);    				
 				$mail->isSMTP();                                            //Send using SMTP
 				$mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
 				$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$mail->From = "jobportal@resiboph.site";
 				
 				$mail->IsHTML(true);
-				$mail->AddAddress($email); // To mail id                
+				$mail->AddAddress($userData['email']); // To mail id                
 				$mail->MsgHTML($body);
 				$mail->WordWrap = 50;
 			
