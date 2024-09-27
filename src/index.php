@@ -18,9 +18,10 @@ require_once("../database/db.php");
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         
+        <link rel="preconnect" href="https://fonts.googleapis.com">    
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Koulen">
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/css/styles.css" rel="stylesheet" />
         <link href="/css/mystyle.css" rel="stylesheet" />
@@ -29,6 +30,33 @@ require_once("../database/db.php");
     </head>
 
     <style>
+        .float-btn {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: white; /* Button color */
+            color: black;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .float-btn i {
+            margin-top: 20px;
+            font-size: 44px;
+        }
+
+        .float-btn:hover {
+            background-color: #A02222; /* Darker color on hover */
+            color: white;
+            text-decoration: none;
+        }
         .masthead {
             position: relative;
             overflow: hidden;
@@ -51,8 +79,8 @@ require_once("../database/db.php");
 
         /* Button styling */
         .search {
-            color: white;
-            background-color: #CA2B2D;
+            color: #7D0A0A;
+            background-color: #E7E0DC;
             padding: 1rem 5rem;
             border-radius: 6px;
             font-size: 20px;
@@ -60,8 +88,8 @@ require_once("../database/db.php");
         }
 
         .search:hover {
-            background-color: #B22222; 
-            color: white;           
+            background-color: #D6CCC7; 
+            color: #7D0A0A;
         }
         .header-t {
             position: absolute;
@@ -190,6 +218,10 @@ require_once("../database/db.php");
     </style>
    
 <body id="page-top">
+    <!-- Floating Button -->
+    <a href="#page-top" class="float-btn">
+        <i class="fa fa-arrow-up"></i> <!-- You can change the icon to any FontAwesome icon -->
+    </a>
     <!-- Navigation-->
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/navigation.php'; ?>
 
@@ -213,7 +245,7 @@ require_once("../database/db.php");
 
         <!-- Button Section -->
         <div class="header-btn">
-            <a href="/src/job/jobs.php" class="search">Search Jobs</a>
+            <a href="/src/job/jobs.php" class="search">SEARCH JOBS</a>
         </div>
     </header>
 
@@ -221,7 +253,7 @@ require_once("../database/db.php");
     <section class="page-section text-dark mb-0" id="job-listings" style="background-color: #E7E0DC;">
         <div class="container">
             <!-- Job Listings Section Heading -->
-            <h2 class="page-section-heading text-center text-uppercase">Latest Jobs</h2>
+            <h2 class="page-section-heading text-center text-uppercase" style="margin-bottom: 1rem;">Latest Jobs</h2>
             <?php 
                 /* Show any 4 random job post
                 * 

@@ -72,7 +72,7 @@ $result = $conn->query($sql);
             </button>
 
             <h1 class="text-center my-4"> MY
-            <span style="color: #7D0A0A;">JOB POST</span></h1>
+            <span style="color: #253D80;">JOB POST</span></h1>
             <p style="font-size: small; color:gray"><i>In this section you can view all job posts created by you.</i></p>
             <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/search.php';?>
             

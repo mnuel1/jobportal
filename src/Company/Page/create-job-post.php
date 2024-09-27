@@ -54,7 +54,7 @@ if(empty($_SESSION['id_company'])) {
             </button>
 
             <h1 class="text-center my-4"> CREATE
-            <span style="color: #7D0A0A;">JOB POST</span></h1>
+            <span style="color: #253D80;">JOB POST</span></h1>
         
             <div class="row">
                 <form method="post" id="addPost">
@@ -84,7 +84,7 @@ if(empty($_SESSION['id_company'])) {
                             <input type="text" class="form-control  input-lg" id="qualification" name="qualification" placeholder="Qualification Required" required="">
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="buttons-sm buttons-color">Create</button>
+                            <button type="submit" class="button-upt-sm">Create</button>
                         </div>
                     </div>
                 </form>

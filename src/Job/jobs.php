@@ -55,9 +55,9 @@
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet">
     
 
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -66,7 +66,7 @@
     <link href="/css/body.css" rel="stylesheet" />
         
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    
   
     <style>
         a {
@@ -147,7 +147,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 latest-job margin-top-50 margin-bottom-20 mb-2">
-                        <h1 class="text-center" style="font-weight:600">LATEST <span style="color: #7D0A0A;">OFFERS</span></h1>
+                        <h1 class="text-center" style="font-weight:700">LATEST <span style="color: #7D0A0A;">OFFERS</span></h1>
                         <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/search.php';?>   
                     </div>
                 </div>
@@ -195,7 +195,7 @@
                                     </div>
 
                                     <!-- Second Dropdown -->
-                                    <div class="col-12">
+                                    <div class="col-12 mb-2">
                                         <div class="dropdown">
                                             <button class="d-flex justify-content-between align-items-center  
                                             dropdown-toggle w-100 p-2 text-start" type="button" 
@@ -263,7 +263,7 @@
                             <?php while ($row = $result->fetch_assoc()): ?>
                                 <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>">
                                     <div class="col-12 mb-4">
-                                        <div class="job-box d-flex align-items-center border rounded p-3">
+                                        <div class="job-box d-flex align-items-center border rounded p-2">
                                             <img src="../../assets/unnamed 1.png" alt="Job 1" class="d-none d-sm-block" style="width: 80px; height: 80px; margin-right:1rem">
                                             <div class="flex-grow-1">
                                                 <h4 class="job-title mb-1"><?php echo $row['jobtitle']; ?></h4>

@@ -30,6 +30,7 @@ require_once("../../../database/db.php");
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/mystyle.css" rel="stylesheet" />
     <link href="/css/body.css" rel="stylesheet" />
+
 </head>
 <body>
 
@@ -39,10 +40,10 @@ require_once("../../../database/db.php");
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/confirmModal.php';?>
 
-    <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
+    <div class="container-fluid d-flex justify-content-center gap-2 " style="padding-top: calc(6rem + 42px);">
 
         <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/candidate-sidebar.php';?>
-        <div class="container larger bg-light mx-auto">
+        <div class="container larger bg-light mx-auto ">
             <button 
                 style="margin-top: 20px;"
                 class="btn btn-primary d-block d-lg-none" 
@@ -51,33 +52,37 @@ require_once("../../../database/db.php");
                 data-bs-target="#candidate" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i>
             </button>
-            <h1 class="text-center my-4">PASSWORD 
-            <span style="color: #7D0A0A;">CHANGE</span></h1>            
+            <h1 class="text-center my-4">PASSWORD CHANGE
+            <span style="color: #253D80;"></span></h1>  
+            <p style="font-size: small; color:gray"><i>Type in new password that you want to use</i></p>          
             <div class="row">
                 <!-- Change Password Form -->
-                <div class="col-12">
-                    <form id="changePassword"  method="post">
-                        <div class="form-group mb-3">
-                            <input id="password" class="form-control input-lg" type="password" name="password" autocomplete="off" placeholder="Password" required>
-                        </div>
-                        <div class="form-group mb-3">
-                            <input id="cpassword" class="form-control input-lg" type="password" name="cpassword" autocomplete="off" placeholder="Confirm Password" required>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="buttons-sm-success buttons-color-success">Change Password</button>
-                        </div>
-                    </form>
+                <div class="col-md-6">
+                   
+                        <form id="changePassword"  method="post">
+                            <div class="form-group mb-3">
+                                <input id="password" class="form-control input-lg" type="password" name="password" autocomplete="off" placeholder="Password" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <input id="cpassword" class="form-control input-lg" type="password" name="cpassword" autocomplete="off" placeholder="Confirm Password" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="change-pass"> <i>Change Password </i></button>
+                            </div>
+                        </form>
+  
                 </div>
 
                 <!-- Deactivate Account Form -->
-                <div class="col-12 mt-4">
+                <div class="col-12 d-flex align-items-center justify-content-center flex-grow-1" style="margin-top: 20rem;">
                     <form id="deactivateAccount" method="post">
                         <div class="form-group form-check">
                             <input type="checkbox" class="form-check-input" id="deact" required>
-                            <label class="form-check-label mb-2" for="deact">I want to deactivate my account. </label>
+                            <label class="form-check-label mb-2" for="deact"> <b>I want to 
+                                <span style="color: #B80000;">deactivate</span> my account.</b> </label>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="buttons-sm buttons-color">Deactivate My Account</button>
+                        <div class="form-group d-flex align-items-center justify-content-center">
+                            <button type="submit" class="deact-account">Deactivate My Account</button>
                         </div>
                     </form>
                 </div>

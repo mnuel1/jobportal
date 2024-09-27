@@ -91,12 +91,13 @@ if($result->num_rows >  0 ){
             
             <div class="row">
               <div class="col-md-12">
-                <a href="mailbox.php" class="buttons-sm buttons-color mt-4">
-                    <i class="fa fa-arrow-circle-left" style="margin-right: 1rem;">
-                    </i> 
-                    Back
-                </a>
-                <div class="box box-primary">
+                    <div class="d-flex align-items-center justify-content-start ">
+                        <a class="buttons-sm buttons-color-dark" href="mailbox.php">
+                          <i class="fa fa-arrow-circle-left" style="margin-right: 1rem;"></i> 
+                          Back
+                        </a>
+                      </div>
+                    <div class="box box-primary">
                  
                     <div class="box-body no-padding mt-4">
                         <div class="mailbox-read-info">

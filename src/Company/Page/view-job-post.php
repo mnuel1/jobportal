@@ -60,9 +60,9 @@ require_once("../../../database/db.php");
                         if($result->num_rows > 0) {
                             while($row = $result->fetch_assoc()) {
                     ?>
-                    <div class="d-flex justify-content-between">
-                    <h2><b><i><?php echo $row['jobtitle']; ?></i></b></h2>                
-                    <a href="my-job-post.php" class="buttons-sm buttons-color">
+                    <div class="d-flex justify-content-between" style="margin-top: 2rem;">
+                    <h2><?php echo $row['jobtitle']; ?></h2>
+                    <a href="my-job-post.php" class="button-create">
                         <i class="fa fa-arrow-left" style="margin-right: 1rem;"></i> Back</a>
                     </div>
                     <div class="clearfix"></div>                

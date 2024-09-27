@@ -75,45 +75,45 @@ $result = $conn->query($sql);
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
             <h1 class="text-center my-4">MY 
-            <span style="color: #7D0A0A;">NOTIFICATIONS</span></h1>
+            <span style="color: #253D80;">NOTIFICATIONS</span></h1>
                                                 
             <div>                  
                 <div>
                     <?php if ($result->num_rows > 0): ?>
                         <?php while ($row = $result->fetch_assoc()): ?>
-                            <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>">
-                                <div class="col-12 mb-4">
-                                    <?php
-                                    // Determine the class based on the job status
-                                    $statusClass = '';
-                                    $color = ''; // Initialize color
-                                    switch ($row['status']) {
-                                        case 0:
-                                            $statusClass = 'Pending'; // Pending (yellow)
-                                            $color = 'text-warning'; 
-                                            $message = "Your application is still pending. We will notify you once there is an update.";
-                                            break;
-                                        case 1:
-                                            $statusClass = 'Rejected'; // Rejected (red)
-                                            $color = 'text-danger'; 
-                                            $message = "Unfortunately, your application has been rejected. We encourage you to apply for other positions.";
-                                            break;
-                                        case 2:
-                                            $statusClass = 'Under Review'; // Under review (light blue)
-                                            $color = 'text-info'; 
-                                            $message = "Your application is currently under review. Our team will get back to you soon.";
-                                            break;
-                                        case 3:
-                                            $statusClass = 'Accepted'; // Accepted (green)
-                                            $color = 'text-success'; 
-                                            $message = "Congratulations! Your application has been accepted. Please check your email for further instructions.";
-                                            break;
-                                        default:
-                                            $statusClass = ''; // Default if no status matches
-                                            $message = '';
-                                    }
-                                    ?>
-                                    <div class="job-box d-flex align-items-center border rounded p-3">
+                            <?php
+                                // Determine the class based on the job status
+                                $statusClass = '';
+                                $color = ''; // Initialize color
+                                switch ($row['status']) {
+                                    case 0:
+                                        $statusClass = 'Pending'; // Pending (yellow)
+                                        $color = 'text-warning'; 
+                                        $message = "Your application is still pending. We will notify you once there is an update.";
+                                        break;
+                                    case 1:
+                                        $statusClass = 'Rejected'; // Rejected (red)
+                                        $color = 'text-danger'; 
+                                        $message = "Unfortunately, your application has been rejected. We encourage you to apply for other positions.";
+                                        break;
+                                    case 2:
+                                        $statusClass = 'Under Review'; // Under review (light blue)
+                                        $color = 'text-info'; 
+                                        $message = "Your application is currently under review. Our team will get back to you soon.";
+                                        break;
+                                    case 3:
+                                        $statusClass = 'Accepted'; // Accepted (green)
+                                        $color = 'text-success'; 
+                                        $message = "Congratulations! Your application has been accepted. Please check your email for further instructions.";
+                                        break;
+                                    default:
+                                        $statusClass = ''; // Default if no status matches
+                                        $message = '';
+                                }
+                                ?>
+                            <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>&status=<?php echo $statusClass; ?>">
+                                <div class="col-12 mb-4">                                    
+                                    <div class="job-box d-flex align-items-center border rounded p-2">
                                         <img src="/assets/unnamed 1.png" alt="Job 1" class="d-none d-sm-block" style="width: 80px; height: 80px; margin-right:1rem">
                                         <div class="flex-grow-1">
                                             <h4 class="job-title mb-1"><?php echo $row['jobtitle']; ?></h4>

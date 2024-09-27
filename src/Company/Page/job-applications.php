@@ -63,7 +63,7 @@ if(empty($_SESSION['id_company'])) {
             </button>
 
             <h1 class="text-center my-4"> RECENT
-            <span style="color: #7D0A0A;">APPLICATIONS</span></h1>
+            <span style="color: #253D80;">APPLICATIONS</span></h1>
             <p style="font-size: small; color:gray"><i>Below you will find job applications that applied to your job post.</i></p>
           
                 <?php                     

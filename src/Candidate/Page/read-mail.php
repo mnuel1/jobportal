@@ -87,8 +87,12 @@ if($result->num_rows >  0 ){
                 
                 <div class="box box-primary">                    
                     <div class="box-body no-padding">
-                    <a href="mailbox.php" class="buttons-sm buttons-color-dark"
-                    ><i class="fa fa-arrow-circle-left" style="margin-right: 1rem;"></i> Back</a>
+                        <div class="d-flex align-items-center justify-content-start ">
+                          <a class="buttons-sm buttons-color-dark" href="mailbox.php">
+                            <i class="fa fa-arrow-circle-left" style="margin-right: 1rem;"></i> 
+                            Back
+                          </a>
+                        </div>                    
                         <div class="mailbox-read-info mt-2">
                             <h3><?php echo $row['subject']; ?></h3>
                             <h5>From: <?php if($row['fromuser'] == "company") { echo $rowCompany['companyname']; } else { echo $rowUser['firstname']; } ?>

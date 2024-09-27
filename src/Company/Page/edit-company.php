@@ -30,6 +30,7 @@ require_once("../../../database/db.php");
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/mystyle.css" rel="stylesheet" />
     <link href="/css/body.css" rel="stylesheet" />
+
 </head>
 <body>
 <div>
@@ -52,7 +53,7 @@ require_once("../../../database/db.php");
             </button>
 
             <h1 class="text-center my-4"> MY
-            <span style="color: #7D0A0A;">COMPANY</span></h1>
+            <span style="color: #253D80;">COMPANY</span></h1>
             <p style="font-size: small; color:gray"><i>In this section you can change your company details</i></p>
             
             <form id="updateCompany" method="post" enctype="multipart/form-data">
@@ -82,7 +83,7 @@ require_once("../../../database/db.php");
                             <textarea class="form-control input-lg" rows="4" name="aboutme"><?php echo $row['aboutme']; ?></textarea>
                         </div>
                         <div class="form-group" style="margin: 12px 0px;">
-                            <button type="submit" class="buttons-sm buttons-color">Update Company Profile</button>
+                            <button type="submit" class="button-upt">Update Company Profile</button>
                         </div>
                     </div>
 

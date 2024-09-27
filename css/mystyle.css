@@ -61,6 +61,16 @@ a:hover {
     color: #B22222; /* Darker red on hover */
 }
 
+.login-link {    
+    background-color: #952323; /* Red color for auth links */            
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+.login-link:hover {
+    color: #821F1F; /* Red color for auth links */   
+}
+
 .navbar-toggler {
     background-color: #CA2B2D; /* Red background for mobile menu button */
     color: white; /* White text color */
@@ -113,10 +123,12 @@ a:hover {
 }
 .smaller {
     width: 30%; 
+    min-height: 850px;
     
 }
 .larger {
     width: 70%;
+    min-height: 850px;
     padding: 24px;
     
 }       

@@ -2,6 +2,11 @@
 body {
     background-color: #E7E0DC
 }
+.koulen-regular {
+    font-family: "Koulen", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
 
 .button-cancel-color {
    background-color: lightgray;
@@ -54,12 +59,12 @@ body {
 
 .buttons-color-success {
     color: white;
-    background-color: #2bca40;
+    background-color: green;
    
 }
 
 .buttons-color-success:hover {
-    background-color: #4bb222; 
+    background-color: darkgreen; 
     color: white;           
 }
 
@@ -95,6 +100,35 @@ body {
     color: white;  
 }
 
+.button-create {
+    background-color: #77B492;
+    width: 119px;
+    height: 32px;
+    color: black;
+    border: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button-create:hover {
+    background-color: #699F82;            
+    color: black;
+}
+.button-create-lg {
+    background-color: #77B492;
+    width: 234px;
+    height: 29px;
+    color: black;
+    border: 0px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+}
+.button-create-lg:hover {
+    background-color: #699F82;            
+}    
+
 .links {
     margin-top:2px; font-size:14px; 
     color:white;
@@ -127,4 +161,107 @@ body {
     display: flex;
     gap: 4px;
 
+}
+
+.button-upt {
+    background-color: #253D80;
+    width: 192px;
+    height: 29px;
+}
+
+.button-upt-sm {
+    background-color: #253D80;
+    width: 67px;
+    height: 29px;
+}
+
+.button-upt:hover{
+    background-color: #1E336B;
+}
+
+.button-upt-sm:hover{
+    background-color: #1E336B;
+}
+
+.button-upt-lg {
+    background-color: #253D80;
+    width: 199px;
+    height: 39px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.button-upt-lg:hover {
+    background-color: #1E336B;    
+    color: white;
+    
+}
+
+.button-upt-lg-red {
+    background-color: #B80000;
+    width: 199px;
+    height: 39px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.button-upt-lg-red:hover {
+    background-color: #A00000;
+    color: white;
+}
+
+.button-change {
+    background-color: #3C8DBC; 
+    color:#F2E8C6;
+    border:0px;
+    width: 122px;
+    height: 36px;
+}
+.button-change:hover {
+    background-color: #347B9A;
+}
+
+.button-change-dark {
+    background-color: #322C2B; 
+    border:0px;
+    width: 122px;
+    font-size: 14px;
+    height: 36px;
+    color:#F2E8C6
+}
+
+.button-change-dark:hover {
+    background-color: #2A2524;
+}
+
+.change-pass {
+    background-color: #77B492;
+    border: 0px;
+    width: 155px;
+    height: 47px;
+    font-weight: bold;
+    color: black;
+}
+.deact-account{
+    background-color: #B80000;
+    border: 0px;
+    width: 150px;
+    height: 37px;
+    font-weight: bold;
+    color: #F2E8C6;
+    font-size: 11px;
+}
+
+.mic-btn:hover {
+    color: #CA2B2D;
+}
+
+#searchBar:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #CA2B2D;
 }

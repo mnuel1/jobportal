@@ -66,8 +66,8 @@ $result = $conn->query($sql);
                 data-bs-toggle="offcanvas" 
                 data-bs-target="#offcanvasWithBothOptions" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
-            <h1 class="text-center my-4">CANDIDATES 
-            <span style="color: #7D0A0A;">DATABASE</span></h1>
+            <h1 class="text-center my-4" style="color: #7D0A0A;">APPLICANTS 
+            <span style="color:black;">DATABASE</span></h1>
             <form method="GET" action="">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Search here..." name="search" value="<?php echo htmlspecialchars($search); ?>">
@@ -96,13 +96,13 @@ $result = $conn->query($sql);
                                         $skills = $row['skills'];
                                         $skills = explode(',', $skills);
                                 ?>
-                            <tr>
+                            <tr >
                                 <td><?php echo $row['firstname'].' '.$row['lastname']; ?></td>
                                 <td><?php echo $row['qualification']; ?></td>
                                 <td>
                                     <?php
                                         foreach ($skills as $value) {
-                                            echo ' <span class="badge text-bg-info">'.$value.'</span>';
+                                            echo ' <span class="badge text-bg-success">'.$value.'</span>';
                                         }
                                     ?>
                                 </td>
@@ -110,7 +110,7 @@ $result = $conn->query($sql);
                                 <td>Taguig City</td>
                                 <td>Metro Manila</td>
                                 <?php if($row['resume'] != '') { ?>
-                                    <td style="display:flex; justify-content:center">
+                                    <td style="display:flex; justify-content:center;">
                                         <a href="/uploads/resume/<?php echo $row['resume']; ?>" 
                                     download="<?php echo $row['firstname'].' Resume'; ?>">
                                     <i class="fa-regular fa-file-pdf"></i>

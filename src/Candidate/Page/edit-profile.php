@@ -52,7 +52,7 @@ require_once("../../../database/db.php");
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
             <h1 class="text-center my-4">EDIT 
-            <span style="color: #7D0A0A;">PROFILE</span></h1>
+            <span style="color: #253D80;">PROFILE</span></h1>
             
             <form method="post" enctype="multipart/form-data" id="updateCandidate">
                 <?php
@@ -138,7 +138,7 @@ require_once("../../../database/db.php");
                         
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="buttons-sm buttons-color">Update Account</button>
+                        <button type="submit" class="button-create-lg ">Update Account</button>
                     </div>
                 </div>
                 <?php

@@ -46,27 +46,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>JobSearch</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     
-
-    <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/mystyle.css" rel="stylesheet" />
     <link href="/css/body.css" rel="stylesheet" />
         
-    <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   
     <style>
         a {
@@ -76,44 +72,7 @@
         a:hover {
             color: #CA2B2D;
         }
-
-        .input-group {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        /* Divider between input, mic, and search button */
-        .divider {
-            width: 1px;
-            background-color: #CA2B2D;
-            height: 40px;
-            margin: 0 5px;
-        }
-        .mic-btn, .search-btn {
-            background-color: white; 
-            border: 0px;
-            border-radius: 0;
-        }
-
-        /* Hover effect for buttons */
-        .search-btn:hover {
-            background-color: #CA2B2D;        
-            color: white;
-            cursor: pointer;
-        }
-        .mic-btn:hover {
-            color: #CA2B2D;
-        }
-    
-        /* Add subtle hover effect for the search input */
-        #searchBar:focus {
-            outline: none;
-            box-shadow: none;
-            border-color: #CA2B2D;
-        }
-
+        
         @media (max-width: 768px) {
             .job-title {
                 font-size: 1rem; /* Job title font size */
@@ -155,9 +114,10 @@
                 data-bs-target="#company" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
-            <h1 class="text-center my-4">TALENT
-            <span style="color: #7D0A0A;">DATABASE</span></h1>
-            <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/search.php';?>   
+            <h1 class="text-center my-4">SEARCH FOR APPLICANTS
+            <span style="color: #7D0A0A;"></span></h1>
+            
+            <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/search.php';?>
 
         <section id="jobs" class="content-header ">
             <div class="container">
@@ -230,16 +190,21 @@
                         <?php if ($result->num_rows > 0): ?>
                             <?php while ($row = $result->fetch_assoc()): ?>
                                 <a href="view-user.php?id=<?php echo $row['id_users']; ?>">
-                                    <div class="col-12 mb-4">
-                                        <div class="job-box d-flex align-items-center border rounded p-3">
-                                            <!-- <img src="/assets/unnamed 1.png" alt="user 1" class="d-none d-sm-block" style="width: 80px; height: 80px; margin-right:1rem"> -->
+                                    <div class="col-12 mb-4 mt-2 mt-sm-0">
+                                        <div class="job-box d-flex align-items-center border rounded p-2">                                            
                                             <div class="flex-grow-1">
                                                 <h4 class="job-title mb-1"><?php echo $row['firstname']; ?> <?php echo $row['lastname']; ?></h4>
                                                 <p class="job-description mb-0">
-                                                <?php echo $row['baranggay_name']; ?> | <?php echo $row['skills']; ?> | <?php echo $row['work_type']; ?></p>
+                                                    <?php echo $row['baranggay_name']; ?> | <?php echo $row['skills']; ?> | <?php echo $row['work_type']; ?>
+                                                </p>
                                             </div>
-                                            <div class="">
-                                                <button type="button" class="buttons-sm buttons-color">Invite</button>
+                                            <div>
+                                            <button 
+                                            type="button" 
+                                            class="buttons-sm buttons-color invite-button"
+                                            data-id="<?php echo $row['id_users']; ?>">
+                                                Invite
+                                            </button>
                                             </div>
                                         </div>
                                     </div>
@@ -265,10 +230,18 @@
     </div>
 
     <!-- Bootstrap core JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+    $('.invite-button').on('click', function(event) {
+        event.stopPropagation(); // Prevents event bubbling
+        event.preventDefault();
+        const userId = $(this).data('id'); // Assuming you store the ID in a data attribute
+        alert(userId); // Displays the ID
+    });
+    
+</script>
 </body>
 </html>

@@ -106,16 +106,20 @@ $result = $conn->query($sql);
                                         {
                                             switch ($row['status']) {
                                                 case 0:
-                                                    $status = "Pending";                                                
+                                                    $status = "Pending";
+                                                    $class = "text-bg-warning";                                                
                                                     break;
                                                 case 1:
                                                     $status = "Rejected";
+                                                    $class = "text-bg-danger";
                                                     break;
                                                 case 2:
                                                     $status = "Under Review";
+                                                    $class = "text-bg-info";
                                                     break;
                                                 case 3:
                                                     $status = "Accepted";
+                                                    $class = "text-bg-success";
                                                     break;
                                                 default:
                                                     $status = "";
@@ -125,7 +129,7 @@ $result = $conn->query($sql);
                             <tr style="text-align: left;">
                                 <td><?php echo $row['fullname']; ?></td>
                                 <td><?php echo $row['createdAt']; ?></td>
-                                <td><?php echo ' <span class="badge text-bg-info">'. $status .'</span>';?></td>
+                                <td><?php echo '<span class="badge ' . $class . '">' . $status . '</span>'; ?></td>
                                 <td><?php echo $row['companyname']; ?></td>                                 
                                 <?php if($row['resume'] != '') { ?>
                                     <td>

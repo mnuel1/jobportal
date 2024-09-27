@@ -18,9 +18,10 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">    
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet">
     
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
@@ -61,15 +62,40 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
             font-size: 2.5rem
         }
 
+        .buttons {
+            color: black;
+            width: 34rem;
+            background-color: #D9D9D9;
+        }
+        .buttons:hover {
+            color: black;
+            background-color: #C8C8C8;
+        }
+
+        @media (max-width: 1229px) {
+            .box-title {
+                font-size: 2rem;
+            }
+            .buttons {               
+                width: 100%;             
+            }           
+        }
+
         @media (max-width: 768px) {
             .box-title {
                 font-size: 2rem;
+            }
+            .buttons {               
+                width: 100%;             
             }           
         }
 
         @media (max-width: 576px) {
             .box-title {
                 font-size: 2rem;
+            }
+            .buttons {               
+                width: 100%;             
             }
         }
 
@@ -82,12 +108,15 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
     <div class="masthead container-fluid d-flex align-items-center min-vh-100 position-relative">
         <div class="w-100 d-flex flex-column flex-md-row" style="flex-grow: 1; z-index: 1; position: relative;">
             <!-- Left Section -->
+             
             <div class="col-md-6 d-flex flex-column justify-content-center p-4 z-5" >
-                <div class="d-flex flex-column justify-content-between small-box candidate-login my-3" style="height: 300px;">
+                
+                <div class="d-flex flex-column justify-content-between align-items-center small-box candidate-login my-3" style="height: 300px;">
                     <div class="inner text-center">
-                        <h3 class="box-title">Candidates Login</h3>
+                        <h3 class="box-title" style="margin-top:1rem; color:#F2E8C6;
+                        font-size:40px;">Applicant Login</h3>
                     </div>
-                    <a href="/src/Candidate/login-candidates.php" class="buttons buttons-color" >
+                    <a href="/src/Candidate/login-candidates.php" class="buttons" >
                         <i class="fa fa-arrow-right" style="margin-right: 1rem;"></i> LOG IN 
                     </a>
                     <div></div>
@@ -97,11 +126,11 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
             <div style="border: 1px solid lightgray;"> </div>
             <!-- Right Section -->
             <div class="col-md-6 d-flex flex-column justify-content-center p-4 z-5">
-                <div class="d-flex flex-column justify-content-between small-box company-login my-3" style="height: 300px;">
+                <div class="d-flex flex-column justify-content-between align-items-center small-box company-login my-3" style="height: 300px;">
                     <div class="inner text-center">
-                        <h3 class="box-title" >Company Login</h3>
+                        <h3 class="box-title" style="margin-top:1rem; color:#F2E8C6; font-size:40px;">Company Login</h3>
                     </div>
-                    <a href="/src/Company/login-company.php" class="buttons buttons-color">
+                    <a href="/src/Company/login-company.php" class="buttons">
                         <i class="fa fa-arrow-right" style="margin-right: 1rem;"></i> LOG IN 
                     </a>
                     <div></div>

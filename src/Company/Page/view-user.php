@@ -73,7 +73,7 @@ require_once("../../../database/db.php");
                             </div>                            
                         </div>
                         
-                    <a href="my-job-post.php" class="buttons-sm buttons-color">
+                    <a href="my-job-post.php" class="button-create">
                         <i class="fa fa-arrow-left" style="margin-right: 1rem;"></i> Back
                     </a>
                     </div>

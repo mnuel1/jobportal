@@ -79,7 +79,7 @@ if($result->num_rows == 0)
                 ?>
                 <div class="d-flex justify-content-between align-items-center" style="height: 100px;">
                     <h2 class="mb-0"><?php echo $row['firstname']. ' '.$row['lastname']; ?></h2>
-                    <a href="job-applications.php" class="buttons-sm buttons-color">
+                    <a href="job-applications.php" class="button-create">
                         <i class="fa fa-arrow-left" style="margin-right: 1rem;"></i> Back
                     </a>
                 </div>
@@ -93,48 +93,36 @@ if($result->num_rows == 0)
                         echo 'Baranggay: '.$row['baranggay'];
                         echo '<br>';
                     ?>                
-                <div style="display:flex; align-items:end; justify-content:end;">                        
-                    <a class="mb-2 buttons-sm buttons-color" 
-                    href="https://mail.google.com/mail/u/0/?fs=1&to=<?php echo $row['email']; ?>&su=SUBJECT&body=BODY&bcc=&tf=cm">Contact</a>
+                <div class="d-flex justify-content-start justify-content-sm-end align-items-end mt-4">                        
+                    <a class="mb-2 button-upt-lg" 
+                    href="https://mail.google.com/mail/u/0/?fs=1&to=<?php echo $row['email']; ?>&su=SUBJECT&body=BODY&bcc=&tf=cm"
+                    target="_blank" 
+                    rel="noopener noreferrer">
+                    Contact
+                    </a>
                 </div>
                 
-                <div style="display:flex; align-items:end; justify-content:end;">
+                <div class="d-flex justify-content-start justify-content-sm-end align-items-end">   
                     <?php if($row['resume'] != ""): ?>
                         <!-- Open resume in new tab -->
-                        <a class="mb-2 buttons-sm buttons-color" href="/uploads/resume/<?php echo $row['resume']; ?>" target="_blank">
+                        <a class="mb-2 button-upt-lg" href="/uploads/resume/<?php echo $row['resume']; ?>" target="_blank">
                             View Resume
                         </a>
                     <?php endif; ?>              
                 </div>
-                    
-                <!-- Bootstrap Modal to Display PDF -->
-                <div class="modal fade" id="resumeModal" tabindex="-1" aria-labelledby="resumeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="resumeModalLabel">Resume</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <iframe src="/uploads/resume/<?php echo $row['resume']; ?>" width="100%" height="500px"></iframe>
-                    </div>
-                    </div>
-                </div>
-                </div>
-
                 <!-- Include Bootstrap JS (if not already included) -->
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
                   
-                <div class="d-flex gap-2">
+                <div class="d-flex justify-content-between flex-column flex-lg-row gap-2">
                     <?php
                         $status = $_GET["status"]; // Assume status is obtained from the URL
 
                         // Check the status and display the appropriate buttons
                         if ($status == 0) {
                             // Status is 0: Show both 'Under Review' and 'Reject' buttons
-                            echo '<a id="underreview" href="#" class="btn btn-success">Mark Under Review</a>';
-                            echo '<a id="reject" href="#" class="btn btn-danger">Reject Application</a>';
+                            echo '<a id="underreview" href="#" class="button-upt-lg">Mark Under Review</a>';
+                            echo '<a id="reject" href="#" class="button-upt-lg-red">Reject Application</a>';
                         } elseif ($status == 1) {
                             // Status is 1: Show none
                             // Do nothing (no buttons will be displayed)

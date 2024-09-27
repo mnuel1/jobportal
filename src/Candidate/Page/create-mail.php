@@ -56,12 +56,12 @@ require_once("../../../database/db.php");
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
             <h1 class="text-center my-4">COMPOSE 
-                <span style="color: #7D0A0A;">NEW MESSAGE</span>
+                <span style="color: #253D80;">NEW MESSAGE</span>
             </h1>
             <form id="addMail" method="post">              
                 <div class="box-body">
                     <div class="form-group">
-                        <select name="to" class="form-control" required>
+                        <select name="to" class="form-control mb-2" required>
                             <?php 
                                 $sql = "SELECT * FROM apply_job_post 
                                 INNER JOIN job_post ON job_post.id_jobpost = apply_job_post.id_jobpost
@@ -76,7 +76,7 @@ require_once("../../../database/db.php");
                             ?>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <input class="form-control" name="subject" placeholder="Subject:" required>
                     </div>
                     <div class="form-group">
@@ -86,7 +86,7 @@ require_once("../../../database/db.php");
                 <div class="box-footer mt-2">
                     <div class="pull-right">
                         <button type="submit" class="btn btn-primary"
-                        style="background-color:green; color:white"><i class="fa fa-envelope"></i> Send</button>
+                        style="background-color:green; color:white; border:0px;"><i class="fa fa-envelope"></i> Send</button>
 
                         <a href="mailbox.php" class="btn btn-default" 
                         style="background-color:#7D0A0A; color:white"><i class="fa fa-times"></i> Discard</a>

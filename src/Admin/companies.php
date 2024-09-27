@@ -70,8 +70,8 @@ $result = $conn->query($sql);
                 data-bs-toggle="offcanvas" 
                 data-bs-target="#offcanvasWithBothOptions" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
-            <h1 class="text-center my-4">COMPANIES 
-            <span style="color: #7D0A0A;">DATABASE</span></h1>
+            <h1 class="text-center my-4"> 
+            <span style="color: #7D0A0A;">COMPANIES</span></h1>
             <form method="GET" action="">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Search here..." name="search" value="<?php echo htmlspecialchars($search); ?>">

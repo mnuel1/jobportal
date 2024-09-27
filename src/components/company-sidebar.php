@@ -3,8 +3,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
 <div class="container smaller bg-light mx-auto d-none d-lg-block" style="overflow: hidden;"> 
-    <h1 class="text-center" style="margin-top: 30px;">WELCOME 
-        <span style="color: #7D0A0A;"><?php echo strtoupper($_SESSION['name']); ?></span>
+    <h1 class="text-center" style="margin-top: 30px; color:#0A2E7D">WELCOME 
+        <span style="color: #CA2B2D;"><?php echo strtoupper($_SESSION['name']); ?></span>
     </h1>
     <hr>
     <div class="vertical-menu">        

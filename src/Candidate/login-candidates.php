@@ -81,7 +81,7 @@ require_once("../../database/db.php");
             <a href="/src/index.php">JobSearch</a>
         </div>    
         <div class="login-box-body">
-            <p class="login-box-msg">Candidates Login</p>
+            <p class="login-box-msg">Applicant Login</p>
             
             <form method="post" id="loginCandidates">
                 <div class="mb-3 position-relative">

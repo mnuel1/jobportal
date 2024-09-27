@@ -17,16 +17,15 @@ $limit = 10;  // Number of records per page
 $offset = ($page - 1) * $limit;
 
 // Query to get total number of records (for pagination)
-$total_query = "SELECT COUNT(*) as total FROM job_post INNER JOIN company ON job_post.id_company=company.id_company 
-WHERE job_post.jobtitle LIKE '%$search%'";
+$total_query = "SELECT COUNT(*) as total FROM mailbox WHERE id_fromuser='$_SESSION[id_user]' OR id_touser='$_SESSION[id_user]'
+AND subject LIKE '%$search%'";
 $total_result = $conn->query($total_query);
 $total_rows = $total_result->fetch_assoc()['total'];
 
 // Query to get paginated and filtered results
-$sql = "SELECT job_post.*, company.companyname  
-        FROM job_post 
-        INNER JOIN company ON job_post.id_company=company.id_company 
-        WHERE job_post.jobtitle LIKE '%$search%'
+$sql = "SELECT  * FROM  mailbox 
+        WHERE id_fromuser='$_SESSION[id_user]' OR id_touser='$_SESSION[id_user]'
+        AND subject LIKE '%$search%'
         LIMIT $limit OFFSET $offset";
 $result = $conn->query($sql);
 ?>
@@ -40,7 +39,6 @@ $result = $conn->query($sql);
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!-- Font Awesome icons -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet">
     <!-- Bootstrap CSS -->
@@ -49,6 +47,7 @@ $result = $conn->query($sql);
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/mystyle.css" rel="stylesheet" />
     <link href="/css/body.css" rel="stylesheet" />
+    
 </head>
 <body>
 
@@ -70,16 +69,17 @@ $result = $conn->query($sql);
                 data-bs-target="#candidate" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
-            <h1 class="text-center my-4">
-            <span style="color: #7D0A0A;">MAILBOX</span></h1>
+            <h1 class="text-center my-4">MAILBOX
+            <span style="color: #7D0A0A;"></span></h1>
             <form method="GET" action="">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Search here..." name="search" value="<?php echo htmlspecialchars($search); ?>">
                     <button class="buttons-sm buttons-color" type="submit">Search</button>
                 </div>
             </form>
-            <div class="pull-right">
-                <a href="create-mail.php" class="buttons-sm buttons-color"><i class="fa fa-envelope " style="margin-right: 1rem;"></i> Create</a>
+            <div class="d-flex align-items-center justify-content-end">
+                <a href="create-mail.php" class="button-create buttons-color mb-2">
+                    <i class="fa fa-envelope " style="margin-right: 7px;"></i> Create</a>
             </div>   
               <div class="row margin-top-20">
                 <div class="col-md-12">
@@ -92,9 +92,7 @@ $result = $conn->query($sql);
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                    $sql = "SELECT * FROM mailbox WHERE id_fromuser='$_SESSION[id_user]' OR id_touser='$_SESSION[id_user]'";
-                                    $result = $conn->query($sql);
+                                <?php                                    
                                     if($result->num_rows >  0 ){
                                         while($row = $result->fetch_assoc()) {
                                 ?>

@@ -50,7 +50,7 @@ require_once("../../../database/db.php");
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
             <h1 class="text-center my-4">TALENT
-            <span style="color: #7D0A0A;">DATABASE</span></h1>
+            <span style="color: #253D80;">DATABASE</span></h1>
             <p style="font-size: small; color:gray"><i>In this section you can download resume of all candidates who applied to your job posts</i></p>          
           
                                 
@@ -88,7 +88,7 @@ require_once("../../../database/db.php");
                                 <td>
                                 <?php
                                 foreach ($skills as $value) {
-                                    echo ' <span class="label label-success">'.$value.'</span>';
+                                    echo ' <span class="badge text-bg-success">'.$value.'</span>';
                                 }
                                 ?>
                                 </td>

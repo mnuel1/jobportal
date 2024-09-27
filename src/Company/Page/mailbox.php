@@ -69,16 +69,17 @@ $result = $conn->query($sql);
                 data-bs-target="#company" 
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
-            <h1 class="text-center my-4">
-            <span style="color: #7D0A0A;">MAILBOX</span></h1>
+            <h1 class="text-center my-4">MAILBOX
+            <span style="color: #7D0A0A;"></span></h1>
             <form method="GET" action="">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Search here..." name="search" value="<?php echo htmlspecialchars($search); ?>">
                     <button class="buttons-sm buttons-color" type="submit">Search</button>
                 </div>
             </form>
-            <div class="pull-right mb-2">
-                <a href="create-mail.php" class="buttons-sm buttons-color"><i class="fa fa-envelope " style="margin-right: 1rem;"></i> Create</a>
+            <div class="d-flex align-items-center justify-content-end mb-2">
+                <a href="create-mail.php" class="button-create buttons-color">
+                    <i class="fa fa-envelope " style="margin-right: 1rem;"></i> Create</a>
             </div>
             <div class="row margin-top-20">
                 <div class="col-md-12">

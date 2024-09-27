@@ -52,7 +52,7 @@ require_once("../../../database/db.php");
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
             <h1 class="text-center my-4">COMPOSE
-            <span style="color: #7D0A0A;">NEW MESSAGE</span></h1>
+            <span style="color: #253D80;">NEW MESSAGE</span></h1>
             <form id="addMail" method="post">
                 <div class="box box-primary">
                     <div class="box-header with-border">
@@ -83,14 +83,15 @@ require_once("../../../database/db.php");
                         </div>
                     </div>
                 
-                    <div class="d-flex gap-4">
+                    <div class="box-footer mt-2">
                         <div class="pull-right">
-                        <button type="submit" class="btn btn-primary"
-                        style="background-color:green; color:white"><i class="fa fa-envelope"></i> Send</button>
-                        </div>
-                        <a href="mailbox.php" class="btn btn-default"
-                        style="background-color:#7D0A0A; color:white"><i class="fa fa-times"></i> Discard</a>
-                    </div>
+                            <button type="submit" class="btn btn-primary"
+                            style="background-color:green; color:white; border:0px;"><i class="fa fa-envelope"></i> Send</button>
+
+                            <a href="mailbox.php" class="btn btn-default" 
+                            style="background-color:#7D0A0A; color:white"><i class="fa fa-times"></i> Discard</a>
+                        </div>                
+                    </div> 
               
                 </div>
             </form>

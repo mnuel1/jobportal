@@ -15,10 +15,10 @@
                 <li class="nav-item mx-0 mx-lg-1" style="margin-left: 20px; margin-right: 20px;">
                     <hr class="d-lg-none" style="border-top: 2px solid white; width: 100%; margin: 10px 0;">
                 </li>
-
+                
                 <?php if(empty($_SESSION['id_user']) && empty($_SESSION['id_company'])) { ?>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="/src/login.php">Login</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" href="/src/sign-up.php">Sign-up</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded login-link" href="/src/login.php">Login</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-3 px-lg-3 rounded auth-link" style="border:1px solid white;" href="/src/sign-up.php">Sign-up</a></li>
                 <?php } else { 
 
                     if(isset($_SESSION['id_user'])) { 

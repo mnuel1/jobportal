@@ -45,7 +45,6 @@ $result = $conn->query($sql);
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!-- Font Awesome icons -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet">
     <!-- Bootstrap CSS -->
@@ -75,68 +74,68 @@ $result = $conn->query($sql);
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i></button>
             
             <h1 class="text-center my-4">RECENT 
-            <span style="color: #7D0A0A;">APPLICATIONS</span></h1>
-            <p style="font-size: small; color:gray"><i>Below you will find job roles you have applied for</i></p>
-            <div class="">                  
-                <div class="">
-                    <?php if ($result->num_rows > 0): ?>
-                        <?php while ($row = $result->fetch_assoc()): ?>
-                            <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>">
-                                <div class="col-12 mb-4">
-                                    <?php
-                                    // Determine the class based on the job status
-                                    $statusClass = '';
-                                    switch ($row['status']) {
-                                        case 0:
-                                            $statusClass = 'Pending'; // Pending (yellow)
-                                            $color = 'text-warning'; // Pending (yellow)
-                                            break;
-                                        case 1:
-                                            $statusClass = 'Rejected'; // Rejected (red)
-                                            $color = 'text-danger'; // Pending (yellow)
-                                            break;
-                                        case 2:
-                                            $statusClass = 'Under Review'; // Under review (light blue)
-                                            $color = 'text-info'; // Pending (yellow)
-                                            break;
-                                        case 3:
-                                            $statusClass = 'Accepted'; // Accepted (green)
-                                            $color = 'text-success'; // Pending (yellow)
-                                            break;
-                                        default:
-                                            $statusClass = ''; // Default class if needed
-                                    }
-                                    ?>
-                                    <div class="job-box d-flex align-items-center border rounded p-3">
-                                        <img src="/assets/unnamed 1.png" alt="Job 1" class="d-none d-sm-block" style="width: 80px; height: 80px; margin-right:1rem">
-                                        <div class="flex-grow-1">
-                                            <h4 class="job-title mb-1"><?php echo $row['jobtitle']; ?></h4>
-                                            <p class="job-description mb-0"><?php echo $row['companyname']; ?> | 
-                                            <?php echo $row['baranggay_name']; ?> | <?php echo $row['experience']; ?> Years | <?php echo $row['job_type']; ?></p>
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-between" style="height: 100%;">
-                                            <h5 class="salary mb-0">₱<?php echo $row['maximumsalary']; ?>/Month</h5>
-                                            <h5 class="<?php echo $color; ?>" style="font-size:small;"><?php echo $statusClass; ?></h5>
-                                        </div>
-
+            <span style="color: #253D80;">APPLICATIONS</span></h1>
+            <p style="font-size: small; color:gray"><i>Below you will find job roles you have applied for</i></p>                      
+            <div class="">
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <?php
+                            // Determine the class based on the job status
+                            $statusClass = '';
+                            switch ($row['status']) {
+                                case 0:
+                                    $statusClass = 'Pending'; // Pending (yellow)
+                                    $color = 'text-warning'; // Pending (yellow)
+                                    break;
+                                case 1:
+                                    $statusClass = 'Rejected'; // Rejected (red)
+                                    $color = 'text-danger'; // Pending (yellow)
+                                    break;
+                                case 2:
+                                    $statusClass = 'Under Review'; // Under review (light blue)
+                                    $color = 'text-info'; // Pending (yellow)
+                                    break;
+                                case 3:
+                                    $statusClass = 'Accepted'; // Accepted (green)
+                                    $color = 'text-success'; // Pending (yellow)
+                                    break;
+                                default:
+                                    $statusClass = ''; // Default class if needed
+                            }
+                        ?>
+                        <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>&status=<?php echo $statusClass; ?>">
+                            <div class="col-12 mb-4">
+                                
+                                <div class="job-box d-flex align-items-center border rounded p-2">
+                                    <img src="/assets/unnamed 1.png" alt="Job 1" class="d-none d-sm-block" style="width: 80px; height: 80px; margin-right:1rem">
+                                    <div class="flex-grow-1">
+                                        <h4 class="job-title mb-1"><?php echo $row['jobtitle']; ?></h4>
+                                        <p class="job-description mb-0"><?php echo $row['companyname']; ?> | 
+                                        <?php echo $row['baranggay_name']; ?> | <?php echo $row['experience']; ?> Years | <?php echo $row['job_type']; ?></p>
                                     </div>
+                                    <div class="d-flex flex-column justify-content-between" style="height: 100%;">
+                                        <h5 class="salary mb-0">₱<?php echo $row['maximumsalary']; ?>/Month</h5>
+                                        <h5 class="<?php echo $color; ?>" style="font-size:small;"><?php echo $statusClass; ?></h5>
+                                    </div>
+
                                 </div>
-                            </a>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <p>No jobs found.</p>
-                    <?php endif; ?>
-                    <div class="d-flex align-items-center justify-content-center">
-                        <ul class="pagination">
-                            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                                <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
-                                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                                </li>
-                            <?php endfor; ?>
-                        </ul>
-                    </div>
+                            </div>
+                        </a>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p>No jobs found.</p>
+                <?php endif; ?>
+                <div class="d-flex align-items-center justify-content-center">
+                    <ul class="pagination">
+                        <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                            <li class="page-item <?php echo ($i == $page) ? 'active' : ''; ?>">
+                                <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                            </li>
+                        <?php endfor; ?>
+                    </ul>
                 </div>
-            </div>                                
+            </div>
+           
                 
         </div>
     </div>

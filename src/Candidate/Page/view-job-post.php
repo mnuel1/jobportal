@@ -110,24 +110,41 @@ require_once("../../../database/db.php");
                                         <h3><?php echo $row['companyname']; ?></h3>
                                         <p><a href="#" class="btn btn-primary btn-flat" role="button">More Info</a></p>
                                         <hr>
-                                        <div style="display:flex; flex-direction:column; gap:15px;">
-                                            <div style="display: flex; justify-content:space-between; gap:15px;">
-                                                <div style="display:flex; align-items:center;">
-                                                    <a href="" style="background-color: red; padding:6px; color:white;">
-                                                        <i class="fa fa-warning"></i> Report
-                                                    </a>
-                                                </div>
-                                                <?php if(isset($_SESSION["id_user"]) && empty($_SESSION['companyLogged'])) { ?>
-                                                    <div>
-                                                        <a href="#" data-id="<?php echo $row['id_jobpost']; ?>" class="apply btn btn-success btn-flat margin-top-50">Apply</a>
-                                                    </div>
-                                                <?php } ?>
-                                                <div style="display:flex; align-items:center;">
-                                                    <a href="" style="background-color: #F2E8C6; padding:6px; color:black;">
-                                                        <i class="fa fa-envelope"></i> Email
-                                                    </a>
-                                                </div>
-                                            </div>                                        
+                                        <div class="d-flex flex-wrap gap-1 align-items-center justify-content-center">
+                                            <div class="d-flex flex-column flex-lg-row align-items-center gap-2">
+                                                <a href="#" class="btn btn-danger btn-flat">
+                                                    <i class="fa fa-warning"></i> Report
+                                                </a>                                            
+                                                <a href="#" class="btn btn-warning btn-flat">
+                                                    <i class="fa fa-envelope"></i> Email
+                                                </a>
+                                            </div>
+                                            <?php                                                    
+                                                if (isset($_SESSION["id_user"]) && empty($_SESSION['companyLogged'])) {
+                                                    
+                                                    $status = isset($_GET["status"]) ? urldecode($_GET["status"]) : '';
+                                                    
+                                                    if (empty($status)) {
+                                                        ?>
+                                                            <div style="display:flex; align-items:center;">
+                                                                <a href="#" data-id="<?php echo $row['id_jobpost']; ?>" class="apply btn btn-success btn-flat">Apply</a>
+                                                            </div>
+                                                        <?php
+                                                    } else {                                                            
+                                                        if ($status === 'Under Review') {
+                                                            echo "<p class='text-bg-info p-2' >Your application is under review.</p>";
+                                                        } else if ($status === 'Rejected') {
+                                                            echo "<p class='text-bg-danger p-2'>Your application was rejected.</p>";
+                                                        } else if ($status === 'Accepted') {
+                                                            echo "<p class='text-bg-success p-2'>Your application was accepted. Congratulations!</p>";
+                                                        } else if ($status === 'Pending') {
+                                                            echo "<p class='text-bg-secondary p-2'>Your application is pending review.</p>";
+                                                        }
+                                                    }
+                                                }
+                                            ?>
+                                            
+                                                                              
                                         </div>
                                     </div>
                                 </div>

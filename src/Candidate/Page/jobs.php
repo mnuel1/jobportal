@@ -60,7 +60,6 @@ $result = $conn->query($sql);
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!-- Font Awesome icons -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet">
     <!-- Bootstrap CSS -->
@@ -90,7 +89,7 @@ $result = $conn->query($sql);
                 aria-controls="offcanvasWithBothOptions"><i class="fa-solid fa-bars"></i>
             </button>
             <h1 class="text-center my-4">LATEST 
-            <span style="color: #7D0A0A;">OFFERS</span></h1>
+            <span style="color: #253D80;">OFFERS</span></h1>
             <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/search.php';?>
             <section id="jobs" class="content-header ">
                 <div class="container">
@@ -202,7 +201,7 @@ $result = $conn->query($sql);
                                 <?php while ($row = $result->fetch_assoc()): ?>
                                     <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>">
                                         <div class="col-12 mb-4">
-                                            <div class="job-box d-flex align-items-center border rounded p-3">
+                                            <div class="job-box d-flex align-items-center border rounded p-2">
                                                 <img src="/assets/unnamed 1.png" alt="Job 1" class="d-none d-sm-block" style="width: 80px; height: 80px; margin-right:1rem">
                                                 <div class="flex-grow-1">
                                                     <h4 class="job-title mb-1"><?php echo $row['jobtitle']; ?></h4>

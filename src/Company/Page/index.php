@@ -51,11 +51,12 @@ require_once("../../../database/db.php");
                 <i class="fa-solid fa-bars"></i>
             </button>
 
-            <h1 class="text-center my-4">
-            <span style="color: #7D0A0A;">OVERVIEW</span></h1>        
+            <h1 class="text-center my-4">OVERVIEW
+            <span style="color: #7D0A0A;"></span></h1>        
             <div class="alert alert-warning alert-dismissible fade show" role="alert" 
-            style="display: flex; align-items:center; gap:4px; ">
-                <i class="fa-solid fa-info"></i> In this dashboard you are able to change your account settings, post and manage your jobs. Got a question? Do not hesitate to drop us a mail.
+            style="display: flex; align-items:center; gap:4px; background-color:#0A2E7D; color:white;">
+                <i class="fa-solid fa-info"></i> 
+                In this dashboard you are able to change your account settings, post and manage your jobs. Got a question? Do not hesitate to drop us a mail.
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 

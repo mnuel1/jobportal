@@ -52,41 +52,51 @@ if(empty($_SESSION['id_company'])) {
             </button>
 
             <h1 class="text-center my-4"> ACCOUNT
-            <span style="color: #7D0A0A;">SETTINGS</span></h1>
+            <span style="color: #253D80;">SETTINGS</span></h1>
             <p style="font-size: small; color:gray"><i>In this section you can change your name and account password</i></p>
           
           
             
             <div class="row">
-              <div class="col-md-6">
-                <form id="updateName" method="post">
-                  <div class="form-group mb-2">
-                    <label>Your Name (Full Name)</label>
-                    <input class="form-control input-lg" name="name" type="text" required>
-                  </div>
-                  <div class="form-group mb-2">
-                    <button type="submit" class="btn btn-flat btn-success btn-lg">Change Name</button>
-                  </div>
-                </form>
-                <form id="changePassword" action="change-password.php" method="post">
-                  <div class="form-group mb-2">
-                    <input id="password" class="form-control input-lg" type="password" name="password" autocomplete="off" placeholder="Password" required>
-                  </div>
-                  <div class="form-group mb-2">
-                    <input id="cpassword" class="form-control input-lg" type="password" autocomplete="off" placeholder="Confirm Password" required>
-                  </div>
-                  <div class="form-group mb-2">
-                    <button type="submit" class="btn btn-flat btn-success btn-lg">Change Password</button>
-                  </div>
-                  
-                </form>
-
-                <form id="deactivateAccount" method="post">
-                    <label class="mt-4" style=" display:flex; align-items:center; gap:5px;">
-                    <input type="checkbox" required id="deact"> I Want To Deactivate My Account</label>
-                    <button class=" buttons-sm buttons-color">Deactivate My Account</button>
-                </form>
-              </div>
+                <div class="col-md-6">
+                    <form id="updateName" method="post">
+                        <div class="form-group mb-2">
+                            <label>Your Name (Full Name)</label>
+                            <input class="form-control input-lg" name="name" type="text" required>
+                        </div>
+                        <div class="form-group mb-2">
+                            <button type="submit" class="button-change">Change Name</button>
+                        </div>
+                    </form>
+                    <form id="changePassword" action="change-password.php" method="post">
+                        <div class="form-group mb-2">
+                            <input id="password" class="form-control input-lg" type="password" name="password" autocomplete="off" placeholder="Password" required>
+                        </div>
+                        <div class="form-group mb-2">
+                            <input id="cpassword" class="form-control input-lg" type="password" autocomplete="off" placeholder="Confirm Password" required>
+                        </div>
+                        <div class="form-group mb-2">
+                            <button type="submit" class="button-change-dark">Change Password</button>
+                        </div>
+                    
+                    </form>
+                    
+                </div>
+                <div class="col-12 d-flex align-items-center justify-content-center flex-grow-1" style="margin-top: 20rem;">
+                    <form id="deactivateAccount" method="post">
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="deact" required>
+                            <label class="form-check-label mb-2" for="deact"> <b>I want to 
+                                <span style="color: #B80000;">deactivate</span> my account.</b> </label>
+                        </div>
+                        <div class="form-group d-flex align-items-center justify-content-center">
+                            <button type="submit" class="deact-account">Deactivate My Account</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
               
               
 
