@@ -89,7 +89,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/database/db.php");
                             <img src="/assets/image 29.png" alt="Stat 3 Image"> 
                         </div>
                         <div class="statistic-right">
-                            <div class="title">REGISTERED CANDIDATES</div>
+                            <div class="title">REGISTERED APPLICANTS</div>
                             <?php
                                 $sql = "SELECT * FROM users WHERE active='1'";
                                 $result = $conn->query($sql);
@@ -105,7 +105,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/database/db.php");
                             <img src="/assets/image 29.png" alt="Stat 4 Image"> 
                         </div>
                         <div class="statistic-right">
-                            <div class="title">PENDING CANDIDATES CONFIRMATION</div>
+                            <div class="title">PENDING APPLICANTS CONFIRMATION</div>
                             <?php
                                 $sql = "SELECT * FROM users WHERE active='0'";
                                 $result = $conn->query($sql);

@@ -25,7 +25,9 @@ $type = isset($_GET['type']) ? $_GET['type'] : '';
 $sql = "SELECT job_post.*, company.companyname, company.logo, baranggay.name as baranggay_name, company.baranggay_id  FROM job_post 
         JOIN company ON job_post.id_company = company.id_company 
         JOIN baranggay ON company.baranggay_id = baranggay.baranggay_id
-        WHERE 1=1";
+        LEFT JOIN apply_job_post ON apply_job_post.id_jobpost = job_post.id_jobpost AND apply_job_post.id_users = '$_SESSION[id_user]'
+        WHERE apply_job_post.id_jobpost IS NULL AND
+        1=1";
 
 if ($search) {
     $sql .= " AND jobtitle LIKE '%" . $conn->real_escape_string($search) . "%'";

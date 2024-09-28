@@ -23,6 +23,7 @@
     color: white;
     transform: scale(1.02); /* Slight scale on hover */
 }
+
 .job-title {
     font-size: 1.25rem; /* Job title font size */
 }
@@ -214,3 +215,4 @@ a:hover {
         z-index: 3; /* Bring it above the larger container */
     }
 }
+

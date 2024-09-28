@@ -20,8 +20,8 @@ $id = $_SESSION['id_user'];
 // Build SQL query
 $sql = "SELECT * FROM job_post 
         INNER JOIN apply_job_post ON job_post.id_jobpost = apply_job_post.id_jobpost 
-        WHERE apply_job_post.id_users = '$_SESSION[id_user]
-        ORDER BY createdAt'";
+        WHERE apply_job_post.id_users = '".$_SESSION['id_user']."'
+        ORDER BY apply_job_post.createdAt DESC";
 
 // Count total rows for pagination
 $total_sql = str_replace('*', 'COUNT(*) as total', $sql);
@@ -106,6 +106,17 @@ $result = $conn->query($sql);
                                         $color = 'text-success'; 
                                         $message = "Congratulations! Your application has been accepted. Please check your email for further instructions.";
                                         break;
+                                    case 4:
+                                        $statusClass = 'Accepted for interview'; // Accepted
+                                        $color = 'text-success'; 
+                                        $message = "Congratulations! You have received an interview schedule. Please check your email for further instructions.";
+                                        break;
+                                    case 5:
+                                        $statusClass = 'Invited'; // Under review (light blue)
+                                        $color = 'text-info'; 
+                                        $message = "You are invited to apply in this job.";
+                                        break;
+                                        
                                     default:
                                         $statusClass = ''; // Default if no status matches
                                         $message = '';
@@ -119,7 +130,7 @@ $result = $conn->query($sql);
                                             <h4 class="job-title mb-1"><?php echo $row['jobtitle']; ?></h4>
                                             
                                             <!-- Message based on status -->
-                                            <p class="<?php echo $color; ?> msg-status"><?php echo $message; ?></p>
+                                            <p class="<?php echo $color; ?> msg-status"><?php echo $message; ?></p>                                            
                                         </div>
                                         <div class="d-flex flex-column justify-content-between" style="height: 100%;">
                                             <h5 class="salary mb-0">₱<?php echo $row['maximumsalary']; ?>/Month</h5>

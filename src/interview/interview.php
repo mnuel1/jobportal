@@ -2,16 +2,20 @@
 
 $meetingName = urldecode($_GET["meetingname"]);
 $meetingDate = urldecode($_GET["meetingdate"]); 
+$force = urldecode($_GET["force"]); 
 
 // Check if the meeting date and time match today's date and time
 $currentDateTime = new DateTime();
 $meetingDateTime = DateTime::createFromFormat('Y-m-d H:i:s', $meetingDate);
 
-if ($meetingDateTime && $meetingDateTime->format('Y-m-d H:i:s') !== $currentDateTime->format('Y-m-d H:i:s')) {
+if ($force === true) {
+  if ($meetingDateTime && $meetingDateTime->format('Y-m-d H:i:s') !== $currentDateTime->format('Y-m-d H:i:s')) {
     header("Location: /src/notyet.php");
-} else {
-    header("Location: /src/notyet.php");
+  } else {
+      header("Location: /src/notyet.php");
+  }
 }
+
 ?>
 
 

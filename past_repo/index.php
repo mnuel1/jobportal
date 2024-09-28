@@ -54,7 +54,7 @@ require_once("db.php");
             <a href="#about" style="font-size:15px; font-weight:500" >About Us</a>
           </li>
           <li>
-            <a href="#candidates" style="font-size:15px; font-weight:500">Candidates</a>
+            <a href="#candidates" style="font-size:15px; font-weight:500">Applicants</a>
           </li>
           <li>
             <a href="#company" style="font-size:15px; font-weight:500; margin-right: 50px;">Company</a>
@@ -166,10 +166,10 @@ require_once("db.php");
             <img src="img/aabout.jpg" width="800" class="img-responsive">
           </div>
           <div class="col-md-6 about-text margin-bottom-20">
-            <p>The online JobSearch application allows job seekers and recruiters to connect.The application provides the ability for job seekers to create their accounts, upload their profile and resume, search for jobs, apply for jobs, view different job openings. The application provides the ability for companies to create their accounts, search candidates, create job postings, and view candidates applications.
+            <p>The online JobSearch application allows job seekers and recruiters to connect.The application provides the ability for job seekers to create their accounts, upload their profile and resume, search for jobs, apply for jobs, view different job openings. The application provides the ability for companies to create their accounts, search applicants, create job postings, and view applicants applications.
             </p>
             <p>
-              This website is used to provide a platform for potential candidates to get their dream job and excel in yheir career.
+              This website is used to provide a platform for potential applicants to get their dream job and excel in yheir career.
               This site can be used as a paving path for both companies and job-seekers for a better life .
               
             </p>
@@ -183,7 +183,7 @@ require_once("db.php");
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center latest-job margin-bottom-20">
-            <h1 style="font-weight:600">CANDIDATES</h1>
+            <h1 style="font-weight:600">APPLICANTS</h1>
             <p>Finding a job just got easier. Create a profile and apply with single mouse click.</p>            
           </div>
         </div>
@@ -367,7 +367,7 @@ require_once("db.php");
           <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="#about">About us</a></li>
-            <li><a href="#candidates">Candidates</a></li>
+            <li><a href="#candidates">Applicants</a></li>
             <li><a href="#company">Companies</a></li>
           </ul>
         </div>          

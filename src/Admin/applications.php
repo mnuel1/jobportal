@@ -79,7 +79,7 @@ $result = $conn->query($sql);
                     <div class="box-body table-responsive no-padding">
                         <table class="table table-hover">
                             <thead style="background-color: #7D0A0A; color:white;">
-                                <th>Candidate</th>
+                                <th>Applicant</th>
                                 <th>Highest Qualification</th>
                                 <th>Skills</th>
                                 <th>Baranggay</th>
@@ -153,7 +153,7 @@ $result = $conn->query($sql);
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Candidate Profile</h4>
+            <h4 class="modal-title">Applicant Profile</h4>
           </div>
           <div class="modal-body">
               <h3><b>Applied On</b></h3>

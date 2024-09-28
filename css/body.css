@@ -151,6 +151,18 @@ body {
     background-color: #7D0A0A;
     color: white;
 }
+.statusBtn-green {
+    padding: 4px;
+    color: white;            
+    border-radius: 4px;
+    background-color: #28a745;
+    cursor: pointer;
+}
+
+.statusBtn-green:hover {
+    background-color: #218838;
+    color: white;
+}
 .trash {
     color: #CA2B2D;
 }
@@ -264,4 +276,11 @@ body {
     outline: none;
     box-shadow: none;
     border-color: #CA2B2D;
+}
+
+@media (max-width: 990px) {
+    .button-upt-lg, .button-upt-lg-red  {        
+        width: 100%;
+        
+    }
 }

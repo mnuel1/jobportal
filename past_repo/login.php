@@ -100,7 +100,7 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
           <div class="col-md-6 latest-job ">
             <div style="height:200px; background-color:#5F8670;cursor:pointer" class="small-box padding-5">
               <div class="inner">
-                <h3 class="text-center">Candidates Login</h3>
+                <h3 class="text-center">Applicants Login</h3>
               </div>
 			  <br>
             <br>

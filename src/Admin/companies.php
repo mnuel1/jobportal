@@ -111,7 +111,7 @@ $result = $conn->query($sql);
                                             <td>
                                                 <?php
                                                 if ($row['active'] == '1') {
-                                                    echo "Activated";
+                                                    echo "<p class='badge text-bg-success'>Activated</p>";
                                                 } else if ($row['active'] == '2') {
                                                     echo '                                                   
                                                     <div class="statuscont"> 
@@ -122,7 +122,7 @@ $result = $conn->query($sql);
                                                             Reject
                                                         </a> 
                                                         <a 
-                                                            class="statusBtn" 
+                                                            class="statusBtn-green" 
                                                             data-url="./process/approve-company.php?id=' . $row['id_company'] . '" 
                                                             data-action="approve">
                                                             Approve
@@ -131,9 +131,9 @@ $result = $conn->query($sql);
                                                     ';
                                                     
                                                 } else if ($row['active'] == '3') {
-                                                    echo '<a href="./process/approve-company.php?id=' . $row['id_company'] . '">Reactivate</a>';
+                                                    echo '<a class="statusBtn-green" href="./process/approve-company.php?id=' . $row['id_company'] . '">Reactivate</a>';
                                                 } else {
-                                                    echo "Rejected";
+                                                    echo "<p class='badge text-bg-danger'>Rejected</p>";
                                                 }
                                                 ?>
                                             </td>
@@ -268,6 +268,26 @@ $result = $conn->query($sql);
     });
 
     $('.statusBtn').on('click', function(event) {
+        event.preventDefault(); // Prevent the default action (navigation)
+
+        // Get the action URL and type from the clicked element's data attributes
+        actionUrl = $(this).data('url');
+        actionType = $(this).data('action');
+
+        const modal = document.getElementById('confirmModal')
+        const msg = document.getElementById('confirm-msg')
+        if (actionType === 'reject') {
+            msg.textContent = 'Are you sure you want to reject this company?';
+        } else if (actionType === 'approve') {
+            msg.textContent = 'Are you sure you want to approve this company?';
+        }
+
+        // Show the confirmation modal
+        var confirmModal = new bootstrap.Modal(modal);
+        confirmModal.show();
+    });
+
+    $('.statusBtn-green').on('click', function(event) {
         event.preventDefault(); // Prevent the default action (navigation)
 
         // Get the action URL and type from the clicked element's data attributes

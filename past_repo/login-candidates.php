@@ -42,7 +42,7 @@ if(isset($_SESSION['id_user']) || isset($_SESSION['id_company'])) {
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Candidates Login</p>
+    <p class="login-box-msg">Applicants Login</p>
 
     <form method="post" action="checklogin.php">
       <div class="form-group has-feedback">

@@ -12,16 +12,11 @@ if(empty($_SESSION['id_company'])) {
 require_once("../../../database/db.php");
 
 
-$sql = "SELECT * FROM apply_job_post 
-    LEFT JOIN job_post ON job_post.id_jobpost = apply_job_post.id_jobpost
-    WHERE id_company='$_SESSION[id_company]' AND id_users='$_GET[id]'";
+$sql = "SELECT * FROM apply_job_post WHERE id_users='$_GET[id]' AND id_jobpost='$_GET[id_jobpost]'";
 
-$result = $conn->query($sql);
-if($result->num_rows == 0) 
-{
-  header("Location: /src/index.php");
-  exit();
-}
+$result2 = $conn->query($sql);
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -93,23 +88,27 @@ if($result->num_rows == 0)
                         echo 'Baranggay: '.$row['baranggay'];
                         echo '<br>';
                     ?>                
-                <div class="d-flex justify-content-start justify-content-sm-end align-items-end mt-4">                        
+                <!-- Contact Button -->
+                <div class="d-flex justify-content-start justify-content-sm-end mt-4">                        
                     <a class="mb-2 button-upt-lg" 
                     href="https://mail.google.com/mail/u/0/?fs=1&to=<?php echo $row['email']; ?>&su=SUBJECT&body=BODY&bcc=&tf=cm"
                     target="_blank" 
                     rel="noopener noreferrer">
-                    Contact
+                        Contact
                     </a>
                 </div>
-                
-                <div class="d-flex justify-content-start justify-content-sm-end align-items-end">   
+
+                <!-- View Resume Button -->
+                <div class="d-flex justify-content-start justify-content-sm-end">                    
                     <?php if($row['resume'] != ""): ?>
-                        <!-- Open resume in new tab -->
                         <a class="mb-2 button-upt-lg" href="/uploads/resume/<?php echo $row['resume']; ?>" target="_blank">
                             View Resume
                         </a>
                     <?php endif; ?>              
                 </div>
+
+
+
                 <!-- Include Bootstrap JS (if not already included) -->
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -129,17 +128,49 @@ if($result->num_rows == 0)
                             echo '<span href="#" class="badge text-bg-danger">Rejected</span>';
                         } elseif ($status == 2) {
                             // Status is 2: Show 'Accept' button instead of 'Under Review'
-                            echo '<a id="accept" href="#" class="btn btn-success">Accept Application</a>';
+                            echo '<a id="interview" href="#" class="btn btn-success">Schedule Interview</a>';
                             echo '<a id="reject" href="#" class="btn btn-danger">Reject Application</a>';
                         } elseif ($status == 3) {
                             // Status is 3: Show only the 'Reject' button
                             echo '<a id="reject" href="#" class="btn btn-danger">Reject Application</a>';
+                        } elseif ($status == 4) {
+
+                            if($result2->num_rows > 0) {
+                                while($row2 = $result2->fetch_assoc()) {
+                                    $link = $row2["link"] . '&force=true';                                    
+                                    echo '
+                                    <div>
+                                        <a id="start" href="' . $link . '" class="btn btn-success">Start scheduled meeting</a>
+                                        <a id="accept" href="#" class="btn btn-success">Accept Application</a>
+                                    </div>
+                                ';                        
+                                    echo '<a id="reject" href="#" class="btn btn-danger">Reject Application</a>';
+                                }
+                            }
+                            
                         }
-                    ?>
+                    ?>                   
                 </div>                                           
                 <?php
                   }
                 }
+                ?>
+                <?php                
+                if ($status == 2 || $status == 4) {
+                    $title = $status === 2 ? "Set the schedule for the interview" : "Set a reschedule for the intervew";
+                    echo '
+                    <div id="scheduleFields" style="display: none;" class="mt-3 d-flex flex-column col-12 col-lg-4">
+                        <span style="color:gray; font-size:small;">'. $title .'</span>
+                        <label for="interviewDate">Interview Date:</label>
+                        <input type="date" id="interviewDate" class="form-control" required>
+                        <br>
+                        <label for="interviewTime">Interview Time:</label>
+                        <input type="time" id="interviewTime" class="form-control" required>
+                        <a id="submitinterview" href="#" class="btn btn-success mt-2">Send to applicant</a>
+                    </div>
+                    ';
+                }
+                
                 ?>
               </div>
             </div>
@@ -198,6 +229,44 @@ if($result->num_rows == 0)
        
         $.ajax({
             url: '../process/application-status.php?id_apply=<?php echo $_GET['id_apply']; ?>&email=<?php echo $_GET['email']; ?>&jobtitle=<?php echo $_GET['jobtitle']; ?>&status=Rejected',
+            type: 'GET',            
+            success: function(response) {
+                       
+                if (response.success) {
+                    toastSuccessMsg.textContent = response.message;
+                    successToast.show();
+                                        
+                } else {
+                    toastErrorMsg.textContent = response.message;
+                    errorToast.show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+                console.log(xhr);
+                
+                
+                console.error('AJAX Error:', error);
+            }
+        });
+      
+    })
+    $("#interview").on("click", function(e) {        
+        e.preventDefault();        
+        $("#scheduleFields").slideToggle(); 
+    });
+    $("#submitinterview").on("click", function(e) {
+        e.preventDefault();
+
+        const interviewDate = document.getElementById("interviewDate").value
+        const interviewTime = document.getElementById("interviewTime").value
+        if (!interviewDate && !interviewTime) {
+            toastErrorMsg.textContent = "Set a date and time before submitting.";
+            errorToast.show();
+        }
+        
+        $.ajax({
+            url: `../process/application-status.php?id_apply=<?php echo $_GET['id_apply']; ?>&email=<?php echo $_GET['email']; ?>&jobtitle=<?php echo $_GET['jobtitle']; ?>&status=Interview&interviewDate=${interviewDate}&interviewTime=${interviewTime}`,
             type: 'GET',            
             success: function(response) {
                        

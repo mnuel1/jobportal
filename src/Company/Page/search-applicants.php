@@ -101,6 +101,9 @@
 <body>
 
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/admin-nav.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
+    
     
     <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
 
@@ -202,7 +205,8 @@
                                             <button 
                                             type="button" 
                                             class="buttons-sm buttons-color invite-button"
-                                            data-id="<?php echo $row['id_users']; ?>">
+                                            data-id="<?php echo htmlspecialchars($row['id_users']); ?>" 
+                                            data-email="<?php echo htmlspecialchars($row['email']); ?>">
                                                 Invite
                                             </button>
                                             </div>
@@ -228,18 +232,80 @@
         </section>
 
     </div>
-
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/inviteModal.php';?>
     <!-- Bootstrap core JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 
+    const toastSuccessMsg = document.getElementById('toast-success-msg')
+    const succToast = document.getElementById('successToast')
+    var successToast = new bootstrap.Toast(succToast);
+
+    const toastErrorMsg = document.getElementById('toast-error-msg')
+    const errToast = document.getElementById('errorToast')
+    var errorToast = new bootstrap.Toast(errToast);            
+
+
+    const inviteModal = document.getElementById("inviteModal");
+    var invModal = new bootstrap.Modal(inviteModal);
+
+    let applicantid = null
+    let applicantemail = null
     $('.invite-button').on('click', function(event) {
-        event.stopPropagation(); // Prevents event bubbling
+        event.stopPropagation();
         event.preventDefault();
-        const userId = $(this).data('id'); // Assuming you store the ID in a data attribute
-        alert(userId); // Displays the ID
+        applicantid = $(this).data('id');
+        applicantemail = $(this).data('email');
+        invModal.show();
+    });
+
+    $('#sendInvite').on('click', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        const jobpostSelect = document.getElementById("jobpost");
+        
+        const userId = applicantid;
+        const userEmail = applicantemail;
+        
+        const jobpostID = jobpostSelect.value; 
+        const jobpostTitle = jobpostSelect.options[jobpostSelect.selectedIndex].text;
+      
+        const formData = new FormData();
+        formData.append('applicantId', userId);
+        formData.append('email', userEmail);
+        formData.append('jobpostId', jobpostID);
+        formData.append('jobtitle', jobpostTitle);
+
+        $.ajax({
+            url: '../process/sendInvite.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function(response) {
+                       
+                if (response.success) {
+                    toastSuccessMsg.textContent = response.message;
+                    successToast.show();
+                                        
+                } else {
+                    toastErrorMsg.textContent = response.message;
+                    errorToast.show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+                console.log(xhr);
+                
+                
+                console.error('AJAX Error:', error);
+            }
+        });
+        invModal.hide();
+          
     });
     
 </script>

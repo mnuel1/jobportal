@@ -23,7 +23,8 @@ $sql = "SELECT job_post.*, apply_job_post.status, apply_job_post.createdAt,
         JOIN job_post ON job_post.id_jobpost = apply_job_post.id_jobpost 
         JOIN company ON job_post.id_company = company.id_company 
         JOIN baranggay ON company.baranggay_id = baranggay.baranggay_id
-        WHERE apply_job_post.id_users = $id ";
+        WHERE apply_job_post.id_users = $id 
+        ORDER BY apply_job_post.createdAt DESC";
 
 // Count total rows for pagination
 $total_sql = str_replace('job_post.*', 'COUNT(*) as total', $sql);
@@ -98,6 +99,14 @@ $result = $conn->query($sql);
                                 case 3:
                                     $statusClass = 'Accepted'; // Accepted (green)
                                     $color = 'text-success'; // Pending (yellow)
+                                    break;
+                                case 4:
+                                    $statusClass = 'Accepted for interview'; // Accepted
+                                    $color = 'text-success';                                     
+                                    break;
+                                case 5:
+                                    $statusClass = 'Invited'; // Under review (light blue)
+                                    $color = 'text-info';                                 
                                     break;
                                 default:
                                     $statusClass = ''; // Default class if needed

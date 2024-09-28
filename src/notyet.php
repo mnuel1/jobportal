@@ -76,9 +76,9 @@
             <a href="/src/index.php">JobSearch</a>
         </div>    
         <div class="login-box-body">           
-            <i class="fa-regular fa-circle-xmark" style="width:120px; height:120px;"></i>
-            <h6>The meeting scheduled is not today.</h6>
-            <a href="/src/Candidate/login-candidates.php" class="buttons-sm buttons-color-dark" style="text-decoration: none;">Go home</a>
+            <i class="fa-regular fa-circle-xmark" style="width:120px; height:120px; color:white;"></i>
+            <h6 style="color:white;">The meeting scheduled is not today.</h6>
+            <button onclick="window.history.back();" class="buttons-sm buttons-color-dark" style="text-decoration: none;">Go back</button>
 
         </div>
         <div class="fixed-bottom" style="z-index: 0; pointer-events: none; ">

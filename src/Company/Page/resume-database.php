@@ -51,7 +51,7 @@ require_once("../../../database/db.php");
             
             <h1 class="text-center my-4">TALENT
             <span style="color: #253D80;">DATABASE</span></h1>
-            <p style="font-size: small; color:gray"><i>In this section you can download resume of all candidates who applied to your job posts</i></p>          
+            <p style="font-size: small; color:gray"><i>In this section you can download resume of all applicants who applied to your job posts</i></p>          
           
                                 
             <div class="row margin-top-20">
@@ -59,7 +59,7 @@ require_once("../../../database/db.php");
                     <div class="box-body table-responsive no-padding">
                         <table id="example2" class="table table-hover">
                             <thead style="background-color:#7D0A0A; text-align:left; color:white">
-                                <th>Candidate</th>
+                                <th>Applicant</th>
                                 <th>Highest Qualification</th>
                                 <th>Skills</th>
                                 <th>Baranggay</th>                            

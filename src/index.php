@@ -422,7 +422,7 @@ require_once("../database/db.php");
     <section class="page-section text-dark mb-0" id="candidates" style="background-color: #E7E0DC;">
         <div class="container">
             <!-- Services Section Heading -->
-            <h2 class="page-section-heading text-center text-uppercase">candidates</h2>
+            <h2 class="page-section-heading text-center text-uppercase">Applicant</h2>
             <p class="text-center">
                 Finding a job just got easier. Create a profile and apply with single mouse click.
             </p>

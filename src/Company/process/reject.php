@@ -24,7 +24,7 @@ function escapeInput($conn, $data) {
     return mysqli_real_escape_string($conn, $data);
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $sql = "UPDATE apply_job_post SET status='1' WHERE id_apply='$_GET[id_apply]'";
+    $sql = "UPDATE apply_job_post SET status='1', createdAt = NOW() WHERE id_apply='$_GET[id_apply]'";
     if($conn->query($sql) === TRUE) {
         jsonResponse(true, "Job applicant rejected.");
 	} else {
