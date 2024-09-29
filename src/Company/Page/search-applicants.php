@@ -48,7 +48,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     
@@ -103,7 +103,7 @@
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/admin-nav.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
-    
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
     
     <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
 
@@ -278,6 +278,7 @@
         formData.append('jobpostId', jobpostID);
         formData.append('jobtitle', jobpostTitle);
 
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: '../process/sendInvite.php',
             type: 'POST',
@@ -288,23 +289,25 @@
             success: function(response) {
                        
                 if (response.success) {
+                    invModal.hide();
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");                        
+                    }, 3000);
                                         
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
-                console.log(error);
-                console.log(xhr);
-                
-                
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
-        invModal.hide();
+        
           
     });
     

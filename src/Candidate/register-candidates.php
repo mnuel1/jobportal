@@ -15,7 +15,7 @@ require_once("../../database/db.php");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -37,6 +37,7 @@ require_once("../../database/db.php");
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/terms-modal.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
       
     <div class="content-wrapper" style="margin-left: 0px; padding-top: calc(6rem + 24px);">
         <section class="content-header">
@@ -83,7 +84,7 @@ require_once("../../database/db.php");
                                     <input class="form-control" type="text" id="qualification" name="qualification" placeholder="Highest Qualification">
                                 </div>
                                 <div class="form-group mb-2">
-                                    <label for="stream">Stream</label>
+                                    <label for="stream">Stream (Area of Study)</label>
                                     <input class="form-control" type="text" id="stream" name="stream" placeholder="Stream">
                                 </div>
                             </div>
@@ -125,7 +126,7 @@ require_once("../../database/db.php");
                                     <textarea class="form-control" rows="4" id="skills" name="skills" placeholder="Enter Skills"></textarea>
                                 </div>
                                 <div class="form-group mb-2">
-                                    <label for="designation">Designation</label>
+                                    <label for="designation">Designation (Title / Position) </label>
                                     <input class="form-control" type="text" id="designation" name="designation" placeholder="Designation">
                                 </div>
                                 <div class="form-group mb-2">
@@ -233,8 +234,12 @@ require_once("../../database/db.php");
         
         let errorMessage = '';
 
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
         if (password !== confirmPassword) {
             errorMessage = 'Passwords do not match!';
+        } else if (!passwordRegex.test(password)) {
+            errorMessage = 'Password must be at least 8 characters long and contain both letters and numbers!';
         }
         
         if (resume && resume.type !== 'application/pdf') {
@@ -251,7 +256,7 @@ require_once("../../database/db.php");
             return;            
         } 
         
-
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: '../process/Candidate/adduser.php', // Update with your actual PHP script path
             type: 'POST',
@@ -264,14 +269,19 @@ require_once("../../database/db.php");
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-                    window.location.href = 'login-candidates.php';
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.location.href = 'login-candidates.php';
+                    }, 3000);                    
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
                 

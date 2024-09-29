@@ -24,6 +24,7 @@ $sql = "SELECT company.*, baranggay.name as baranggay_name
         FROM company 
         LEFT JOIN baranggay ON baranggay.baranggay_id = company.baranggay_id 
         WHERE company.companyname LIKE '%$search%' OR company.email LIKE '%$search%' OR company.contactno LIKE '%$search%' 
+        ORDER BY company.createdAt DESC
         LIMIT $limit OFFSET $offset";
 $result = $conn->query($sql);
 ?>
@@ -34,7 +35,7 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -58,6 +59,7 @@ $result = $conn->query($sql);
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/confirmModal.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
   
     <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
 
@@ -193,6 +195,7 @@ $result = $conn->query($sql);
         const errToast = document.getElementById('errorToast')
         var errorToast = new bootstrap.Toast(errToast);
 
+        $("#loading-screen").addClass("hidden");
         if (actionType === 'delete') {         
             var deleteUrl = './process/delete-company.php?id=' + companyId;
             
@@ -201,20 +204,24 @@ $result = $conn->query($sql);
                 method: 'GET',
                 success: function(response) {                
                     if (response.success) {
-                        // Show success message
+                        
+                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+                        confirmModal.hide(); 
                         toastSuccessMsg.textContent = response.message;
                         successToast.show();   
-                        
-                        // Hide the modal after action
-                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
-                        confirmModal.hide();                 
+                        setTimeout(function() {
+                            $("#loading-screen").addClass("hidden");                            
+                        }, 3000);
+                                        
                     } else {
                         toastErrorMsg.textContent = response.message;
                         errorToast.show();
+                        $("#loading-screen").addClass("hidden");
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('AJAX Error:', error);
+                    $("#loading-screen").addClass("hidden");
                 }
             });            
         } 
@@ -226,20 +233,25 @@ $result = $conn->query($sql);
                 method: 'GET',
                 success: function(response) {                
                     if (response.success) {
-                        // Show success message
+                        
+                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+                        confirmModal.hide();  
                         toastSuccessMsg.textContent = response.message;
                         successToast.show();   
                         
-                        // Hide the modal after action
-                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
-                        confirmModal.hide();                 
+                        setTimeout(function() {
+                            $("#loading-screen").addClass("hidden");                            
+                        }, 3000);
+                                      
                     } else {
                         toastErrorMsg.textContent = response.message;
                         errorToast.show();
+                        $("#loading-screen").addClass("hidden");
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('AJAX Error:', error);
+                    $("#loading-screen").addClass("hidden");
                 }
             });
         } else if (actionType === 'approve') {
@@ -248,20 +260,25 @@ $result = $conn->query($sql);
                 method: 'GET',
                 success: function(response) {                
                     if (response.success) {
-                        // Show success message
+                        
+                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+                        confirmModal.hide();
                         toastSuccessMsg.textContent = response.message;
                         successToast.show();   
+                        setTimeout(function() {
+                            $("#loading-screen").addClass("hidden");                            
+                        }, 3000);
                         
-                        // Hide the modal after action
-                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
-                        confirmModal.hide();                 
+                                         
                     } else {
                         toastErrorMsg.textContent = response.message;
                         errorToast.show();
+                        $("#loading-screen").addClass("hidden");
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('AJAX Error:', error);
+                    $("#loading-screen").addClass("hidden");
                 }
             });
         }

@@ -16,7 +16,7 @@ require_once("../../../database/db.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!-- Font Awesome icons -->
@@ -39,6 +39,7 @@ require_once("../../../database/db.php");
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/confirmModal.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
 
     <div class="container-fluid d-flex justify-content-center gap-2 " style="padding-top: calc(6rem + 42px);">
 
@@ -98,31 +99,36 @@ require_once("../../../database/db.php");
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+    const toastSuccessMsg = document.getElementById('toast-success-msg')
+    const succToast = document.getElementById('successToast')
+    var successToast = new bootstrap.Toast(succToast);
+
+    const toastErrorMsg = document.getElementById('toast-error-msg')
+    const errToast = document.getElementById('errorToast')
+    var errorToast = new bootstrap.Toast(errToast);
+
     $("#changePassword").on("submit", function(e) {
         e.preventDefault();
 
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('cpassword').value;
-
-        const toastSuccessMsg = document.getElementById('toast-success-msg')
-        const succToast = document.getElementById('successToast')
-        var successToast = new bootstrap.Toast(succToast);
-
-        const toastErrorMsg = document.getElementById('toast-error-msg')
-        const errToast = document.getElementById('errorToast')
-        var errorToast = new bootstrap.Toast(errToast);
-        
+                
         let errorMessage = '';
+
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
         if (password !== confirmPassword) {
             errorMessage = 'Passwords do not match!';
+        } else if (!passwordRegex.test(password)) {
+            errorMessage = 'Password must be at least 8 characters long and contain both letters and numbers!';
         }
+
         if (errorMessage) {            
             toastErrorMsg.textContent = errorMessage           
             errorToast.show();
             return;            
         }
-        
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: '../process/change-password.php', // Update with your actual PHP script path
             type: 'POST',
@@ -137,16 +143,21 @@ require_once("../../../database/db.php");
                     successToast.show();
                     $("#password").val("");
                     $("#cpassword").val("");
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");                        
+                    }, 3000);
 
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
                     $("#password").val("");
                     $("#cpassword").val("");
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
     });
@@ -180,15 +191,8 @@ require_once("../../../database/db.php");
     });
 
     $("#deactivateAccount").on("submit", function(e) {
-        
-        const toastSuccessMsg = document.getElementById('toast-success-msg')
-        const succToast = document.getElementById('successToast')
-        var successToast = new bootstrap.Toast(succToast);
-
-        const toastErrorMsg = document.getElementById('toast-error-msg')
-        const errToast = document.getElementById('errorToast')
-        var errorToast = new bootstrap.Toast(errToast);
-
+                
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: '../process/deactivate-account.php', // Update with your actual PHP script path
             type: 'POST',
@@ -201,14 +205,20 @@ require_once("../../../database/db.php");
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-                    window.location.href = '/src/index.php';
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.location.href = '/src/logout.php';
+                    }, 3000);
+                    
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
     })

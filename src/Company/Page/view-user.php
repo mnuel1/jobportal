@@ -16,7 +16,7 @@ require_once("../../../database/db.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!-- Font Awesome icons -->
@@ -91,10 +91,7 @@ require_once("../../../database/db.php");
                         
                     </div>
                     <hr>
-                    <!-- <div style="display: flex; flex-direction:column; gap:10px;">
-                        <span style="font-size:24px; font-weight:600;">Job Description</span>
-                        <?php echo stripcslashes($row['description']); ?>
-                    </div>                -->
+         
                 <?php
                         }
                     }

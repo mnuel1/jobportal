@@ -7,9 +7,26 @@ session_start();
 if(empty($_SESSION['id_company'])) {
     header("Location: /src/index.php");
     exit();
-  }
+}
   
-  require_once("../../../database/db.php");
+require_once("../../../database/db.php");
+
+
+$id = $_GET["id"]; // Fetch the ID from the URL
+$stmt = $conn->prepare("SELECT * FROM job_post WHERE id_jobpost = ?");
+$stmt->bind_param("s", $id);
+$stmt->execute();
+
+$result = $stmt->get_result(); // Fetch the result set
+
+// Check if any row was returned
+if ($result->num_rows > 0) {
+    $jobPost = $result->fetch_assoc(); // Fetch the associative array of the job post
+} else {
+    echo "No job post found.";
+    exit; // Stop further execution if no post is found
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,41 +71,46 @@ if(empty($_SESSION['id_company'])) {
                 <i class="fa-solid fa-bars"></i>
             </button>
 
-            <h1 class="text-center my-4"> CREATE
+            <h1 class="text-center my-4"> EDIT
             <span style="color: #253D80;">JOB POST</span></h1>
         
             <div class="row">
                 <form method="post" id="addPost">
-                    <div class="col-md-12 latest-job ">
+                    <div class="col-md-12 latest-job">
                         <div class="form-group mb-2">
                             <label for="">Job Title</label>
-                            <input class="form-control input-lg" type="text" id="jobtitle" name="jobtitle" placeholder="Job Title">
+                            <input class="form-control input-lg" type="text" id="jobtitle" name="jobtitle" placeholder="Job Title" value="<?php echo htmlspecialchars($jobPost['jobtitle']); ?>">
                         </div>
                         <div class="form-group mb-2">
                             <label for="">Description</label>
-                            <textarea class="form-control input-lg" id="description" name="description" placeholder="Job Description"></textarea>
+                            <textarea class="form-control input-lg" id="description" name="description" placeholder="Job Description">
+                                <?php echo htmlspecialchars($jobPost['description']); ?>
+                            </textarea>
+                            
                         </div>
                         <div class="form-group mb-2">
                             <label for="">Minimum Salary</label>
-                            <input type="number" class="form-control  input-lg" id="minimumsalary" min="1000" max="1000000" autocomplete="off" name="minimumsalary" placeholder="Minimum Salary" required="">
+                            <input type="number" class="form-control input-lg" id="minimumsalary" name="minimumsalary" min="1000" max="1000000" placeholder="Minimum Salary" required value="<?php echo htmlspecialchars($jobPost['minimumsalary']); ?>">
                         </div>
                         <div class="form-group mb-2">
                             <label for="">Maximum Salary</label>
-                            <input type="number" class="form-control  input-lg" id="maximumsalary" name="maximumsalary" min="1000" max="1000000" placeholder="Maximum Salary" required="">
+                            <input type="number" class="form-control input-lg" id="maximumsalary" name="maximumsalary" min="1000" max="1000000" placeholder="Maximum Salary" required value="<?php echo htmlspecialchars($jobPost['maximumsalary']); ?>">
                         </div>
                         <div class="form-group mb-2">
                             <label for="">Experience</label>
-                            <input type="number" class="form-control  input-lg" id="experience" autocomplete="off" name="experience" placeholder="Experience (in Years) Required" required="">
+                            <input type="number" class="form-control input-lg" id="experience" name="experience" placeholder="Experience (in Years) Required" required value="<?php echo htmlspecialchars($jobPost['experience']); ?>">
                         </div>
                         <div class="form-group mb-2">
                             <label for="">Qualification</label>
-                            <input type="text" class="form-control  input-lg" id="qualification" name="qualification" placeholder="Qualification Required" required="">
+                            <input type="text" class="form-control input-lg" id="qualification" name="qualification" placeholder="Qualification Required" required value="<?php echo htmlspecialchars($jobPost['qualification']); ?>">
                         </div>
+                        <input type="hidden" name="id_jobpost" value="<?php echo $_GET['id']; ?>">
                         <div class="form-group">
-                            <button type="submit" class="button-upt-sm">Create</button>
+                            <button type="submit" class="button-upt-sm">Update</button>
                         </div>
                     </div>
                 </form>
+
             </div>
             
         </div>
@@ -114,7 +136,7 @@ if(empty($_SESSION['id_company'])) {
         var errorToast = new bootstrap.Toast(errToast);            
         $("#loading-screen").removeClass("hidden");
         $.ajax({
-            url: '../process/addpost.php', // Update with your actual PHP script path
+            url: '../process/editpost.php', // Update with your actual PHP script path
             type: 'POST',
             data: new FormData($('#addPost')[0]), // Assuming you have a form with this ID
             processData: false,
@@ -127,9 +149,7 @@ if(empty($_SESSION['id_company'])) {
                     successToast.show();
 
                     setTimeout(function() {
-                        $("#loading-screen").addClass("hidden");
-                        $('#addPost')[0].reset(); // Reset all fields
-                        tinymce.get('description').setContent(''); // Clear TinyMCE editor
+                        $("#loading-screen").addClass("hidden");                                                
                     }, 3000);                    
                     
                 } else {

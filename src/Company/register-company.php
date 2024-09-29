@@ -15,7 +15,7 @@ require_once("../../database/db.php");
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@ require_once("../../database/db.php");
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/terms-modal.php';?>
-      
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>      
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="margin-left: 0px; padding-top: calc(6rem + 24px);">
@@ -195,7 +195,6 @@ require_once("../../database/db.php");
         const confirmPassword = document.getElementById('cpassword').value;
         const image = document.getElementById('image').files[0];
 
-
         const toastSuccessMsg = document.getElementById('toast-success-msg')
         const succToast = document.getElementById('successToast')
         var successToast = new bootstrap.Toast(succToast);
@@ -204,10 +203,14 @@ require_once("../../database/db.php");
         const errToast = document.getElementById('errorToast')
         var errorToast = new bootstrap.Toast(errToast);
         
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
         let errorMessage = '';
 
         if (password !== confirmPassword) {
             errorMessage = 'Passwords do not match!';
+        } else if (!passwordRegex.test(password)) {
+            errorMessage = 'Password must be at least 8 characters long and contain both letters and numbers!';
         }
         
         if (image && !(image.type === 'image/jpeg' || image.type === 'image/png')) {
@@ -224,7 +227,7 @@ require_once("../../database/db.php");
             return;            
         } 
         
-
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: '../process/Company/addcompany.php', // Update with your actual PHP script path
             type: 'POST',
@@ -237,14 +240,20 @@ require_once("../../database/db.php");
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-                    window.location.href = 'login-company.php';
+                    
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.location.href = 'login-company.php';
+                    }, 3000);
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
                 

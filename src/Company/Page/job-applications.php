@@ -15,7 +15,7 @@ if(empty($_SESSION['id_company'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     
@@ -72,7 +72,7 @@ if(empty($_SESSION['id_company'])) {
                 FROM job_post 
                 INNER JOIN apply_job_post ON job_post.id_jobpost=apply_job_post.id_jobpost 
                 INNER JOIN users ON users.id_users=apply_job_post.id_users 
-                WHERE job_post.id_company='$_SESSION[id_company]'";
+                WHERE job_post.id_company='$_SESSION[id_company]' AND apply_job_post.status != 5";
                     $result = $conn->query($sql);
 
                     if($result->num_rows > 0) {

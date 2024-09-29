@@ -12,7 +12,7 @@ require_once("../database/db.php");
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>JobSearch</title>
+        <title>CAREERCITY</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
@@ -439,19 +439,19 @@ require_once("../database/db.php");
                 <div class="col-lg-4 mb-4">
                     <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
                         <img src="/assets/4 1.png" alt="Service 1" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
-                        <h3 class="service-title">Browse for Jobs</h3>     
+                        <h5 class="service-title">Browse for Jobs</h5>     
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
-                        <img src="/assets/4 2.png" alt="Service 2" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
-                        <h3 class="service-title">Apply & Get Interviewed</h3>     
+                        <img src="/assets/4 3.png" alt="Service 2" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
+                        <h5 class="service-title">Apply & Get Interviewed </h5>     
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
-                        <img src="/assets/4 3.png" alt="Service 3" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
-                        <h3 class="service-title">Start A Career</h3>     
+                        <img src="/assets/4 2.png" alt="Service 3" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
+                        <h5 class="service-title">Start A Career</h5>     
                     </div>
                 </div>
             </div>
@@ -479,19 +479,19 @@ require_once("../database/db.php");
                 <div class="col-lg-4 mb-4">
                     <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
                         <img src="/assets/1.png" alt="Service 1" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
-                        <h3 class="service-title">Post A Job</h3>                            
+                        <h5 class="service-title">Post A Job</h5>                            
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
                         <img src="/assets/2.png" alt="Service 2" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
-                        <h3 class="service-title">Manage & Track Job Applications</h3>                            
+                        <h5 class="service-title">Track Job Applications</h5>                            
                     </div>
                 </div>
                 <div class="col-lg-4 mb-4">
                     <div class="service-box p-4 border rounded d-flex flex-column align-items-center">
                         <img src="/assets/3.png" alt="Service 3" class="img-fluid mb-3" style="max-width: 100%; height: auto; flex-grow: 1; object-fit: cover;">
-                        <h3 class="service-title">Hire</h3>                            
+                        <h5 class="service-title">Hire</h5>                            
                     </div>
                 </div>
             </div>
@@ -530,7 +530,7 @@ require_once("../database/db.php");
     </footer>
     <!-- Copyright Section-->
     <div class="copyright py-4 text-center text-white">
-        <div class="container"><small>Copyright &copy; JobSearch 2023</small></div>
+        <div class="container"><small>Copyright &copy; CareerCity 2023</small></div>
     </div>
             
     <!-- Bootstrap core JS-->

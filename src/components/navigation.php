@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg text-uppercase fixed-top" style="background-color: #CA2B2D;" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="#page-top">JobSearch</a>
+        <a class="navbar-brand" href="#page-top"><img src="/assets/logo.png" width="250" alt=""></a>
         <button class="navbar-toggler text-uppercase font-weight-bold rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="background-color: #CA2B2D; color: white;">                    
             <i class="fas fa-bars"></i>
         </button>

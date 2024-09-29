@@ -33,7 +33,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!-- Font Awesome icons -->
@@ -54,6 +54,7 @@ $result = $conn->query($sql);
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/confirmModal.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
 
     <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
     
@@ -151,7 +152,8 @@ $result = $conn->query($sql);
         const toastErrorMsg = document.getElementById('toast-error-msg')
         const errToast = document.getElementById('errorToast')
         var errorToast = new bootstrap.Toast(errToast);
-        console.log('./process/delete-job-post.php?id=' + jobpost_id);
+        
+        $("#loading-screen").addClass("hidden");
         
         if (actionType === 'delete') {         
             var deleteUrl = './process/delete-job-post.php?id=' + jobpost_id;
@@ -160,21 +162,25 @@ $result = $conn->query($sql);
                 url: deleteUrl, 
                 method: 'GET',
                 success: function(response) {                
-                    if (response.success) {
-                        // Show success message
+                    if (response.success) {                        
+                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+                        confirmModal.hide();
+
                         toastSuccessMsg.textContent = response.message;
                         successToast.show();   
-                        
-                        // Hide the modal after action
-                        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
-                        confirmModal.hide();                 
+                                                              
+                        setTimeout(function() {
+                            $("#loading-screen").addClass("hidden");                            
+                        }, 3000);
                     } else {
                         toastErrorMsg.textContent = response.message;
                         errorToast.show();
+                        $("#loading-screen").addClass("hidden");
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error('AJAX Error:', error);
+                    $("#loading-screen").addClass("hidden");
                 }
             });            
         } 

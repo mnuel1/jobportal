@@ -27,8 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $email = $_GET["email"];
         $jobTitle = urldecode($_GET["jobtitle"]);
         $applicationStatus = $_GET["status"];
-        $meetingDateTime = new DateTime($_GET["interviewDate"] . ' ' . $_GET["interviewTime"]);    
-        $meetingDate = $meetingDateTime->format('Y-m-d H:i:s'); // Format it as required
+        if (isset($_GET["interviewDate"]) && $_GET["interviewTime"]) {
+            $meetingDateTime = new DateTime($_GET["interviewDate"] . ' ' . $_GET["interviewTime"]);    
+            $meetingDate = $meetingDateTime->format('Y-m-d H:i:s'); 
+        }
+        
         
         $interviewLink = null;
 

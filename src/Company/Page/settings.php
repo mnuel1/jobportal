@@ -15,7 +15,7 @@ if(empty($_SESSION['id_company'])) {
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     
@@ -36,6 +36,7 @@ if(empty($_SESSION['id_company'])) {
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/confirmModal.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
 
     <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
 
@@ -146,14 +147,17 @@ if(empty($_SESSION['id_company'])) {
     $("#changePassword").on("submit", function(e) {
         e.preventDefault();
 
-
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
         if($('#password').val() != $('#cpassword').val() ) {
             toastErrorMsg.textContent = "Password don't match!"
             errToast.show()
-            return
-            
+            return            
+        } else if(!passwordRegex.test($('#password').val())){
+            toastErrorMsg.textContent = 'Password must be at least 8 characters long and contain both letters and numbers!';
+            errToast.show()
+            return 
         }
-        
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: '../process/change-password.php', // Update with your actual PHP script path
             type: 'POST',
@@ -166,21 +170,22 @@ if(empty($_SESSION['id_company'])) {
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-
-                    $('#changePassword')[0].reset();
+                    
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        $('#changePassword')[0].reset();
+                    }, 3000);
                     
                     
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
-                console.log(error);
-                console.log(xhr);
-                
-                
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
 
@@ -188,7 +193,7 @@ if(empty($_SESSION['id_company'])) {
 
     $("#updateName").on("submit", function(e) {
         e.preventDefault();
-                         
+        $("#loading-screen").removeClass("hidden");      
         $.ajax({
             url: '../process/update-name.php', // Update with your actual PHP script path
             type: 'POST',
@@ -201,21 +206,21 @@ if(empty($_SESSION['id_company'])) {
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-
-                    $('#updateName')[0].reset(); 
-                 
+                    
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        $('#updateName')[0].reset(); 
+                    }, 3000);
                     
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
-                console.log(error);
-                console.log(xhr);
-                
-                
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
       
@@ -223,7 +228,7 @@ if(empty($_SESSION['id_company'])) {
 
     $("#deactivateAccount").on("submit", function(e) {
         e.preventDefault();
-                         
+        $("#loading-screen").removeClass("hidden");          
         $.ajax({
             url: '../process/deactivate-account.php', // Update with your actual PHP script path
             type: 'POST',
@@ -237,19 +242,22 @@ if(empty($_SESSION['id_company'])) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
 
-                    window.location.href = '/src/index.php';
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.location.href = '/src/logout.php';
+                    }, 3000);
+
+                    
                     
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
-                console.log(error);
-                console.log(xhr);
-                
-                
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });      
     })

@@ -17,7 +17,7 @@ require_once("../../../database/db.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!-- Font Awesome icons -->
@@ -39,6 +39,7 @@ require_once("../../../database/db.php");
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/admin-nav.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
 
     <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
 
@@ -231,6 +232,8 @@ require_once("../../../database/db.php");
         const errToast = document.getElementById('errorToast')
         var errorToast = new bootstrap.Toast(errToast);
         const jobPostId = this.getAttribute('data-id');
+
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: `../process/apply.php?id_jobpost=${jobPostId}`, // Update with your actual PHP script path
             type: 'GET',           
@@ -238,14 +241,20 @@ require_once("../../../database/db.php");
                        
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
-                    successToast.show();                    
+                    successToast.show();
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.history.back();                        
+                    }, 3000);
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
     });

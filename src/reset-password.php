@@ -9,7 +9,7 @@ require_once("../database/db.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!-- Font Awesome icons -->
@@ -76,7 +76,7 @@ require_once("../database/db.php");
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="/src/index.php">JobSearch</a>
+            <a class="navbar-brand" href="/src/index.php"><img src="/assets/logo.png" width="250" alt=""></a>
         </div>    
         <div class="login-box-body">
             <p class="login-box-msg">Reset Password</p>

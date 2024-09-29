@@ -15,7 +15,7 @@ require_once("../../../database/db.php");
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     
@@ -38,6 +38,7 @@ require_once("../../../database/db.php");
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/admin-nav.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
 
     <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
 
@@ -118,6 +119,7 @@ require_once("../../../database/db.php");
             const errToast = document.getElementById('errorToast')
             var errorToast = new bootstrap.Toast(errToast);            
 
+            $("#loading-screen").removeClass("hidden");
             $.ajax({
                 url: '../process/add-mail.php', // Update with your actual PHP script path
                 type: 'POST',
@@ -130,21 +132,22 @@ require_once("../../../database/db.php");
                     if (response.success) {
                         toastSuccessMsg.textContent = response.message;
                         successToast.show();
-
-                        $('#addMail')[0].reset(); // Reset all fields
-                        tinymce.get('description').setContent(''); // Clear TinyMCE editor
+                        setTimeout(function() {
+                            $("#loading-screen").addClass("hidden");
+                            $('#addMail')[0].reset(); // Reset all fields
+                            tinymce.get('description').setContent(''); // Clear TinyMCE editor
+                        }, 3000);
+                        
                         
                     } else {
                         toastErrorMsg.textContent = response.message;
                         errorToast.show();
+                        $("#loading-screen").addClass("hidden");
                     }
                 },
-                error: function(xhr, status, error) {
-                    console.log(error);
-                    console.log(xhr);
-                    
-                    
+                error: function(xhr, status, error) {                            
                     console.error('AJAX Error:', error);
+                    $("#loading-screen").addClass("hidden");
                 }
             });
         

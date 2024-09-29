@@ -16,7 +16,7 @@ require_once("../../../database/db.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     <!-- Font Awesome icons -->
@@ -36,6 +36,7 @@ require_once("../../../database/db.php");
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/admin-nav.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
     
 
     
@@ -83,7 +84,7 @@ require_once("../../../database/db.php");
                             <input type="text" class="form-control" id="qualification" name="qualification" placeholder="Highest Qualification" value="<?php echo $row['qualification']; ?>">
                         </div>
                         <div class="form-group mb-2">
-                            <label for="stream">Stream</label>
+                            <label for="stream">Stream (Area of Study)</label>
                             <input type="text" class="form-control" id="stream" name="stream" placeholder="stream" value="<?php echo $row['stream']; ?>">
                         </div>
                     </div>
@@ -226,7 +227,7 @@ require_once("../../../database/db.php");
             return;            
         } 
         
-
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: '../process/update-profile.php', // Update with your actual PHP script path
             type: 'POST',
@@ -238,14 +239,20 @@ require_once("../../../database/db.php");
                        
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
-                    successToast.show();                    
+                    successToast.show();
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.history.back();                        
+                    }, 3000);
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
                 

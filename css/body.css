@@ -278,6 +278,26 @@ body {
     border-color: #CA2B2D;
 }
 
+.loading-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black backdrop */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 555; /* Ensure it's on top of all other elements */
+    /* Remove the conflicting display: none here */
+}
+
+/* Hidden initially */
+.loading-backdrop.hidden {
+    display: none;
+}
+
+
 @media (max-width: 990px) {
     .button-upt-lg, .button-upt-lg-red  {        
         width: 100%;

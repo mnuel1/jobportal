@@ -35,7 +35,7 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     
@@ -56,6 +56,8 @@ $result = $conn->query($sql);
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/admin-nav.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/confirmModal.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
 
     <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
 
@@ -83,6 +85,8 @@ $result = $conn->query($sql);
                             <thead style="background-color: #7D0A0A; color:white; text-align:left">
                             <th>Job Title</th>
                             <th>View</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                             </thead>
                             <tbody>
                             <?php                        
@@ -94,6 +98,12 @@ $result = $conn->query($sql);
                                 <td><?php echo $row['jobtitle']; ?></td>
                                 <td><a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>">
                                     <i class="fa-regular fa-eye"></i></a>
+                                </td>
+                                <td><a href="edit-job-post.php?id=<?php echo $row['id_jobpost']; ?>">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </td>
+                                <td><a data-id="<?php echo $row['id_jobpost']; ?>" href="#" class="deletepost">
+                                    <i class="fa-regular fa-trash-can" style="color: #CA2B2D;"></i>
                                 </td>
                             </tr>
                             <?php
@@ -123,5 +133,65 @@ $result = $conn->query($sql);
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
+
+<script>
+
+    const toastSuccessMsg = document.getElementById('toast-success-msg')
+    const succToast = document.getElementById('successToast')
+    var successToast = new bootstrap.Toast(succToast);
+
+    const toastErrorMsg = document.getElementById('toast-error-msg')
+    const errToast = document.getElementById('errorToast')
+    var errorToast = new bootstrap.Toast(errToast);
+
+    let idjobpost = null
+   
+    $(".deletepost").on('click', function(e) {
+
+
+        const modal = document.getElementById('confirmModal')
+        const msg = document.getElementById('confirm-msg')
+        msg.textContent = `Are you sure you want to delete this job post? Deleting a job post
+        is irreversible.`
+        
+        idjobpost = $(this).data('id');        
+        var delCompanyModal = new bootstrap.Modal(modal);    
+        delCompanyModal.show(); 
+
+        
+    })
+
+    $('#confirmThis').on('click', function() {
+        $("#loading-screen").removeClass("hidden");
+        $.ajax({
+            url: `../process/deletepost.php?id_jobpost=${idjobpost}`, // Update with your actual PHP script path
+            type: 'GET',  
+            success: function(response) {
+                       
+                if (response.success) {
+                     // Hide the modal after action
+                    const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+                    confirmModal.hide();  
+                    toastSuccessMsg.textContent = response.message;
+                    successToast.show();
+
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");                                                                       
+                    }, 3000);                    
+                    
+                } else {
+                    toastErrorMsg.textContent = response.message;
+                    errorToast.show();
+                    $("#loading-screen").addClass("hidden");
+                }
+            },
+            error: function(xhr, status, error) {                
+                console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
+            }
+        });
+    })
+
+</script>
 </body>
 </html>

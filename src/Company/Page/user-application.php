@@ -23,7 +23,7 @@ $result2 = $conn->query($sql);
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>JobSearch</title>
+    <title>CAREERCITY</title>
     
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
     
@@ -41,12 +41,12 @@ $result2 = $conn->query($sql);
 </head>
 <body>
     
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/admin-nav.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/admin-nav.php';?>    
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
-    
-    <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
 
+    <div class="container-fluid d-flex justify-content-center gap-2" style="padding-top: calc(6rem + 42px);">
         <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/company-sidebar.php';?>
         <div class="container larger bg-light mx-auto">
             <button 
@@ -58,7 +58,7 @@ $result2 = $conn->query($sql);
                 aria-controls="offcanvasWithBothOptions">
                 <i class="fa-solid fa-bars"></i>
             </button>
-            
+                        
             <div class="row margin-top-20">
               <div class="col-md-12">
               <?php
@@ -175,8 +175,8 @@ $result2 = $conn->query($sql);
               </div>
             </div>
             
-          </div>
         </div>
+    </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -195,30 +195,29 @@ $result2 = $conn->query($sql);
 
     $("#underreview").on("click", function(e) {
         e.preventDefault();
-
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: '../process/application-status.php?id_apply=<?php echo $_GET['id_apply']; ?>&email=<?php echo $_GET['email']; ?>&jobtitle=<?php echo $_GET['jobtitle']; ?>&status=UnderReview',
             type: 'GET',            
             success: function(response) {
                        
                 if (response.success) {
-                    toastSuccessMsg.textContent = response.message;
-                    console.log("response", response);
-                    
+                    toastSuccessMsg.textContent = response.message;                                        
                     successToast.show();
-                                        
+
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.history.back();                        
+                    }, 3000);
                 } else {
-                    toastErrorMsg.textContent = response.message;
-                    console.log("response", response);
+                    toastErrorMsg.textContent = response.message;                    
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
-                console.log(error);
-                console.log(xhr);
-                
-                
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
       
@@ -226,7 +225,7 @@ $result2 = $conn->query($sql);
 
     $("#reject").on("click", function(e) {
         e.preventDefault();
-       
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: '../process/application-status.php?id_apply=<?php echo $_GET['id_apply']; ?>&email=<?php echo $_GET['email']; ?>&jobtitle=<?php echo $_GET['jobtitle']; ?>&status=Rejected',
             type: 'GET',            
@@ -235,18 +234,19 @@ $result2 = $conn->query($sql);
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-                                        
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.history.back();                        
+                    }, 3000);      
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
-                console.log(error);
-                console.log(xhr);
-                
-                
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
       
@@ -254,16 +254,19 @@ $result2 = $conn->query($sql);
     $("#interview").on("click", function(e) {        
         e.preventDefault();        
         $("#scheduleFields").slideToggle(); 
+        
     });
     $("#submitinterview").on("click", function(e) {
         e.preventDefault();
-
+        
         const interviewDate = document.getElementById("interviewDate").value
         const interviewTime = document.getElementById("interviewTime").value
         if (!interviewDate && !interviewTime) {
             toastErrorMsg.textContent = "Set a date and time before submitting.";
             errorToast.show();
         }
+
+        $("#loading-screen").removeClass("hidden");
         
         $.ajax({
             url: `../process/application-status.php?id_apply=<?php echo $_GET['id_apply']; ?>&email=<?php echo $_GET['email']; ?>&jobtitle=<?php echo $_GET['jobtitle']; ?>&status=Interview&interviewDate=${interviewDate}&interviewTime=${interviewTime}`,
@@ -273,18 +276,19 @@ $result2 = $conn->query($sql);
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-                                        
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.history.back();                        
+                    }, 3000);
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
             error: function(xhr, status, error) {
-                console.log(error);
-                console.log(xhr);
-                
-                
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
       
@@ -292,7 +296,7 @@ $result2 = $conn->query($sql);
 
     $("#accept").on("click", function(e) {
         e.preventDefault();
-       
+        $("#loading-screen").removeClass("hidden");
         $.ajax({
             url: '../process/application-status.php?id_apply=<?php echo $_GET['id_apply']; ?>&email=<?php echo $_GET['email']; ?>&jobtitle=<?php echo $_GET['jobtitle']; ?>&status=Accepted',
             type: 'GET',            
@@ -301,18 +305,19 @@ $result2 = $conn->query($sql);
                 if (response.success) {
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
-                                        
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.history.back();                        
+                    }, 3000);
                 } else {
                     toastErrorMsg.textContent = response.message;
                     errorToast.show();
+                    $("#loading-screen").addClass("hidden");
                 }
             },
-            error: function(xhr, status, error) {
-                console.log(error);
-                console.log(xhr);
-                
-                
+            error: function(xhr, status, error) {               
                 console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
             }
         });
       
