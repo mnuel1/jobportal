@@ -77,7 +77,11 @@ require_once("../../database/db.php");
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
 
-    <div class="login-box">
+    
+    <div class="fixed-bottom" style="z-index: 0; pointer-events: none; ">
+            <img src="/assets/bot.png" alt="Footer Background" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+    <div class="login-box" style="z-index: 50;">       
         <div class="login-logo">
             <a class="navbar-brand" href="/src/index.php"><img src="/assets/logo.png" width="250" alt=""></a>
         </div>    
@@ -111,9 +115,7 @@ require_once("../../database/db.php");
             </form>
 
         </div>
-        <div class="fixed-bottom" style="z-index: 0; pointer-events: none; ">
-            <img src="/assets/bot.png" alt="Footer Background" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
+        
     </div>
 
 <!-- Scripts -->

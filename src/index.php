@@ -93,8 +93,7 @@ require_once("../database/db.php");
         }
         .header-t {
             position: absolute;
-            top: 20%;
-            left: 4%;
+            top: 20%;            
         }
         
         .p-text {        
@@ -110,7 +109,7 @@ require_once("../database/db.php");
             text-transform: uppercase;            
         }
 
-
+    
         @media (max-width: 1464px) {
             /* Adjust button for smaller screens */
             .header-btn {
@@ -120,8 +119,7 @@ require_once("../database/db.php");
             }
 
             .header-t {
-                top: 23%;
-                left: 5%;
+                top: 23%;                
             }
 
             .p-text {                    
@@ -129,7 +127,7 @@ require_once("../database/db.php");
             }
             .header-text {                          
                 font-size: 35px;              
-            }
+            }        
             
         }
         
@@ -142,8 +140,7 @@ require_once("../database/db.php");
             }
 
             .header-t {
-                top: 27%;
-                left: 5%;
+                top: 27%;                
             }
 
             .p-text {                    
@@ -170,8 +167,7 @@ require_once("../database/db.php");
             }
 
             .header-t {
-                top: 37%;
-                left: 5%;
+                top: 37%;                
             }
 
             .p-text {                    
@@ -196,8 +192,7 @@ require_once("../database/db.php");
                 transform: translateX(-50%);
             }
             .header-t {
-                top: 50%;
-                left: 5%;
+                top: 50%;                
             }
 
             .p-text {                    
@@ -228,11 +223,11 @@ require_once("../database/db.php");
     
     <header class="masthead bg-white text-white text-center">
         <!-- Background Image -->
-        <img src="/assets/TCU 1.png" alt="TCU Image">
+        <img src="/assets/bot.png" alt="TCU Image">
 
         <!-- Text Section (Header and Subheader) -->            
-        <div class="row h-100 align-items-center justify-content-start">
-            <div class="col-lg-8 text-start header-t">
+        <div class="row h-100 align-items-center justify-content-center">
+            <div class="text-left header-t">
                 <!-- Header Text -->
                 <h1 class="header-text">
                     PESO Taguig: Your Gateway to <br> Employment and Opportunities</h1>

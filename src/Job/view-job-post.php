@@ -34,6 +34,9 @@ require_once("../../database/db.php");
 <body>
 
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/authnavigation.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/loading.php';?>
 
     <div class="content-wrapper" style="margin-left: 0px; padding-top: calc(6rem + 42px);">
 
@@ -82,12 +85,7 @@ require_once("../../database/db.php");
                             <span style="font-size:24px; font-weight:600;">Job Description</span>
                             <?php echo stripcslashes($row['description']); ?>
                         </div>
-                        <?php if(isset($_SESSION["id_user"]) && empty($_SESSION['companyLogged'])) { ?>
-                        <div>
-                            <a href="apply.php?id=<?php echo $row['id_jobpost']; ?>" class="btn btn-success btn-flat margin-top-50">Apply</a>
-                        </div>
-                        <?php } ?>
-                                                    
+                                                                            
                     </div>
                     <div class="col-md-3 d-flex flex-column gap-3">
                         <div class="card">
@@ -95,23 +93,43 @@ require_once("../../database/db.php");
                                 <img src="../../uploads/logo/<?php echo $row['logo']; ?>" alt="companylogo" style="max-width: 100%;">
                             </div>
                             <div class="card-body">
-                                <div class="caption text-center">
+                                <div class="caption text-center d">
                                     <h3><?php echo $row['companyname']; ?></h3>
                                     <p><a href="#" class="btn btn-primary btn-flat" role="button">More Info</a></p>
                                     <hr>
-                                    <div style="display:flex; flex-direction:column; gap:15px;">
-                                        <div style="display: flex; justify-content:space-between; gap:15px;">
-                                            <div style="display:flex; align-items:center;">
-                                                <a href="" style="background-color: red; padding:6px; color:white;">
-                                                    <i class="fa fa-warning"></i> Report
-                                                </a>
-                                            </div>
-                                            <div style="display:flex; align-items:center;">
-                                                <a href="" style="background-color: #F2E8C6; padding:6px; color:black;">
-                                                    <i class="fa fa-envelope"></i> Email
-                                                </a>
-                                            </div>
-                                        </div>                                        
+                                    <div class="d-flex flex-column gap-1 align-items-center justify-content-center">
+                                        <div class="d-flex flex-column flex-lg-row align-items-center gap-2">
+                                            <a href="#" class="btn btn-danger btn-flat">
+                                                <i class="fa fa-warning"></i> Report
+                                            </a>                                            
+                                            <a href="#" class="btn btn-warning btn-flat">
+                                                <i class="fa fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                        <?php                                                    
+                                            if (isset($_SESSION["id_user"]) && empty($_SESSION['companyLogged'])) {
+                                                
+                                                $status = isset($_GET["status"]) ? urldecode($_GET["status"]) : '';
+                                                
+                                                if (empty($status)) {
+                                                    ?>
+                                                        <div style="display:flex; align-items:center;">
+                                                            <a href="#" data-id="<?php echo $row['id_jobpost']; ?>" class="apply btn btn-success btn-flat">Apply</a>
+                                                        </div>
+                                                    <?php
+                                                } else {                                                            
+                                                    if ($status === 'Under Review') {
+                                                        echo "<p class='text-bg-info p-2' >Your application is under review.</p>";
+                                                    } else if ($status === 'Rejected') {
+                                                        echo "<p class='text-bg-danger p-2'>Your application was rejected.</p>";
+                                                    } else if ($status === 'Accepted') {
+                                                        echo "<p class='text-bg-success p-2'>Your application was accepted. Congratulations!</p>";
+                                                    } else if ($status === 'Pending') {
+                                                        echo "<p class='text-bg-secondary p-2'>Your application is pending review.</p>";
+                                                    }
+                                                }
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -155,13 +173,11 @@ require_once("../../database/db.php");
         if (data.results.length > 0) {
             const { lat, lng } = data.results[0].geometry;
             return { lat, lng };
-        } else {
-            alert('Location not found');
+        } else {            
             return null;
         }
     } catch (error) {
-        console.error('Error fetching coordinates:', error);
-        alert('Error fetching coordinates');
+        console.error('Error fetching coordinates:', error);        
         return null;
     }
   }
@@ -170,8 +186,7 @@ require_once("../../database/db.php");
      
       const baranggay = document.getElementById('baranggay-input').value;
      
-      if (!baranggay) {
-          alert('Please enter country, baranggay, and city');
+      if (!baranggay) {          
           return;
       }
 
@@ -189,6 +204,43 @@ require_once("../../database/db.php");
   }
   showLocationMap()
 </script>
+<script>
+    $(".apply").on("click", function(e) {
+        e.preventDefault();
+        const toastSuccessMsg = document.getElementById('toast-success-msg')
+        const succToast = document.getElementById('successToast')
+        var successToast = new bootstrap.Toast(succToast);
 
+        const toastErrorMsg = document.getElementById('toast-error-msg')
+        const errToast = document.getElementById('errorToast')
+        var errorToast = new bootstrap.Toast(errToast);
+        const jobPostId = this.getAttribute('data-id');
+
+        $("#loading-screen").removeClass("hidden");
+        $.ajax({
+            url: `../Candidate/process/apply.php?id_jobpost=${jobPostId}`, // Update with your actual PHP script path
+            type: 'GET',           
+            success: function(response) {
+                       
+                if (response.success) {
+                    toastSuccessMsg.textContent = response.message;
+                    successToast.show();
+                    setTimeout(function() {
+                        $("#loading-screen").addClass("hidden");
+                        window.history.back();                        
+                    }, 3000);
+                } else {
+                    toastErrorMsg.textContent = response.message;
+                    errorToast.show();
+                    $("#loading-screen").addClass("hidden");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', error);
+                $("#loading-screen").addClass("hidden");
+            }
+        });
+    });
+</script>
 </body>
 </html>

@@ -1,27 +1,22 @@
 <?php
 
-//To Handle Session Variables on This Page
 session_start();
 
-//If user Not logged in then redirect them back to homepage. 
 if(empty($_SESSION['id_user'])) {
   header("Location: ../index.php");
   exit();
 }
 
 require_once("../../../database/db.php");
-// Pagination variables
-$limit = 5; // Number of results per page
+$limit = 5;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Search and Filter
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 $baranggay = isset($_GET['baranggay']) ? $_GET['baranggay'] : '';
 $experience = isset($_GET['experience']) ? (int)$_GET['experience'] : 0;
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 
-// Build SQL query
 $sql = "SELECT job_post.*, company.companyname, company.logo, baranggay.name as baranggay_name, company.baranggay_id  FROM job_post 
         JOIN company ON job_post.id_company = company.id_company 
         JOIN baranggay ON company.baranggay_id = baranggay.baranggay_id
@@ -198,7 +193,7 @@ $result = $conn->query($sql);
 
                             </div>
                         </div>
-                        <div class="col-lg-9 col-md-8 col-sm-12">
+                        <div class="col-lg-9 col-md-8 col-sm-12 mt-2 mt-md-0">
                             <?php if ($result->num_rows > 0): ?>
                                 <?php while ($row = $result->fetch_assoc()): ?>
                                     <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>">

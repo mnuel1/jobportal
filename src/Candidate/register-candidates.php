@@ -69,7 +69,7 @@ require_once("../../database/db.php");
                                 </div>
                                 <div class="form-group mb-2">
                                     <label for="dob">Date Of Birth</label>
-                                    <input class="form-control" type="date" id="dob" min="1960-01-01" max="2002-01-31" name="dob">
+                                    <input class="form-control" type="date" id="dob" min="1960-01-01" max="2006-01-31" name="dob">
                                 </div>
                                 <div class="form-group mb-2">
                                     <label for="age">Age</label>

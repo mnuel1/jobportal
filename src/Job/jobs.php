@@ -2,23 +2,28 @@
     session_start();
     require_once("../../database/db.php");
 
-    // Pagination variables
-    $limit = 5; // Number of results per page
+    $limit = 5; 
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $limit;
 
-    // Search and Filter
     $search = isset($_GET['search']) ? $_GET['search'] : '';
     $baranggay = isset($_GET['baranggay']) ? $_GET['baranggay'] : '';
     $experience = isset($_GET['experience']) ? (int)$_GET['experience'] : 0;
     $type = isset($_GET['type']) ? $_GET['type'] : 0;
 
-    // Build SQL query
+    
     $sql = "SELECT job_post.*, company.companyname, company.logo, baranggay.name as baranggay_name, company.baranggay_id  FROM job_post 
             JOIN company ON job_post.id_company = company.id_company 
             JOIN baranggay ON company.baranggay_id = baranggay.baranggay_id
             WHERE 1=1";
-
+    if(isset($_SESSION["id_user"])) {
+        $sql = "SELECT job_post.*, company.companyname, company.logo, baranggay.name as baranggay_name, company.baranggay_id  FROM job_post 
+            JOIN company ON job_post.id_company = company.id_company 
+            JOIN baranggay ON company.baranggay_id = baranggay.baranggay_id
+            LEFT JOIN apply_job_post ON apply_job_post.id_jobpost = job_post.id_jobpost AND apply_job_post.id_users = '$_SESSION[id_user]'
+            WHERE apply_job_post.id_jobpost IS NULL OR apply_job_post.status = 1 AND
+            1=1";
+    }
     if ($search) {
         $sql .= " AND jobtitle LIKE '%" . $conn->real_escape_string($search) . "%'";
     }
@@ -156,7 +161,7 @@
 
         <section id="jobs" class="content-header ">
             <div class="container">
-                <div class="row bg-light p-4">
+                <div class="row bg-light p-4" style="min-height:740px">
                     <div class="col-lg-3 col-md-4 col-sm-12">
                         <div class="card">
                             <div class="card-header">
@@ -258,7 +263,7 @@
 
                         </div>
                     </div>
-                    <div class="col-lg-9 col-md-8 col-sm-12">
+                    <div class="col-lg-9 col-md-8 col-sm-12 mt-2 mt-md-0">
                         <?php if ($result->num_rows > 0): ?>
                             <?php while ($row = $result->fetch_assoc()): ?>
                                 <a href="view-job-post.php?id=<?php echo $row['id_jobpost']; ?>">

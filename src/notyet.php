@@ -71,7 +71,10 @@
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-success.php';?>
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/src/components/toast-error.php';?>
 
-    <div class="login-box">
+    <div class="fixed-bottom" style="z-index: 0; pointer-events: none; ">
+        <img src="/assets/bot.png" alt="Footer Background" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    <div class="login-box" style="z-index: 50;">
         <div class="login-logo">
             <a class="navbar-brand" href="/src/index.php"><img src="/assets/logo.png" width="250" alt=""></a>
 
@@ -82,9 +85,7 @@
             <button onclick="window.history.back();" class="buttons-sm buttons-color-dark" style="text-decoration: none;">Go back</button>
 
         </div>
-        <div class="fixed-bottom" style="z-index: 0; pointer-events: none; ">
-            <img src="/assets/bot.png" alt="Footer Background" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>
+       
     </div>
 
 <!-- Scripts -->

@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$mail->isSMTP();                                            //Send using SMTP
 				$mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
 				$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-				$mail->Username   = 'jobportal@resiboph.site';                     //SMTP username
+				$mail->Username   = 'noreplyjobportal@resiboph.site';                     //SMTP username
 				$mail->Password   = '9@omljoYWV';                               //SMTP password
 				$mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
 				$mail->Port       = 465;                                         //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				$mail->IsSMTP();
 				$mail->FromName = "JOB PORTAL";
 				$mail->Subject = "Verify Account";
-				$mail->From = "jobportal@resiboph.site";
+				$mail->From = "noreplyjobportal@resiboph.site";
 				
 				$mail->IsHTML(true);
 				$mail->AddAddress($userData['email']); // To mail id                
