@@ -125,10 +125,11 @@ require_once("../../../database/db.php");
                                                     
                                                     $status = isset($_GET["status"]) ? urldecode($_GET["status"]) : '';
                                                     
-                                                    if (empty($status)) {
+                                                    if (empty($status) || $status === "Invited") {
                                                         ?>
                                                             <div style="display:flex; align-items:center;">
-                                                                <a href="#" data-id="<?php echo $row['id_jobpost']; ?>" class="apply btn btn-success btn-flat">Apply</a>
+                                                                <a href="#" data-id="<?php echo $row['id_jobpost']; ?>" 
+                                                                class="apply btn btn-success btn-flat">Apply</a>
                                                             </div>
                                                         <?php
                                                     } else {                                                            
@@ -235,7 +236,7 @@ require_once("../../../database/db.php");
 
         $("#loading-screen").removeClass("hidden");
         $.ajax({
-            url: `../process/apply.php?id_jobpost=${jobPostId}`, // Update with your actual PHP script path
+            url: `../process/apply.php?id_jobpost=${jobPostId}`,
             type: 'GET',           
             success: function(response) {
                        
