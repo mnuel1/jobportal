@@ -45,7 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	if ($logoFile && is_uploaded_file($logoFile['tmp_name'])) {
         $logoFileType = pathinfo($logoFile['name'], PATHINFO_EXTENSION);
-        if (($logoFileType !== "jpg" && $logoFileType !== "png") || $logoFile['size'] > 1000000) {
+        if (($logoFileType !== "jpg" && $logoFileType !== "png" && $logoFileType !== "PNG" && $logoFileType !== "JPG"
+			&& $logoFileType !== "JPEG" && $logoFileType !== "jpeg") 
+		|| $logoFile['size'] > 1000000) {
             jsonResponse(false, "Invalid file format or size. Only jpg/png files under 1mb are allowed.");
         }
 

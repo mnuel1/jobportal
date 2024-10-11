@@ -60,7 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $logoFileType = strtolower($logoFileType);
 
 		// Check if the file is not a jpg or png, or if it exceeds the size limit
-		if (($logoFileType !== "jpg" && $logoFileType !== "png") || $logoFile['size'] > 1000000) {
+		if (($logoFileType !== "jpg" && $logoFileType !== "png" && $logoFileType !== "PNG" && $logoFileType !== "JPG"
+			&& $logoFileType !== "JPEG" && $logoFileType !== "jpeg") 
+		|| $logoFile['size'] > 1000000) { 
             jsonResponse(false, "Invalid file format or size. Only jpg/png files under 1mb are allowed.");
         }
 
