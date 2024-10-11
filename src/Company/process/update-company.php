@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	
 	$logoFile = $_FILES['image'] ?? null;
     $uploadOk = true;
-    $folder_dir = "/uploads/logo/";
+    $folder_dir = "../../../uploads/logo/";
 
 	if (!file_exists($folder_dir)) {
 		mkdir($folder_dir, 0777, true);
@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	if ($logoFile && is_uploaded_file($logoFile['tmp_name'])) {
         $logoFileType = pathinfo($logoFile['name'], PATHINFO_EXTENSION);
-        if ($logoFileType !== "jpg" || $logoFileType !== "png" || $logoFile['size'] > 1000000) {
-            jsonResponse(false, "Invalid file format or size. Only PDF files under 1mb are allowed.");
+        if (($logoFileType !== "jpg" && $logoFileType !== "png") || $logoFile['size'] > 1000000) {
+            jsonResponse(false, "Invalid file format or size. Only jpg/png files under 1mb are allowed.");
         }
 
         $file = uniqid() . "." . $logoFileType;
@@ -55,8 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!move_uploaded_file($logoFile["tmp_name"], $filename)) {
             jsonResponse(false, "File upload failed. Please try again.");
         }
-    } else {
-        $uploadOk = false;
+    } else {        
+		$uploadOk = false;
+		jsonResponse(false, "No file uploaded");
     }
 
 	$sql = "UPDATE company SET ";

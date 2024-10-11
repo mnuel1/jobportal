@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		// Check if the file is not a jpg or png, or if it exceeds the size limit
 		if (($logoFileType !== "jpg" && $logoFileType !== "png") || $logoFile['size'] > 1000000) {
-            jsonResponse(false, "Invalid file format or size. Only PDF files under 1mb are allowed.");
+            jsonResponse(false, "Invalid file format or size. Only jpg/png files under 1mb are allowed.");
         }
 
         $file = uniqid() . "." . $logoFileType;

@@ -230,8 +230,7 @@ require_once("../../../database/db.php");
                     toastSuccessMsg.textContent = response.message;
                     successToast.show();
                     setTimeout(function() {
-                        $("#loading-screen").addClass("hidden");
-                        window.history.back();                        
+                        $("#loading-screen").addClass("hidden");                        
                     }, 3000);
                     
                 } else {
