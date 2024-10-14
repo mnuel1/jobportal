@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 		$updateStmt->close();
 	} else {
 
-		$insertStmt = $conn->prepare("INSERT INTO apply_job_post (id_jobpost, id_users, status) VALUES (?, ?, '1')");
+		$insertStmt = $conn->prepare("INSERT INTO apply_job_post (id_jobpost, id_users, status) VALUES (?, ?, '0')");
 		$insertStmt->bind_param("ss", $id_jobpost, $id_user);
 	
 		if ($insertStmt->execute()) {

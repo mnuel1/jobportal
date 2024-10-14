@@ -21,7 +21,7 @@
             JOIN company ON job_post.id_company = company.id_company 
             JOIN baranggay ON company.baranggay_id = baranggay.baranggay_id
             LEFT JOIN apply_job_post ON apply_job_post.id_jobpost = job_post.id_jobpost AND apply_job_post.id_users = '$_SESSION[id_user]'
-            WHERE apply_job_post.id_jobpost IS NULL OR apply_job_post.status = 1 AND
+            WHERE (apply_job_post.id_jobpost IS NULL OR apply_job_post.status = 1) AND
             1=1";
     }
     if ($search) {
